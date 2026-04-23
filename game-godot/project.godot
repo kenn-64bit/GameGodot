@@ -15,6 +15,12 @@ run/main_scene="uid://cgvy71emoqe3e"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "green"
+}
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
