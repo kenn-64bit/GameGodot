@@ -14,7 +14,7 @@ var ghost_timer = 0.0
 # State variables
 var is_dashing = false
 var dash_timer = 0.0
-var can_dash = true # Track if the player is allowed to dash
+var can_dash = true # Resets on floor, used once in air
 
 # Camera Bobbing Settings
 @export var bob_freq = 10.0
@@ -23,25 +23,32 @@ var time = 0.0
 
 @onready var camera = $Camera2D
 @onready var sprite = $AnimatedSprite2D
-@onready var crosshair = $Crosshair # Ensure you have a Sprite2D or Control node named 'Crosshair'
+@onready var crosshair = $Crosshair 
 
 func _ready():
-	# Hide the system mouse cursor so only the crosshair shows
+	# Hide system cursor and ensure the game starts in a responsive window mode
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
+func _input(event):
+	# Use 'event.is_action_pressed' for specific event checks
+	if event.is_action_pressed("ui_fullscreen") or (event is InputEventKey and event.keycode == KEY_F and event.pressed):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 func _physics_process(delta: float) -> void:
-	# 1. Update Crosshair Position
+	# 1. Update Crosshair (Responsive to mouse position)
 	update_crosshair()
 
 	# 2. Handle Dash Logic
-	# Reset dash ability when on the floor
 	if is_on_floor():
-		can_dash = true
+		can_dash = true # Reset dash when landing
 
 	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
-		start_dash()
 		if not is_on_floor():
-			can_dash = false # Consume the air dash
+			can_dash = false # Use up the air dash
+		start_dash()
 
 	if is_dashing:
 		dash_timer -= delta
@@ -60,9 +67,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# 5. Handle Horizontal Movement
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
+	# 5. Handle Horizontal Movement (A and D)
+	var direction := 0.0
+	if Input.is_key_pressed(KEY_A):
+		direction -= 1.0
+	if Input.is_key_pressed(KEY_D):
+		direction += 1.0
+	
+	if direction != 0:
 		velocity.x = direction * SPEED
 		sprite.flip_h = direction < 0
 	else:
@@ -80,7 +92,6 @@ func start_dash():
 	velocity.y = 0 
 
 func update_crosshair():
-	# Keeps the crosshair at the mouse position relative to the world
 	if crosshair:
 		crosshair.global_position = get_global_mouse_position()
 
@@ -97,7 +108,7 @@ func spawn_ghost():
 	ghost.global_scale = sprite.global_scale
 	ghost.texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
 	ghost.flip_h = sprite.flip_h
-	ghost.self_modulate = Color(1, 1, 1, 1.0)
+	ghost.self_modulate = Color(1, 1, 1, 0.6) # Slightly transparent
 
 func update_animations(direction: float) -> void:
 	if is_dashing:

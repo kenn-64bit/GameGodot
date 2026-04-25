@@ -3,12 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://bi064mcxjsi5f" path="res://icon.svg" id="1_4xcov"]
 [ext_resource type="Script" uid="uid://cpvuqgmpencu6" path="res://TestPlatformer/character_body_2d.gd" id="2_cqveh"]
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
+[ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cqveh"]
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
-size = Vector2(130, 58.385475)
+size = Vector2(133.59856, 58.385475)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p222t"]
 atlas = ExtResource("3_6vra0")
@@ -248,8 +249,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_6vra0"]
-
 [node name="Node2D" type="Node2D" unique_id=1150284336]
 position = Vector2(130, 112)
 
@@ -289,21 +288,21 @@ scale = Vector2(4.1162753, 4.1162753)
 script = ExtResource("2_cqveh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=955022716]
-position = Vector2(-1, -1.2146835)
-scale = Vector2(0.19352354, 0.38280582)
+position = Vector2(-1.2146921, -1.2146909)
+scale = Vector2(0.13993564, 0.4313196)
 shape = SubResource("RectangleShape2D_6vra0")
 debug_color = Color(0.79545784, 0.41008395, 0.3093284, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1899685965]
 scale = Vector2(6.5107393, 5.9564333)
+zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=453709758]
 sprite_frames = SubResource("SpriteFrames_s4gic")
 animation = &"falling"
 autoplay = "idle"
-frame_progress = 0.17448127
 
 [node name="Crosshair" type="Sprite2D" parent="CharacterBody2D" unique_id=737697108]
-scale = Vector2(4.5202584, 4.5202584)
-texture = SubResource("CanvasTexture_6vra0")
+scale = Vector2(0.4014483, 0.39780277)
+texture = ExtResource("4_p222t")
