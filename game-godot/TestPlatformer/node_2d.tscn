@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
-size = Vector2(124.08958, 43.273823)
+size = Vector2(124.08958, 42.243263)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p222t"]
 atlas = ExtResource("3_6vra0")
@@ -254,8 +254,8 @@ scale = Vector2(4.1162753, 4.1162753)
 script = ExtResource("2_cqveh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=955022716]
-position = Vector2(-0.5493698, 2.0442886)
-scale = Vector2(0.13993564, 0.43131965)
+position = Vector2(-0.5493698, 2.064972)
+scale = Vector2(0.13993564, 0.43131977)
 shape = SubResource("RectangleShape2D_6vra0")
 debug_color = Color(0.79545784, 0.41008395, 0.3093284, 0.41960785)
 
