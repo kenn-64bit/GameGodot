@@ -7,7 +7,7 @@ const DASH_SPEED = 1200.0
 const DASH_DURATION = 0.2
 
 # After-Image (Ghost) Settings
-const GHOST_SCENE = preload("res://ghost.tscn")
+const GHOST_SCENE = preload("res://TestPlatformer/ghost.tscn")
 const GHOST_DELAY = 0.02
 var ghost_timer = 0.0
 
