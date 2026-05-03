@@ -29,6 +29,13 @@ var time = 0.0
 @onready var camera = $Camera2D
 @onready var sprite = $AnimatedSprite2D
 @onready var crosshair = $Crosshair 
+# Trap Death Components
+@export var hazard_respawn_distance := 220.0
+@export var hazard_respawn_height := 96.0
+@export var hazard_death_cooldown := 0.5
+@export var hazard_respawn_scan_step := 48.0
+@export var hazard_respawn_scan_tries := 8
+var hazard_death_timer := 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -44,6 +51,9 @@ func _physics_process(delta: float) -> void:
 	# Update timers
 	if flip_timer > 0:
 		flip_timer -= delta
+	# Death Timer
+	if hazard_death_timer > 0:
+		hazard_death_timer -= delta
  
 	update_crosshair()
 
@@ -173,3 +183,42 @@ func handle_camera_bob(delta: float) -> void:
 	else:
 		time = 0
 		camera.offset.y = move_toward(camera.offset.y, 0, bob_amp * delta * 2)
+# Death Hazard
+func handle_hazard_death(hazard_position: Vector2) -> void:
+	if hazard_death_timer > 0:
+		return
+
+	hazard_death_timer = hazard_death_cooldown
+	var preferred_direction: float = signf(global_position.x - hazard_position.x)
+	if preferred_direction == 0.0:
+		preferred_direction = -1.0
+
+	var respawn_position := _find_safe_respawn_position(hazard_position, preferred_direction)
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	is_dashing = false
+
+func _find_safe_respawn_position(hazard_position: Vector2, preferred_direction: float) -> Vector2:
+	var directions: Array[float] = [preferred_direction, -preferred_direction]
+	var space_state := get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+
+	for direction in directions:
+		for step in range(hazard_respawn_scan_tries):
+			var distance := hazard_respawn_distance + (float(step) * hazard_respawn_scan_step)
+			var candidate := Vector2(
+				hazard_position.x + (direction * distance),
+				hazard_position.y - hazard_respawn_height
+			)
+			query.position = candidate
+			var result := space_state.intersect_point(query, 1)
+			if result.is_empty():
+				return candidate
+
+	# Fallback if both sides are occupied.
+	return Vector2(
+		hazard_position.x + (preferred_direction * hazard_respawn_distance),
+		hazard_position.y - hazard_respawn_height
+	)
