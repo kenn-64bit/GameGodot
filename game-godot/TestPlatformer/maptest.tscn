@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://7yc5kslluu8b" path="res://assets/2465287304.png" id="9_8rjj6"]
 [ext_resource type="Texture2D" uid="uid://bn6157je4bf4w" path="res://assets/Foozle_2DT0001_Science_Fiction_Labs_Tileset/Traps/laser_turret.png" id="10_48kkp"]
 [ext_resource type="Texture2D" uid="uid://b4ohw601dyk1c" path="res://assets/Foozle_2DT0001_Science_Fiction_Labs_Tileset/Traps/saw_activate.png" id="11_vtkws"]
-[ext_resource type="PackedScene" uid="uid://bnw08cqlmmth7" path="res://TestPlatformer/laser.tscn" id="12_k8fli"]
-[ext_resource type="PackedScene" uid="uid://cw7b2qqlsgt06" path="res://TestPlatformer/laser_spike.tscn" id="12_xl764"]
-[ext_resource type="PackedScene" uid="uid://b8mbhi20yv44m" path="res://TestPlatformer/laser_barrier.tscn" id="13_hsgwp"]
+[ext_resource type="PackedScene" path="res://TestPlatformer/laser.tscn" id="12_k8fli"]
+[ext_resource type="PackedScene" uid="uid://c17l4bmuk8lqk" path="res://TestPlatformer/laser_spike.tscn" id="12_xl764"]
+[ext_resource type="PackedScene" path="res://TestPlatformer/laser_barrier.tscn" id="13_hsgwp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rjj6"]
 texture = ExtResource("8_ou53f")
