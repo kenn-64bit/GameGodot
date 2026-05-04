@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_126me"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="3_j4gq3"]
 [ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/player.tscn" id="4_pjqe1"]
-[ext_resource type="PackedScene" uid="uid://be8deadw1tde5" path="res://Main/Levels/Level1/puzzle1-1.tscn" id="5_guhcd"]
-[ext_resource type="PackedScene" uid="uid://trslxpq6gtpu" path="res://Main/Levels/Level1/puzzle1-2.tscn" id="6_126me"]
+[ext_resource type="PackedScene" uid="uid://8onw7stanu1s" path="res://Main/Levels/Level1/puzzle1.tscn" id="5_sa1pt"]
+[ext_resource type="PackedScene" uid="uid://bxguvdfg6m4nu" path="res://Main/Levels/Level1/puzzle2.tscn" id="6_126me"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_j4gq3")
@@ -1879,8 +1879,8 @@ tile_set = SubResource("TileSet_6po8r")
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("4_pjqe1")]
 position = Vector2(91, -286)
 
-[node name="LaserDoorPuzzle" parent="." unique_id=1711338270 instance=ExtResource("5_guhcd")]
-position = Vector2(1780, 338)
+[node name="LaserDoorPuzzle" parent="." unique_id=1711338270 instance=ExtResource("5_sa1pt")]
+position = Vector2(1784, 337)
 
-[node name="LaserDoorPuzzle2" parent="." unique_id=1071045771 instance=ExtResource("6_126me")]
-position = Vector2(3301, -44)
+[node name="LaserDoorPuzzle2" parent="." unique_id=729524958 instance=ExtResource("6_126me")]
+position = Vector2(3261, 146)
