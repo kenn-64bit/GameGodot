@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cgvy71emoqe3e"]
 
-[ext_resource type="Script" uid="uid://cpvuqgmpencu6" path="res://TestPlatformer/player.gd" id="2_cqveh"]
+[ext_resource type="Script" uid="uid://cpvuqgmpencu6" path="res://Main/Player/player.gd" id="2_cqveh"]
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 

@@ -12,7 +12,7 @@ var flip_timer = 0.0
 var is_upside_down = false
 
 # After-Image (Ghost) Settings
-const GHOST_SCENE = preload("res://TestPlatformer/ghost.tscn")
+const GHOST_SCENE = preload("res://Main/Player/ghost.tscn")
 const GHOST_DELAY = 0.02
 var ghost_timer = 0.0
 
@@ -96,9 +96,9 @@ func _physics_process(delta: float) -> void:
 
 	# 5. Handle Horizontal Movement
 	var direction := 0.0
-	if Input.is_key_pressed(KEY_A):
+	if Input.is_action_pressed("left"):
 		direction -= 1.0
-	if Input.is_key_pressed(KEY_D):
+	if Input.is_action_pressed("right"):
 		direction += 1.0
 	
 	if direction != 0:

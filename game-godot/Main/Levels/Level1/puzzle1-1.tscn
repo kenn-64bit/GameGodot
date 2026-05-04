@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://be8deadw1tde5"]
+
+[ext_resource type="Script" path="res://Main/Obstacles/Puzzles/laser_door_puzzle.gd" id="1_6g7lk"]
+[ext_resource type="PackedScene" uid="uid://cmsiuiy5m1l3m" path="res://Main/Obstacles/Puzzles/laser_door.tscn" id="2_vpmnw"]
+[ext_resource type="PackedScene" path="res://Main/Obstacles/Puzzles/puzzle_control_panel.tscn" id="3_5dvtd"]
+
+[node name="LaserDoorPuzzle" type="Node2D" unique_id=1711338270]
+script = ExtResource("1_6g7lk")
+
+[node name="LaserDoor" parent="." unique_id=2111531784 instance=ExtResource("2_vpmnw")]
+position = Vector2(-19, -48)
+scale = Vector2(1.9438033, 2.9167798)
+
+[node name="PanelA" parent="." unique_id=1468031091 instance=ExtResource("3_5dvtd")]
+position = Vector2(191, 351)
