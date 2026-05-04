@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://btrcowmo6jpjn"]
 
-[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="1_6hond"]
-[ext_resource type="Script" uid="uid://bkyq37obut20e" path="res://Main/GUI/Main Menu GUI/main_menu_1#.gd" id="1_ncqhs"]
-[ext_resource type="Texture2D" uid="uid://bbve2v2l0emn5" path="res://assets/Forest Parallax/4 Forest parallax vertical skybox fulll.png" id="1_qoaqq"]
-[ext_resource type="Texture2D" uid="uid://cft4i76j47abc" path="res://assets/Forest Parallax/3 Forest parallax vertical mountain back.png" id="1_urej5"]
-[ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="2_urej5"]
-[ext_resource type="Texture2D" uid="uid://cp10wnurybri" path="res://assets/Planet-Sprite.png" id="2_yqoom"]
-[ext_resource type="Texture2D" uid="uid://b5rjumf7axun7" path="res://assets/Forest Parallax/6 Forest parallax vertical cloud 3.png" id="3_nv6jv"]
-[ext_resource type="Texture2D" uid="uid://tu1m7w8nkgq6" path="res://assets/Forest Parallax/1 Forest parallax vertical forest low.png" id="4_gxty8"]
-[ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="5_ncqhs"]
-[ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="7_0dwyc"]
+[ext_resource type="Script" uid="uid://bkyq37obut20e" path="res://Main/GUI/Main Menu GUI/main_menu.gd" id="1_xco1r"]
+[ext_resource type="Texture2D" uid="uid://bbve2v2l0emn5" path="res://assets/Forest Parallax/4 Forest parallax vertical skybox fulll.png" id="2_i1cy2"]
+[ext_resource type="Texture2D" uid="uid://cp10wnurybri" path="res://assets/Planet-Sprite.png" id="3_x0pcm"]
+[ext_resource type="Texture2D" uid="uid://b5rjumf7axun7" path="res://assets/Forest Parallax/6 Forest parallax vertical cloud 3.png" id="4_jiknh"]
+[ext_resource type="Texture2D" uid="uid://cft4i76j47abc" path="res://assets/Forest Parallax/3 Forest parallax vertical mountain back.png" id="5_8hvf8"]
+[ext_resource type="Texture2D" uid="uid://tu1m7w8nkgq6" path="res://assets/Forest Parallax/1 Forest parallax vertical forest low.png" id="6_5l2ag"]
+[ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="7_rkoym"]
+[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="8_cbqfm"]
+[ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="9_2y5ka"]
+[ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="10_4uydg"]
 
 [sub_resource type="Animation" id="Animation_nv6jv"]
 length = 0.001
@@ -51,7 +51,7 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_yqoom"]
-font = ExtResource("7_0dwyc")
+font = ExtResource("9_2y5ka")
 font_size = 42
 outline_size = 6
 outline_color = Color(0, 0, 0, 0.28235295)
@@ -66,14 +66,14 @@ _data = {
 &"reveal": SubResource("Animation_ncqhs")
 }
 
-[node name="MainMenu1#" type="Control" unique_id=334297712]
+[node name="MainMenu" type="Control" unique_id=334297712]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ncqhs")
+script = ExtResource("1_xco1r")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=623916306]
 
@@ -86,7 +86,7 @@ repeat_times = 2
 
 [node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D/SKY" unique_id=1887571035]
 position = Vector2(2700, -610)
-texture = ExtResource("1_qoaqq")
+texture = ExtResource("2_i1cy2")
 
 [node name="SKY3" type="Parallax2D" parent="Node2D" unique_id=40759874]
 scroll_scale = Vector2(0.01, 0.01)
@@ -97,12 +97,13 @@ repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/SKY3" unique_id=2129058229]
 physics_interpolation_mode = 1
+modulate = Color(0.5963672, 0.59636724, 0.59636724, 0.7411765)
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(2785, 387.00003)
+position = Vector2(2785.0002, 392)
 rotation = 0.23444694
 scale = Vector2(3.3598597, 3.3598597)
-texture = ExtResource("2_yqoom")
+texture = ExtResource("3_x0pcm")
 hframes = 50
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/SKY3/Sprite2D" unique_id=231306584]
@@ -119,7 +120,7 @@ repeat_times = 2
 
 [node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D/SKY2" unique_id=1096326963]
 position = Vector2(2617, 438)
-texture = ExtResource("3_nv6jv")
+texture = ExtResource("4_jiknh")
 
 [node name="Parallax2D3" type="Parallax2D" parent="Node2D" unique_id=1468315446]
 scroll_scale = Vector2(0.04, 0.04)
@@ -128,7 +129,7 @@ autoscroll = Vector2(10, 0)
 
 [node name="3ForestParallaxVerticalMountainBack" type="Sprite2D" parent="Node2D/Parallax2D3" unique_id=1280186661]
 position = Vector2(781, -563)
-texture = ExtResource("1_urej5")
+texture = ExtResource("5_8hvf8")
 
 [node name="Parallax2D4" type="Parallax2D" parent="Node2D" unique_id=1188872979]
 scroll_scale = Vector2(0.05, 0.05)
@@ -137,7 +138,7 @@ autoscroll = Vector2(30, 0)
 
 [node name="1ForestParallaxVerticalForestLow" type="Sprite2D" parent="Node2D/Parallax2D4" unique_id=2134619661]
 position = Vector2(854, -793)
-texture = ExtResource("4_gxty8")
+texture = ExtResource("6_5l2ag")
 
 [node name="Parallax2D2" type="Parallax2D" parent="Node2D" unique_id=210722643]
 scroll_scale = Vector2(0.07, 0.07)
@@ -147,7 +148,7 @@ autoscroll = Vector2(60, 0)
 
 [node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Node2D/Parallax2D2" unique_id=187713719]
 position = Vector2(953, -1107)
-texture = ExtResource("5_ncqhs")
+texture = ExtResource("7_rkoym")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=7405554]
 layout_mode = 0
@@ -159,13 +160,13 @@ offset_bottom = 643.0
 [node name="Button" type="Button" parent="." unique_id=1004657885]
 layout_mode = 0
 offset_left = 134.0
-offset_top = 436.0
+offset_top = 359.0
 offset_right = 253.0
-offset_bottom = 476.0
+offset_bottom = 399.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_fonts/font = ExtResource("8_cbqfm")
 theme_override_font_sizes/font_size = 32
 flat = true
 alignment = 0
@@ -180,13 +181,13 @@ label_settings = SubResource("LabelSettings_yqoom")
 [node name="Button2" type="Button" parent="." unique_id=1315983333]
 layout_mode = 0
 offset_left = 134.0
-offset_top = 436.0
+offset_top = 359.0
 offset_right = 253.0
-offset_bottom = 476.0
+offset_bottom = 399.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_fonts/font = ExtResource("8_cbqfm")
 theme_override_font_sizes/font_size = 32
 flat = true
 alignment = 0
@@ -202,13 +203,13 @@ label_settings = SubResource("LabelSettings_yqoom")
 [node name="Button3" type="Button" parent="." unique_id=1787160424]
 layout_mode = 0
 offset_left = 134.0
-offset_top = 436.0
+offset_top = 359.0
 offset_right = 253.0
-offset_bottom = 476.0
+offset_bottom = 399.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_fonts/font = ExtResource("8_cbqfm")
 theme_override_font_sizes/font_size = 32
 flat = true
 alignment = 0
@@ -224,12 +225,12 @@ label_settings = SubResource("LabelSettings_yqoom")
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=253102955]
 layout_mode = 0
 offset_left = 132.0
-offset_top = 266.0
+offset_top = 189.0
 offset_right = 623.0
-offset_bottom = 420.0
+offset_bottom = 343.0
 theme = SubResource("Theme_qoaqq")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_urej5")
+theme_override_fonts/normal_font = ExtResource("10_4uydg")
 theme_override_font_sizes/normal_font_size = 125
 text = "SHIFTPOINT"
 
@@ -241,7 +242,7 @@ autoscroll = Vector2(90, 0)
 
 [node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Parallax2D5" unique_id=1695799551]
 position = Vector2(892, -845)
-texture = ExtResource("5_ncqhs")
+texture = ExtResource("7_rkoym")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=252528517]
 libraries/ = SubResource("AnimationLibrary_gxty8")
