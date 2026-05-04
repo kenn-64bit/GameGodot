@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
-size = Vector2(124.08958, 42.243263)
+size = Vector2(116.316696, 42.243263)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p222t"]
 atlas = ExtResource("3_6vra0")
@@ -246,28 +246,29 @@ animations = [{
 }]
 
 [node name="Player" type="Node2D" unique_id=1150284336]
-position = Vector2(130, 112)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604]
-position = Vector2(-2, 231)
+position = Vector2(-49, -22.999985)
 scale = Vector2(4.1162753, 4.1162753)
 script = ExtResource("2_cqveh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=955022716]
-position = Vector2(-0.5493698, 2.064972)
-scale = Vector2(0.13993564, 0.43131977)
+position = Vector2(0.8163704, -3.7170868)
+scale = Vector2(0.13993564, 0.43131983)
 shape = SubResource("RectangleShape2D_6vra0")
 debug_color = Color(0.79545784, 0.41008395, 0.3093284, 0.41960785)
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1899685965]
-scale = Vector2(6.5107393, 5.9564333)
-position_smoothing_enabled = true
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=453709758]
+position = Vector2(1.9095913, -5.7820587)
 sprite_frames = SubResource("SpriteFrames_s4gic")
 animation = &"falling"
 autoplay = "idle"
 
 [node name="Crosshair" type="Sprite2D" parent="CharacterBody2D" unique_id=737697108]
+position = Vector2(4.338972, -73.56178)
 scale = Vector2(0.4014483, 0.39780277)
 texture = ExtResource("4_p222t")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1899685965]
+position = Vector2(-0.97175235, -2.915257)
+position_smoothing_enabled = true

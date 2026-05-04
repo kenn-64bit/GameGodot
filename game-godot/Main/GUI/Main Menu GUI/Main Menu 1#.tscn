@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://btrcowmo6jpjn"]
+
+[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="1_6hond"]
+[ext_resource type="Script" uid="uid://bkyq37obut20e" path="res://Main/GUI/Main Menu GUI/main_menu_1#.gd" id="1_ncqhs"]
+[ext_resource type="Texture2D" uid="uid://bbve2v2l0emn5" path="res://assets/Forest Parallax/4 Forest parallax vertical skybox fulll.png" id="1_qoaqq"]
+[ext_resource type="Texture2D" uid="uid://cft4i76j47abc" path="res://assets/Forest Parallax/3 Forest parallax vertical mountain back.png" id="1_urej5"]
+[ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="2_urej5"]
+[ext_resource type="Texture2D" uid="uid://tu1m7w8nkgq6" path="res://assets/Forest Parallax/1 Forest parallax vertical forest low.png" id="4_gxty8"]
+[ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="5_ncqhs"]
+[ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="7_0dwyc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqoom"]
+font = ExtResource("7_0dwyc")
+font_size = 42
+outline_size = 6
+outline_color = Color(0, 0, 0, 0.28235295)
+
+[sub_resource type="Theme" id="Theme_qoaqq"]
+
+[sub_resource type="Animation" id="Animation_ncqhs"]
+resource_name = "reveal"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxty8"]
+_data = {
+&"reveal": SubResource("Animation_ncqhs")
+}
+
+[node name="MainMenu1#" type="Control" unique_id=334297712]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ncqhs")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=623916306]
+
+[node name="SKY" type="Parallax2D" parent="Node2D" unique_id=1139360297]
+scroll_scale = Vector2(0.01, 0.01)
+scroll_offset = Vector2(10, 0)
+repeat_size = Vector2(1900, 0)
+autoscroll = Vector2(5, 0)
+repeat_times = 2
+
+[node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D/SKY" unique_id=1887571035]
+position = Vector2(2700, -610)
+texture = ExtResource("1_qoaqq")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Node2D" unique_id=1468315446]
+scroll_scale = Vector2(0.04, 0.04)
+repeat_size = Vector2(1800, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="3ForestParallaxVerticalMountainBack" type="Sprite2D" parent="Node2D/Parallax2D3" unique_id=1280186661]
+position = Vector2(781, -563)
+texture = ExtResource("1_urej5")
+
+[node name="Parallax2D4" type="Parallax2D" parent="Node2D" unique_id=1188872979]
+scroll_scale = Vector2(0.05, 0.05)
+repeat_size = Vector2(1800, 0)
+autoscroll = Vector2(30, 0)
+
+[node name="1ForestParallaxVerticalForestLow" type="Sprite2D" parent="Node2D/Parallax2D4" unique_id=2134619661]
+position = Vector2(854, -793)
+texture = ExtResource("4_gxty8")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D" unique_id=210722643]
+scroll_scale = Vector2(0.07, 0.07)
+scroll_offset = Vector2(-1657, 234)
+repeat_size = Vector2(1800, 0)
+autoscroll = Vector2(60, 0)
+
+[node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Node2D/Parallax2D2" unique_id=187713719]
+position = Vector2(953, -1107)
+texture = ExtResource("5_ncqhs")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=7405554]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -5.0
+offset_right = 1154.0
+offset_bottom = 643.0
+
+[node name="Button" type="Button" parent="." unique_id=1004657885]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 436.0
+offset_right = 253.0
+offset_bottom = 476.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_constants/h_separation = 4
+theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_font_sizes/font_size = 32
+flat = true
+alignment = 0
+
+[node name="Label" type="Label" parent="Button" unique_id=1775996122]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Play"
+label_settings = SubResource("LabelSettings_yqoom")
+
+[node name="Button2" type="Button" parent="." unique_id=1315983333]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 436.0
+offset_right = 253.0
+offset_bottom = 476.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_constants/h_separation = 4
+theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_font_sizes/font_size = 32
+flat = true
+alignment = 0
+
+[node name="Label" type="Label" parent="Button2" unique_id=2004875110]
+layout_mode = 0
+offset_top = 59.0
+offset_right = 84.0
+offset_bottom = 102.0
+text = "Settings"
+label_settings = SubResource("LabelSettings_yqoom")
+
+[node name="Button3" type="Button" parent="." unique_id=1787160424]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 436.0
+offset_right = 253.0
+offset_bottom = 476.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_constants/h_separation = 4
+theme_override_fonts/font = ExtResource("1_6hond")
+theme_override_font_sizes/font_size = 32
+flat = true
+alignment = 0
+
+[node name="Label" type="Label" parent="Button3" unique_id=1061336777]
+layout_mode = 0
+offset_top = 118.0
+offset_right = 84.0
+offset_bottom = 161.0
+text = "Exit"
+label_settings = SubResource("LabelSettings_yqoom")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=253102955]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 266.0
+offset_right = 623.0
+offset_bottom = 420.0
+theme = SubResource("Theme_qoaqq")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_urej5")
+theme_override_font_sizes/normal_font_size = 125
+text = "SHIFTPOINT"
+
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=1684845311]
+scroll_scale = Vector2(0.07, 0.07)
+scroll_offset = Vector2(-1761, 202)
+repeat_size = Vector2(1800, 0)
+autoscroll = Vector2(90, 0)
+
+[node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Parallax2D5" unique_id=1695799551]
+position = Vector2(892, -845)
+texture = ExtResource("5_ncqhs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=252528517]
+libraries/ = SubResource("AnimationLibrary_gxty8")
