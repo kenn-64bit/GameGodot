@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cpvuqgmpencu6" path="res://Main/Player/player.gd" id="2_cqveh"]
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
+[ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_skx4l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
 size = Vector2(116.316696, 42.243263)
@@ -246,6 +247,7 @@ animations = [{
 }]
 
 [node name="Player" type="Node2D" unique_id=1150284336]
+position = Vector2(629, 357)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604]
 position = Vector2(-49, -22.999985)
@@ -272,3 +274,13 @@ texture = ExtResource("4_p222t")
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1899685965]
 position = Vector2(-0.97175235, -2.915257)
 position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=859954459]
+
+[node name="PlayerGui" parent="CanvasLayer" unique_id=1678637737 instance=ExtResource("4_skx4l")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.95361555, 0.95361555)

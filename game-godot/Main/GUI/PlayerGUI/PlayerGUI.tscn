@@ -11,12 +11,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1509286595]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.004340278
+anchor_top = 0.010802469
+anchor_right = -0.0037466155
+anchor_bottom = 0.010802469
 offset_left = 44.0
 offset_top = 30.0
 offset_right = 172.0
 offset_bottom = 70.0
-scale = Vector2(2.2069583, 2.2069583)
+scale = Vector2(2.5, 2.5)
+theme_override_constants/separation = -7
+metadata/_edit_use_anchors_ = true
 
 [node name="Heart1" type="TextureRect" parent="HBoxContainer" unique_id=756151988]
 layout_mode = 2
@@ -35,3 +42,17 @@ layout_mode = 2
 texture = ExtResource("1_iehg4")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=955369875]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.004340278
+anchor_top = 0.010802469
+anchor_right = -0.0037466155
+anchor_bottom = 0.010802469
+offset_left = 44.0
+offset_top = 30.0
+offset_right = 149.3161
+offset_bottom = 70.0
+scale = Vector2(2.5, 2.5)
+theme_override_constants/separation = -7
