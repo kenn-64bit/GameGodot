@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6nucwtfe1njv" path="res://assets/Rocky World Tileset/01. Rocky Level/background1.png" id="1_vcq4b"]
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_fja6w"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="3_x28hv"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://TestPlatformer/player.tscn" id="4_fja6w"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/player.tscn" id="4_fja6w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_x28hv")
@@ -1875,4 +1875,4 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAGAAIAAAAAAAEAAAAGAAMAAAABAAAAAAAHAAI
 tile_set = SubResource("TileSet_6po8r")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("4_fja6w")]
-position = Vector2(1392, 198)
+position = Vector2(91, -286)
