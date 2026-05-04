@@ -262,6 +262,7 @@ size = Vector2(31.085714, 14.060604)
 size = Vector2(31.085714, 9.21212)
 
 [node name="LaserDoor" type="Node2D" unique_id=1678094904]
+position = Vector2(-19, -32)
 script = ExtResource("3_barrier")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=881785851]
@@ -281,11 +282,11 @@ shape = SubResource("RectangleShape2D_dvoie")
 position = Vector2(-9.536743e-07, 52.848495)
 shape = SubResource("RectangleShape2D_solid")
 
-[node name="Laser" type="StaticBody2D" parent="." unique_id=255670526]
+[node name="Laser_Hitbox" type="StaticBody2D" parent="." unique_id=255670526]
 position = Vector2(19, -34)
 scale = Vector2(2.1875, 2.0625)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser" unique_id=438666886]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser_Hitbox" unique_id=438666886]
 position = Vector2(0, 2.90909)
 scale = Vector2(0.6383399, 2.8280292)
 shape = SubResource("RectangleShape2D_dvoie")

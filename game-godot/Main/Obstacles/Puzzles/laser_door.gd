@@ -6,7 +6,7 @@ signal door_opened
 @export var blocking_collision_layer: int = 1
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var _solid: StaticBody2D = $Laser
+@onready var _solid: StaticBody2D = $Laser_Hitbox
 
 var _opened: bool = false
 
