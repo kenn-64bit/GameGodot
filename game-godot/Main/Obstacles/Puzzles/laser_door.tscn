@@ -290,3 +290,14 @@ scale = Vector2(2.1875, 2.0625)
 position = Vector2(0, 2.90909)
 scale = Vector2(0.6383399, 2.8280292)
 shape = SubResource("RectangleShape2D_dvoie")
+
+[node name="KillZone" type="Area2D" parent="." unique_id=1066729812]
+position = Vector2(19, -34)
+scale = Vector2(3.0816627, 2.0625)
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=1984148724]
+position = Vector2(0, 2.90909)
+scale = Vector2(0.6383399, 2.8280292)
+shape = SubResource("RectangleShape2D_dvoie")

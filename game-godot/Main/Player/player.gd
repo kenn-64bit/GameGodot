@@ -26,9 +26,16 @@ var can_dash = true
 @export var bob_amp = 5.0
 var time = 0.0
 
+signal all_lives_lost
+
 @onready var camera = $Camera2D
 @onready var sprite = $AnimatedSprite2D
-@onready var crosshair = $Crosshair 
+@onready var crosshair = $Crosshair
+
+@export var starting_lives: int = 3
+var lives: int = 3
+var _spawn_global: Vector2 = Vector2.ZERO
+
 # Trap Death Components
 @export var hazard_respawn_distance := 220.0
 @export var hazard_respawn_height := 96.0
@@ -39,6 +46,8 @@ var hazard_death_timer := 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	lives = starting_lives
+	_spawn_global = global_position
 
 func _input(event):
 	if event.is_action_pressed("ui_fullscreen") or (event is InputEventKey and event.keycode == KEY_F and event.pressed):
@@ -184,11 +193,19 @@ func handle_camera_bob(delta: float) -> void:
 		time = 0
 		camera.offset.y = move_toward(camera.offset.y, 0, bob_amp * delta * 2)
 # Death Hazard
-func handle_hazard_death(hazard_position: Vector2) -> void:
+func handle_hazard_death(hazard_position: Vector2, wipe_all_lives: bool = false) -> void:
 	if hazard_death_timer > 0:
 		return
 
 	hazard_death_timer = hazard_death_cooldown
+	if wipe_all_lives:
+		lives = 0
+		global_position = _spawn_global
+		velocity = Vector2.ZERO
+		is_dashing = false
+		all_lives_lost.emit()
+		return
+
 	var preferred_direction: float = signf(global_position.x - hazard_position.x)
 	if preferred_direction == 0.0:
 		preferred_direction = -1.0
