@@ -56,6 +56,13 @@ font_size = 42
 outline_size = 6
 outline_color = Color(0, 0, 0, 0.28235295)
 
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("9_2y5ka")
+font_size = 125
+font_color = Color(0.611765, 0.290196, 0.435294, 1)
+outline_size = 25
+outline_color = Color(0.121569, 0.054902, 0.164706, 1)
+
 [sub_resource type="Theme" id="Theme_qoaqq"]
 
 [sub_resource type="Animation" id="Animation_ncqhs"]
@@ -97,7 +104,7 @@ repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/SKY3" unique_id=2129058229]
 physics_interpolation_mode = 1
-modulate = Color(1, 0.81960785, 1, 0.7294118)
+modulate = Color(0.5963672, 0.59636724, 0.59636724, 0.7411765)
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(2785.0002, 392)
@@ -150,89 +157,57 @@ autoscroll = Vector2(60, 0)
 position = Vector2(953, -1107)
 texture = ExtResource("7_rkoym")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=7405554]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -5.0
-offset_right = 1154.0
-offset_bottom = 643.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1111]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="." unique_id=1004657885]
-layout_mode = 0
-offset_left = 134.0
-offset_top = 359.0
-offset_right = 253.0
-offset_bottom = 399.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("8_cbqfm")
-theme_override_font_sizes/font_size = 32
-flat = true
-alignment = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2222]
+layout_mode = 2
+theme_override_constants/separation = 40
 
-[node name="Label" type="Label" parent="Button" unique_id=1775996122]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Play"
-label_settings = SubResource("LabelSettings_yqoom")
-
-[node name="Button2" type="Button" parent="." unique_id=1315983333]
-layout_mode = 0
-offset_left = 134.0
-offset_top = 359.0
-offset_right = 253.0
-offset_bottom = 399.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("8_cbqfm")
-theme_override_font_sizes/font_size = 32
-flat = true
-alignment = 0
-
-[node name="Label" type="Label" parent="Button2" unique_id=2004875110]
-layout_mode = 0
-offset_top = 59.0
-offset_right = 84.0
-offset_bottom = 102.0
-text = "Settings"
-label_settings = SubResource("LabelSettings_yqoom")
-
-[node name="Button3" type="Button" parent="." unique_id=1787160424]
-layout_mode = 0
-offset_left = 134.0
-offset_top = 359.0
-offset_right = 253.0
-offset_bottom = 399.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("8_cbqfm")
-theme_override_font_sizes/font_size = 32
-flat = true
-alignment = 0
-
-[node name="Label" type="Label" parent="Button3" unique_id=1061336777]
-layout_mode = 0
-offset_top = 118.0
-offset_right = 84.0
-offset_bottom = 161.0
-text = "Exit"
-label_settings = SubResource("LabelSettings_yqoom")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=253102955]
-layout_mode = 0
-offset_left = 132.0
-offset_top = 189.0
-offset_right = 623.0
-offset_bottom = 343.0
-theme = SubResource("Theme_qoaqq")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("10_4uydg")
-theme_override_font_sizes/normal_font_size = 125
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=3333]
+layout_mode = 2
 text = "SHIFTPOINT"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=4444]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=5555]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_font_sizes/font_size = 42
+text = "PLAY"
+flat = true
+
+[node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=6666]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_font_sizes/font_size = 42
+text = "MENU"
+flat = true
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=7777]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_font_sizes/font_size = 42
+text = "EXIT"
+flat = true
 
 [node name="Parallax2D5" type="Parallax2D" parent="." unique_id=1684845311]
 scroll_scale = Vector2(0.07, 0.07)
