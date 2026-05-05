@@ -3,8 +3,13 @@ extends CharacterBody2D
 # Movement Constants
 const SPEED = 400.0
 const JUMP_VELOCITY = -700.0
+const DASH_STARTUP_DELAY = 0.15 
+var dash_startup_timer = 0.0
+var is_waiting_to_dash = false
 const DASH_SPEED = 1200.0
 const DASH_DURATION = 0.2
+const DASH_COOLDOWN = 0.5 
+var dash_cooldown_timer = 0.0
 
 # Gravity Flip Settings
 const FLIP_COOLDOWN = 1
@@ -73,13 +78,21 @@ func _physics_process(delta: float) -> void:
 		toggle_gravity()
 
 	# 2. Handle Dash Logic
+	# 1. Update the cooldown timer every frame
+	if dash_cooldown_timer > 0:
+		dash_cooldown_timer -= delta
+
+	# 2. Reset dash capability on floor
 	if is_on_floor():
 		can_dash = true 
 
-	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash:
+	# 3. Trigger Dash (Only if cooldown is finished)
+	if Input.is_action_just_pressed("dash") and not is_dashing and can_dash and dash_cooldown_timer <= 0:
 		if not is_on_floor():
 			can_dash = false 
+		
 		start_dash()
+		dash_cooldown_timer = DASH_COOLDOWN # Lock the dash until timer hits 0
 
 	if is_dashing:
 		dash_timer -= delta

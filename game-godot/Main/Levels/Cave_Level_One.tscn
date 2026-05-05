@@ -3652,7 +3652,7 @@ texture = ExtResource("2_fja6w")
 
 [node name="Background1" type="Sprite2D" parent="." unique_id=1639001268]
 z_index = -132
-position = Vector2(2015, -494)
+position = Vector2(1430, -700)
 scale = Vector2(14.778523, 18.354273)
 texture = ExtResource("1_vcq4b")
 
@@ -3677,4 +3677,4 @@ y_sort_origin = 16
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("4_fja6w")]
 z_index = 1
-position = Vector2(1730, 726)
+position = Vector2(624, 360)
