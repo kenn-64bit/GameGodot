@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d4dpadesun04"]
 
 [ext_resource type="Texture2D" uid="uid://ce2irrj0johr" path="res://assets/heart/LIFE-full.png" id="1_iehg4"]
+[ext_resource type="Script" uid="uid://dxqhp50ouku0d" path="res://Main/GUI/PlayerGUI/player_gui.gd" id="1_lxjo6"]
 [ext_resource type="Texture2D" uid="uid://cdmxi14gccr10" path="res://assets/PORTAL-REVOLVER.png" id="2_55jpk"]
 
 [node name="PlayerGui" type="Control" unique_id=1678637737]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lxjo6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1509286595]
 layout_mode = 1

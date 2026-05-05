@@ -275,7 +275,8 @@ position_smoothing_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=859954459]
 layer = 10
 
-[node name="PlayerGui" parent="CanvasLayer" unique_id=1678637737 instance=ExtResource("4_skx4l")]
+[node name="PlayerGui" parent="CanvasLayer" unique_id=1678637737 node_paths=PackedStringArray("player") instance=ExtResource("4_skx4l")]
+player = NodePath("../../CharacterBody2D")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1332233712 groups=["player"]]
 layer = 9999
