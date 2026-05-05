@@ -4,6 +4,35 @@
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_fja6w"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="3_x28hv"]
 [ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="4_fja6w"]
+[ext_resource type="Script" uid="uid://cikdn8qqevpnv" path="res://Main/Levels/static_body_2d.gd" id="5_pmidv"]
+[ext_resource type="Texture2D" uid="uid://cj3dr3d3mm25r" path="res://assets/Doors/Door 1/1.png" id="5_rjv46"]
+[ext_resource type="Texture2D" uid="uid://b7r731t5r8i4s" path="res://assets/Doors/Door 1/2.png" id="6_p7405"]
+[ext_resource type="Texture2D" uid="uid://gg8dc8bykw27" path="res://assets/Doors/Door 1/3.png" id="7_pmidv"]
+[ext_resource type="Texture2D" uid="uid://84hs8v3vixvh" path="res://assets/Doors/Door 1/4.png" id="8_y8csx"]
+[ext_resource type="Texture2D" uid="uid://7sjbyb6f2x5m" path="res://assets/Doors/Door 1/5.png" id="9_g1amr"]
+[ext_resource type="Texture2D" uid="uid://hb2uer4fktud" path="res://assets/Doors/Door 1/6.png" id="10_0ylfd"]
+[ext_resource type="Texture2D" uid="uid://bd7v442moo6vo" path="res://assets/Doors/Door 1/7.png" id="11_dkmlc"]
+[ext_resource type="Texture2D" uid="uid://d1adfob2mpdtu" path="res://assets/Doors/Door 1/8.png" id="12_6qny4"]
+[ext_resource type="Texture2D" uid="uid://dik45odsxmfns" path="res://assets/Doors/Door 1/9.png" id="13_6mwd4"]
+[ext_resource type="Texture2D" uid="uid://dngmacc0bqcci" path="res://assets/Doors/Door 1/10.png" id="14_cwmjh"]
+[ext_resource type="Texture2D" uid="uid://dh67p3woogrjt" path="res://assets/Doors/Door 1/11.png" id="15_w2gu6"]
+[ext_resource type="Texture2D" uid="uid://byk2rrix2dwuq" path="res://assets/Doors/Door 1/12.png" id="16_ung7w"]
+[ext_resource type="Texture2D" uid="uid://dcfiilypxbnto" path="res://assets/Doors/Door 1/13.png" id="17_6h5nq"]
+[ext_resource type="Texture2D" uid="uid://k68hgrdlpoki" path="res://assets/Doors/Door 1/14.png" id="18_qmbgj"]
+[ext_resource type="Texture2D" uid="uid://c7q33jnrvg24u" path="res://assets/Doors/Door 1/15.png" id="19_dwohy"]
+[ext_resource type="Texture2D" uid="uid://btxm6pxcyvk5a" path="res://assets/Doors/Door 1/16.png" id="20_61skd"]
+[ext_resource type="Texture2D" uid="uid://cwajgqm5gxahj" path="res://assets/Doors/Door 1/17.png" id="21_hy277"]
+[ext_resource type="Texture2D" uid="uid://b23pjf0v8wl7l" path="res://assets/Doors/Door 1/18.png" id="22_xni83"]
+[ext_resource type="Texture2D" uid="uid://16mfhagbyiqn" path="res://assets/Doors/Door 1/19.png" id="23_q0xky"]
+[ext_resource type="Texture2D" uid="uid://yjjkcs0w487d" path="res://assets/Doors/Door 1/20.png" id="24_ldca8"]
+[ext_resource type="Texture2D" uid="uid://gqw1ooqkc343" path="res://assets/Doors/Door 1/21.png" id="25_1gkpc"]
+[ext_resource type="Texture2D" uid="uid://cqi8cqt2ejams" path="res://assets/Doors/Door 1/22.png" id="26_oan1n"]
+[ext_resource type="Texture2D" uid="uid://cbuy6ctx114dy" path="res://assets/Doors/Door 1/23.png" id="27_unacx"]
+[ext_resource type="Texture2D" uid="uid://5645mv850q2p" path="res://assets/Doors/Door 1/24.png" id="28_w2ehp"]
+[ext_resource type="Texture2D" uid="uid://dlxt53arcmvfx" path="res://assets/Doors/Door 1/25.png" id="29_0y3kw"]
+[ext_resource type="Texture2D" uid="uid://b4w5aiy8r5c4t" path="res://assets/Doors/Door 1/26.png" id="30_bogk8"]
+[ext_resource type="Texture2D" uid="uid://csr6th0y3ockf" path="res://assets/Doors/Door 1/27.png" id="31_jqp6d"]
+[ext_resource type="Script" uid="uid://b1kujr1jevjp8" path="res://Main/Levels/area_2d.gd" id="33_y8csx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_x28hv")
@@ -3637,10 +3666,103 @@ texture = ExtResource("3_x28hv")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fja6w")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_oy40n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rjv46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_p7405")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_pmidv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_y8csx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_g1amr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0ylfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_dkmlc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6qny4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_6mwd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cwmjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_w2gu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ung7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_6h5nq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_qmbgj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_dwohy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_61skd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_hy277")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_xni83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_q0xky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ldca8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_1gkpc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_oan1n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_unacx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_w2ehp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_0y3kw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_bogk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_jqp6d")
+}],
+"loop": false,
+"name": &"open",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjv46"]
+size = Vector2(181, 151)
+
 [node name="CaveLevelOne" type="Node2D" unique_id=1711430799]
 y_sort_enabled = true
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=900029605]
+z_index = -2
 scroll_scale = Vector2(0.1, 0.1)
 repeat_size = Vector2(2750, 0)
 
@@ -3675,6 +3797,27 @@ tile_map_data = PackedByteArray("AAAaAAsAAAAlABAAAAAbAAsAAAAmABAAAAAcAAsAAAAnABA
 tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=622883106]
+z_index = -1
+collision_mask = 3
+script = ExtResource("5_pmidv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D" unique_id=1210500437]
+position = Vector2(1762, -780.00006)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_oy40n")
+animation = &"open"
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D" unique_id=682209821]
+script = ExtResource("33_y8csx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D" unique_id=673835753]
+position = Vector2(1763, -778)
+shape = SubResource("RectangleShape2D_rjv46")
+
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("4_fja6w")]
 z_index = 1
-position = Vector2(624, 360)
+position = Vector2(2028, -835)
+
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_exited"]

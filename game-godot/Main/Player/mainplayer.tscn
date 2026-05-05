@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 [ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_skx4l"]
+[ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/Player/crosshair.gd" id="5_18k51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
 size = Vector2(116.316696, 42.243263)
@@ -249,16 +250,11 @@ animations = [{
 [node name="Player" type="Node2D" unique_id=1150284336]
 position = Vector2(629, 357)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604 groups=["player"]]
 position = Vector2(-49, -22.999985)
 scale = Vector2(4.1162753, 4.1162753)
+collision_layer = 3
 script = ExtResource("2_cqveh")
-
-[node name="Crosshair" type="Sprite2D" parent="CharacterBody2D" unique_id=737697108]
-z_index = 10
-position = Vector2(4.338974, -73.56178)
-scale = Vector2(0.40144837, 0.39780283)
-texture = ExtResource("4_p222t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=955022716]
 position = Vector2(0.8163704, -3.7170868)
@@ -280,3 +276,14 @@ position_smoothing_enabled = true
 layer = 10
 
 [node name="PlayerGui" parent="CanvasLayer" unique_id=1678637737 instance=ExtResource("4_skx4l")]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1332233712 groups=["player"]]
+layer = 9999
+follow_viewport_enabled = true
+
+[node name="Crosshair" type="Sprite2D" parent="CanvasLayer2" unique_id=737697108]
+z_index = 10
+position = Vector2(597.8604, 31.199463)
+scale = Vector2(1.652472, 1.637466)
+texture = ExtResource("4_p222t")
+script = ExtResource("5_18k51")
