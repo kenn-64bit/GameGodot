@@ -97,7 +97,7 @@ repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/SKY3" unique_id=2129058229]
 physics_interpolation_mode = 1
-modulate = Color(0.5963672, 0.59636724, 0.59636724, 0.7411765)
+modulate = Color(1, 0.81960785, 1, 0.7294118)
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(2785.0002, 392)

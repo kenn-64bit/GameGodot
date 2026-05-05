@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://dvpt55b82vtnx"]
 
-[ext_resource type="Script" path="res://TestPlatformer/player.gd" id="2_cqveh"]
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
-[ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_f5obs"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
@@ -248,16 +246,9 @@ animations = [{
 
 [node name="player" type="Node2D" unique_id=1150284336]
 
-[node name="PlayerGui" parent="." unique_id=1678637737 instance=ExtResource("4_f5obs")]
-offset_left = -642.0
-offset_top = -362.0
-offset_right = -642.0
-offset_bottom = -362.0
-
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604]
 position = Vector2(-49, -22.999985)
 scale = Vector2(4.1162753, 4.1162753)
-script = ExtResource("2_cqveh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=955022716]
 position = Vector2(0.8163704, -3.7170868)

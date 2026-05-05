@@ -18,6 +18,8 @@ var ghost_timer = 0.0
 
 # State variables
 var is_dashing = false
+var coyote_timer = 0.0
+const COYOTE_TIME = 0.15 
 var dash_timer = 0.0
 var can_dash = true 
 
@@ -115,7 +117,27 @@ func _physics_process(delta: float) -> void:
 		sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	# 3. Add Gravity & Coyote Timer logic
+	if is_on_floor():
+		coyote_timer = COYOTE_TIME # Reset timer while on floor
+	else:
+		coyote_timer -= delta # Count down when in air (or sliding down slopes)
+		
+		var gravity_strength = get_gravity() * delta
+		if is_upside_down:
+			velocity -= gravity_strength 
+		else:
+			velocity += gravity_strength 
 
+	# 4. Handle Jump (Now uses coyote_timer instead of is_on_floor)
+	if Input.is_action_just_pressed("jump") and coyote_timer > 0:
+		coyote_timer = 0 # Prevent double jumping in mid-air
+		if is_upside_down:
+			velocity.y = -JUMP_VELOCITY
+		else:
+			velocity.y = JUMP_VELOCITY
+	
 	move_and_slide()
 	update_animations(direction)
 	handle_camera_bob(delta)
