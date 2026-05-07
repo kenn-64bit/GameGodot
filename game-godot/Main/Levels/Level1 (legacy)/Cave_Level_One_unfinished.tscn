@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_3nesv"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="3_jg1nv"]
 [ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="4_dt2qw"]
-[ext_resource type="PackedScene" uid="uid://8onw7stanu1s" path="res://Main/Levels/Level1/puzzle1.tscn" id="5_upukx"]
-[ext_resource type="PackedScene" uid="uid://bxguvdfg6m4nu" path="res://Main/Levels/Level1/puzzle2.tscn" id="6_y1bba"]
+[ext_resource type="PackedScene" uid="uid://8onw7stanu1s" path="res://Main/Levels/Level1 (legacy)/puzzle1.tscn" id="5_upukx"]
+[ext_resource type="PackedScene" uid="uid://bxguvdfg6m4nu" path="res://Main/Levels/Level1 (legacy)/puzzle2.tscn" id="6_y1bba"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_jg1nv")
