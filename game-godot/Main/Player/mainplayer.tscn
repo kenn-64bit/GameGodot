@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpvuqgmpencu6" path="res://Main/Player/player.gd" id="2_cqveh"]
 [ext_resource type="Texture2D" uid="uid://cg3pa7euibot8" path="res://assets/SATIRE/SPRITE_SHEET.png" id="3_6vra0"]
+[ext_resource type="Texture2D" uid="uid://c10hlkkly06by" path="res://assets/Textures/BackgroundLite.png" id="4_db3p6"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="4_p222t"]
 [ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_skx4l"]
 [ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/Player/crosshair.gd" id="5_18k51"]
@@ -247,6 +248,8 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_db3p6"]
+
 [node name="Player" type="Node2D" unique_id=1150284336]
 position = Vector2(629, 357)
 
@@ -263,20 +266,29 @@ shape = SubResource("RectangleShape2D_6vra0")
 debug_color = Color(0.79545784, 0.41008395, 0.3093284, 0.41960785)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=453709758]
-position = Vector2(1.9095913, -5.7820587)
+position = Vector2(1.9435024, -3.644073)
 sprite_frames = SubResource("SpriteFrames_s4gic")
-animation = &"falling"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1899685965]
 position = Vector2(-0.97175235, -2.915257)
 position_smoothing_enabled = true
 
+[node name="BackgroundLite" type="Sprite2D" parent="CharacterBody2D" unique_id=888395200]
+material = SubResource("CanvasItemMaterial_db3p6")
+position = Vector2(4.129959, -4.615822)
+scale = Vector2(2.083604, 1.3268968)
+texture = ExtResource("4_db3p6")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=859954459]
 layer = 10
 
 [node name="PlayerGui" parent="CanvasLayer" unique_id=1678637737 node_paths=PackedStringArray("player") instance=ExtResource("4_skx4l")]
+offset_top = 4.0
+offset_bottom = 4.0
 player = NodePath("../../CharacterBody2D")
+metadata/_edit_use_anchors_ = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1332233712 groups=["player"]]
 layer = 9999

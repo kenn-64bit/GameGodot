@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cft4i76j47abc" path="res://assets/Forest Parallax/3 Forest parallax vertical mountain back.png" id="5_8hvf8"]
 [ext_resource type="Texture2D" uid="uid://tu1m7w8nkgq6" path="res://assets/Forest Parallax/1 Forest parallax vertical forest low.png" id="6_5l2ag"]
 [ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="7_rkoym"]
-[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="8_cbqfm"]
 [ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="9_2y5ka"]
 [ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="10_4uydg"]
 
@@ -50,20 +49,12 @@ _data = {
 &"spin": SubResource("Animation_yqoom")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_yqoom"]
-font = ExtResource("9_2y5ka")
-font_size = 42
-outline_size = 6
-outline_color = Color(0, 0, 0, 0.28235295)
-
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
-font = ExtResource("9_2y5ka")
+font = ExtResource("10_4uydg")
 font_size = 125
 font_color = Color(0.611765, 0.290196, 0.435294, 1)
 outline_size = 25
 outline_color = Color(0.121569, 0.054902, 0.164706, 1)
-
-[sub_resource type="Theme" id="Theme_qoaqq"]
 
 [sub_resource type="Animation" id="Animation_ncqhs"]
 resource_name = "reveal"
@@ -181,30 +172,30 @@ theme_override_constants/separation = 15
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=5555]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
-theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_fonts/font = ExtResource("9_2y5ka")
 theme_override_font_sizes/font_size = 42
 text = "PLAY"
 flat = true
 
 [node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=6666]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
-theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_fonts/font = ExtResource("9_2y5ka")
 theme_override_font_sizes/font_size = 42
 text = "MENU"
 flat = true
 
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer" unique_id=7777]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.960784, 0.588235, 0.745098, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
-theme_override_fonts/font = ExtResource("10_4uydg")
+theme_override_fonts/font = ExtResource("9_2y5ka")
 theme_override_font_sizes/font_size = 42
 text = "EXIT"
 flat = true
