@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dpuqqidrdsa2d" path="res://assets/PowerStation Tileset/2 Background/Night/5.png" id="2_2nkc2"]
 [ext_resource type="Texture2D" uid="uid://0v8x6f0k5j2d" path="res://assets/PowerStation Tileset/2 Background/Night/3.png" id="2_i2fik"]
 [ext_resource type="Texture2D" uid="uid://cied02nc7ws38" path="res://assets/Iron TileMap/Assets_area_1/Tileset/Subway_tiles.png" id="7_v0ft4"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="37_f4j6o"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/MAINplayer.tscn" id="37_f4j6o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_355as"]
 texture = ExtResource("1_j7cpt")
@@ -1005,5 +1005,6 @@ tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("37_f4j6o")]
+visible = false
 z_index = 1
 position = Vector2(301, 428)

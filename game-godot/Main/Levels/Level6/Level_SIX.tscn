@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://3uyjyba180ge" path="res://assets/Abyss_Tilemaps/Ground_tiles/Corruption_environment_tileset.png" id="6_e3f7i"]
 [ext_resource type="Texture2D" uid="uid://cr4gqx8dw2o5e" path="res://assets/Science_Laser_Tilemaps/Tileset/level_tileset.png" id="7_pag3j"]
 [ext_resource type="Texture2D" uid="uid://cied02nc7ws38" path="res://assets/Iron TileMap/Assets_area_1/Tileset/Subway_tiles.png" id="8_357jy"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="9_jku3m"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/MAINplayer.tscn" id="9_jku3m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tk6r"]
 texture = ExtResource("4_itvqf")

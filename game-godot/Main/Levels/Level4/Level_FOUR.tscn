@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cied02nc7ws38" path="res://assets/Iron TileMap/Assets_area_1/Tileset/Subway_tiles.png" id="5_25ird"]
 [ext_resource type="Texture2D" uid="uid://ddky7tr7b78uu" path="res://assets/Abyss_Tilemaps/Ground_tiles/Corruption_tileset.png" id="5_gumi3"]
 [ext_resource type="Texture2D" uid="uid://3uyjyba180ge" path="res://assets/Abyss_Tilemaps/Ground_tiles/Corruption_environment_tileset.png" id="6_1jx0k"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="6_gk7x1"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/MAINplayer.tscn" id="6_gk7x1"]
 [ext_resource type="Texture2D" uid="uid://cr4gqx8dw2o5e" path="res://assets/Science_Laser_Tilemaps/Tileset/level_tileset.png" id="7_sc7eh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tk6r"]

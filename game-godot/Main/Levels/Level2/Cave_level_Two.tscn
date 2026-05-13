@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6nucwtfe1njv" path="res://assets/Rocky World Tileset/01. Rocky Level/background1.png" id="1_ivcyy"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="2_4wpn0"]
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_834vv"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="4_834vv"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/MAINplayer.tscn" id="4_834vv"]
 [ext_resource type="Texture2D" uid="uid://cdg1wy0gqiqf2" path="res://assets/Rocky World Tileset/01. Rocky Level/other_lev_build.png" id="5_bkv38"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bkv38"]

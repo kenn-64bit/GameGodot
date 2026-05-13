@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b7cl07ady5vof"]
+
+[ext_resource type="Script" uid="uid://fcqhgcsauvwv" path="res://TestPlatformer/Portal.gd" id="1_portal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(28, 6)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m38u6"]
+
+[node name="Portal" type="Area2D" unique_id=967340478]
+scale = Vector2(3.324602, 1.9464985)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("1_portal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=357193951]
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=170728128]
+position = Vector2(-9.536743e-07, 1.1920929e-07)
+scale = Vector2(28.000002, 6)
+texture = SubResource("PlaceholderTexture2D_m38u6")
