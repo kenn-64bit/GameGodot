@@ -73,6 +73,7 @@ var _crosshair : Node2D = null
 const PORTAL_SCENE    = preload("res://TestPlatformer/Portal.tscn")
 const PORTAL_RAY_LEN  := 2000.0
 const HOLD_DISTANCE   :=   80.0   # px in front of barrel the held object floats
+const MIN_PORTAL_DIST :=  50.0    # portals must be at least this far apart
 
 # Portal gun state
 var is_gun_equipped   := false
@@ -243,6 +244,11 @@ func _aim_gun_at_mouse() -> void:
 	if gun_arm.has_node("Sprite2D"):
 		gun_arm.get_node("Sprite2D").flip_v = aim_dir.x < 0.0
 
+	# Keep MuzzleFlash at the barrel tip so it fires from the correct position
+	if _muzzle_flash and is_instance_valid(_muzzle_flash) and gun_arm.has_node("BarrelPoint"):
+		var bp : Marker2D = gun_arm.get_node("BarrelPoint")
+		_muzzle_flash.position = bp.position
+
 
 # =============================================================================
 #  PORTAL GUN – Shoot
@@ -280,6 +286,16 @@ func shoot_portal(is_portal_a: bool) -> void:
 	if hit_collider.is_in_group("NoPortal"):
 		_spawn_fizzle(hit_pos)
 		return
+
+	# ── Prevent overlapping portals ───────────────────────────────────────────
+	if is_portal_a and portal_b and is_instance_valid(portal_b):
+		if hit_pos.distance_to(portal_b.global_position) < MIN_PORTAL_DIST:
+			_spawn_fizzle(hit_pos)
+			return
+	if not is_portal_a and portal_a and is_instance_valid(portal_a):
+		if hit_pos.distance_to(portal_a.global_position) < MIN_PORTAL_DIST:
+			_spawn_fizzle(hit_pos)
+			return
 
 	if is_portal_a:
 		_place_portal_a(hit_pos, hit_normal)
@@ -339,13 +355,24 @@ func _spawn_fizzle(pos: Vector2) -> void:
 # =============================================================================
 func try_pickup_object() -> void:
 	var space_state := get_world_2d().direct_space_state
-	var mouse_pos   : Vector2 = get_global_mouse_position()
-	var ray_origin  := _get_barrel_position() if is_gun_equipped \
-					   else global_position
-	var ray_len     : float  = PORTAL_RAY_LEN if is_gun_equipped \
-							   else HOLD_DISTANCE * 2.0
-	var ray_dir     : Vector2 = (mouse_pos - ray_origin).normalized()
-	var ray_end     : Vector2 = ray_origin + ray_dir * ray_len
+	var ray_origin  : Vector2
+	var ray_dir     : Vector2
+	var ray_len     : float
+
+	if is_gun_equipped:
+		# Gun mode: aim toward mouse from barrel, long range
+		ray_origin = _get_barrel_position()
+		ray_len    = PORTAL_RAY_LEN
+		var mouse_pos : Vector2 = get_global_mouse_position()
+		ray_dir = (mouse_pos - ray_origin).normalized()
+	else:
+		# Bare hands: short range in the player's facing direction
+		ray_origin = global_position
+		ray_len    = HOLD_DISTANCE * 2.0
+		var facing := -1.0 if sprite.flip_h else 1.0
+		ray_dir = Vector2(facing, 0.0)
+
+	var ray_end : Vector2 = ray_origin + ray_dir * ray_len
 
 	var query := PhysicsRayQueryParameters2D.create(ray_origin, ray_end)
 	query.collide_with_areas  = true
@@ -405,7 +432,13 @@ func _grab_object(obj: RigidBody2D) -> void:
 func drop_held_object() -> void:
 	if held_object and is_instance_valid(held_object):
 		if held_object.has_method("drop"):
-			held_object.drop()
+			# When gun is equipped, throw in the aim direction
+			if is_gun_equipped and gun_arm:
+				var aim_dir : Vector2 = Vector2.RIGHT.rotated(gun_arm.rotation)
+				var throw_speed := 500.0
+				held_object.drop(aim_dir * throw_speed)
+			else:
+				held_object.drop()
 	held_object       = null
 	is_holding_object = false
 

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://fcxb77dpx6ub" path="res://assets/Dimensional_Portal.png" id="2_hevre"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
-size = Vector2(28, 6)
+size = Vector2(28, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hevre"]
 atlas = ExtResource("2_hevre")
