@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://binp0e0uqjpub"]
+
+[ext_resource type="Script" uid="uid://cqjfbmjjgf8fg" path="res://Main/MainPlayer-Updated/Portal.gd" id="1_vvs8k"]
+[ext_resource type="Texture2D" uid="uid://fcxb77dpx6ub" path="res://assets/Dimensional_Portal.png" id="2_7r7p3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(29.212864, 23.643246)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hevre"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ac6fq"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wf61"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0eie2"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7yw4"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqikq"]
+atlas = ExtResource("2_7r7p3")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m38u6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hevre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ac6fq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wf61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0eie2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7yw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqikq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Portal" type="Area2D" unique_id=967340478]
+scale = Vector2(3.324602, 1.9464985)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("1_vvs8k")
+portal_color = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=357193951]
+position = Vector2(0.15039438, -13.126908)
+scale = Vector2(1.204681, 1.192855)
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=66990569]
+position = Vector2(-5.674017e-10, -10.27486)
+rotation = 1.5738273
+scale = Vector2(1.0985199, 1.1266384)
+sprite_frames = SubResource("SpriteFrames_m38u6")
+autoplay = "default"
+frame_progress = 0.19055729
