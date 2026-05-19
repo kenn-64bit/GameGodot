@@ -1,17 +1,9 @@
 extends CharacterBody2D
 
-# =============================================================================
-#  TESTplayer.gd  –  Portal Platformer Character Controller
-#  Godot 4.6.2 | Requires: GunArm (Node2D child), Portal.tscn, GrabbableCube.gd
-# =============================================================================
 
-# ---------------------------------------------------------------------------
-# Movement constants
-# ---------------------------------------------------------------------------
 const SPEED          := 400.0
 const JUMP_VELOCITY  := -700.0
 
-# Dash
 const DASH_SPEED     := 1200.0
 const DASH_DURATION  := 0.2
 const DASH_COOLDOWN  := 0.5
@@ -20,26 +12,21 @@ var   dash_timer        := 0.0
 var   can_dash          := true
 var   dash_cooldown_timer := 0.0
 
-# Coyote time
 const COYOTE_TIME    := 0.15
 var   coyote_timer   := 0.0
 
-# Gravity flip
 const FLIP_COOLDOWN  := 1.0
 var   flip_timer     := 0.0
 var   is_upside_down := false
 
-# After-image (ghost)
 const GHOST_SCENE  = preload("res://Main/Player/ghost.tscn")
 const GHOST_DELAY  := 0.02
 var   ghost_timer  := 0.0
 
-# Camera bobbing
 @export var bob_freq := 10.0
 @export var bob_amp  :=  5.0
 var   _bob_time := 0.0
 
-# Lives / respawn
 signal all_lives_lost
 @export var starting_lives         : int   = 3
 var   lives                        : int   = 3
@@ -51,60 +38,38 @@ var   _spawn_global                : Vector2 = Vector2.ZERO
 @export var hazard_respawn_scan_tries: int = 8
 var   hazard_death_timer           := 0.0
 
-# ---------------------------------------------------------------------------
-# Node references  (use @onready; null-checked throughout)
-# ---------------------------------------------------------------------------
 @onready var sprite    : AnimatedSprite2D = $AnimatedSprite2D
 @onready var camera    : Camera2D         = $Camera2D
-# GunArm must be a direct child Node2D named "GunArm".
-# If it is missing from your scene the portal gun simply won't render.
 @onready var gun_arm   : Node2D = $GunArm if has_node("GunArm") else null
-# MuzzleFlash CPUParticles2D – must be a child of GunArm named "MuzzleFlash".
-# If the node is missing the gun still works; flash is simply skipped.
 @onready var _muzzle_flash : CPUParticles2D = \
 	$GunArm/MuzzleFlash if has_node("GunArm/MuzzleFlash") else null
 
-# Crosshair: accepted either as a direct child or via CanvasLayer2
 var _crosshair : Node2D = null
 
-# ---------------------------------------------------------------------------
-# Portal Gun – scenes & constants
-# ---------------------------------------------------------------------------
 const PORTAL_SCENE    = preload("res://TestPlatformer/Portal.tscn")
 const PORTAL_RAY_LEN  := 2000.0
-const HOLD_DISTANCE   :=   80.0   # px in front of barrel the held object floats
-const MIN_PORTAL_DIST :=  50.0    # portals must be at least this far apart
+const HOLD_DISTANCE   :=   80.0
+const MIN_PORTAL_DIST :=  50.0
 
-# Portal gun state
 var is_gun_equipped   := false
-var portal_a          : Node2D = null   # Blue  / Entry
-var portal_b          : Node2D = null   # Orange / Exit
+var portal_a          : Node2D = null
+var portal_b          : Node2D = null
 
-# Object manipulation state
 var held_object       : RigidBody2D = null
 var is_holding_object := false
 
-# =============================================================================
-#  _ready
-# =============================================================================
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	lives = starting_lives
 	_spawn_global = global_position
 	add_to_group("player")
 
-	# Hide the gun arm until the player equips it
 	if gun_arm:
 		gun_arm.visible = false
 
-	# Find crosshair (direct child or under CanvasLayer2)
 	_crosshair = _find_crosshair()
 
-# =============================================================================
-#  _input  – discrete (just-pressed) events only
-# =============================================================================
 func _input(event: InputEvent) -> void:
-	# Fullscreen toggle (F key or ui_fullscreen action)
 	if event.is_action_pressed("ui_fullscreen") or \
 	   (event is InputEventKey and event.keycode == KEY_F and event.pressed):
 		var mode := DisplayServer.window_get_mode()
@@ -113,49 +78,37 @@ func _input(event: InputEvent) -> void:
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-	# Equip / Unequip portal gun  (Q)
 	if event.is_action_pressed("equip_toggle"):
 		toggle_gun_equip()
 
-	# Interact: pick up or drop  (E)
 	if event.is_action_pressed("interact"):
 		if is_holding_object:
 			drop_held_object()
 		else:
 			try_pickup_object()
 
-	# Shoot portals – only when gun is equipped and nothing is held
 	if is_gun_equipped and not is_holding_object:
 		if event.is_action_pressed("shoot_portal_a"):
 			shoot_portal(true)
 		if event.is_action_pressed("shoot_portal_b"):
 			shoot_portal(false)
 
-# =============================================================================
-#  _physics_process
-# =============================================================================
 func _physics_process(delta: float) -> void:
-	# ── Countdown timers ──────────────────────────────────────────────────
 	if flip_timer         > 0: flip_timer         -= delta
 	if hazard_death_timer > 0: hazard_death_timer -= delta
 	if dash_cooldown_timer > 0: dash_cooldown_timer -= delta
 
-	# ── Crosshair follows mouse ───────────────────────────────────────────
 	_update_crosshair()
 
-	# ── Gun arm aims at mouse (only when equipped) ────────────────────────
 	if is_gun_equipped and gun_arm:
 		_aim_gun_at_mouse()
 
-	# ── Update held object hover position ────────────────────────────────
 	if is_holding_object and held_object and is_instance_valid(held_object):
 		_update_held_object_position()
 
-	# ── Gravity flip (R) ─────────────────────────────────────────────────
 	if Input.is_key_pressed(KEY_R) and flip_timer <= 0:
 		toggle_gravity()
 
-	# ── Dash ──────────────────────────────────────────────────────────────
 	if is_on_floor():
 		can_dash = true
 
@@ -173,9 +126,8 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 		move_and_slide()
 		_update_animations(0.0)
-		return   # skip normal movement while dashing
+		return
 
-	# ── Gravity & Coyote time ─────────────────────────────────────────────
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
 	else:
@@ -186,12 +138,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity += grav
 
-	# ── Jump ──────────────────────────────────────────────────────────────
 	if Input.is_action_just_pressed("jump") and coyote_timer > 0:
 		coyote_timer = 0.0
 		velocity.y   = -JUMP_VELOCITY if is_upside_down else JUMP_VELOCITY
 
-	# ── Horizontal movement ───────────────────────────────────────────────
 	var direction := 0.0
 	if Input.is_action_pressed("left"):  direction -= 1.0
 	if Input.is_action_pressed("right"): direction += 1.0
@@ -207,9 +157,6 @@ func _physics_process(delta: float) -> void:
 	_handle_camera_bob(delta)
 
 
-# =============================================================================
-#  PORTAL GUN – Equip / Unequip
-# =============================================================================
 func toggle_gun_equip() -> void:
 	is_gun_equipped = !is_gun_equipped
 
@@ -223,7 +170,6 @@ func toggle_gun_equip() -> void:
 		tw.tween_property(gun_arm, "scale", Vector2.ONE, 0.15) \
 		  .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	else:
-		# Drop held object before holstering
 		if is_holding_object:
 			drop_held_object()
 		var tw := create_tween()
@@ -232,27 +178,19 @@ func toggle_gun_equip() -> void:
 		tw.tween_callback(func(): gun_arm.visible = false)
 
 
-# =============================================================================
-#  PORTAL GUN – Aim
-# =============================================================================
 func _aim_gun_at_mouse() -> void:
 	var mouse_pos   : Vector2 = get_global_mouse_position()
 	var aim_dir     : Vector2 = (mouse_pos - gun_arm.global_position).normalized()
 	gun_arm.rotation = aim_dir.angle()
 
-	# Flip gun sprite vertically when pointing left so it doesn't go upside-down
 	if gun_arm.has_node("Sprite2D"):
 		gun_arm.get_node("Sprite2D").flip_v = aim_dir.x < 0.0
 
-	# Keep MuzzleFlash at the barrel tip so it fires from the correct position
 	if _muzzle_flash and is_instance_valid(_muzzle_flash) and gun_arm.has_node("BarrelPoint"):
 		var bp : Marker2D = gun_arm.get_node("BarrelPoint")
 		_muzzle_flash.position = bp.position
 
 
-# =============================================================================
-#  PORTAL GUN – Shoot
-# =============================================================================
 func shoot_portal(is_portal_a: bool) -> void:
 	var space_state := get_world_2d().direct_space_state
 	var ray_origin  := _get_barrel_position()
@@ -273,21 +211,17 @@ func shoot_portal(is_portal_a: bool) -> void:
 	if result.is_empty():
 		return
 
-	# ── Muzzle flash ──────────────────────────────────────────────────────────
 	if _muzzle_flash and is_instance_valid(_muzzle_flash):
 		_muzzle_flash.restart()
-	# ──────────────────────────────────────────────────────────────────────────
 
 	var hit_pos      : Vector2 = result["position"]
 	var hit_normal   : Vector2 = result["normal"]
 	var hit_collider           = result["collider"]
 
-	# Invalid surface check
 	if hit_collider.is_in_group("NoPortal"):
 		_spawn_fizzle(hit_pos)
 		return
 
-	# ── Prevent overlapping portals ───────────────────────────────────────────
 	if is_portal_a and portal_b and is_instance_valid(portal_b):
 		if hit_pos.distance_to(portal_b.global_position) < MIN_PORTAL_DIST:
 			_spawn_fizzle(hit_pos)
@@ -307,7 +241,7 @@ func _place_portal_a(pos: Vector2, normal: Vector2) -> void:
 	if portal_a and is_instance_valid(portal_a):
 		portal_a.queue_free()
 	portal_a = PORTAL_SCENE.instantiate()
-	portal_a.portal_color = Color(0.2, 0.6, 1.0, 0.9)   # Blue
+	portal_a.portal_color = Color(0.2, 0.6, 1.0, 0.9)
 	get_tree().current_scene.add_child(portal_a)
 	portal_a.place_at(pos, normal)
 	_link_portals()
@@ -317,7 +251,7 @@ func _place_portal_b(pos: Vector2, normal: Vector2) -> void:
 	if portal_b and is_instance_valid(portal_b):
 		portal_b.queue_free()
 	portal_b = PORTAL_SCENE.instantiate()
-	portal_b.portal_color = Color(1.0, 0.5, 0.1, 0.9)   # Orange
+	portal_b.portal_color = Color(1.0, 0.5, 0.1, 0.9)
 	get_tree().current_scene.add_child(portal_b)
 	portal_b.place_at(pos, normal)
 	_link_portals()
@@ -331,7 +265,6 @@ func _link_portals() -> void:
 
 
 func _spawn_fizzle(pos: Vector2) -> void:
-	# Lightweight CPUParticles2D burst (no ParticleProcessMaterial needed)
 	var fizzle := CPUParticles2D.new()
 	fizzle.global_position   = pos
 	fizzle.emitting           = true
@@ -350,9 +283,6 @@ func _spawn_fizzle(pos: Vector2) -> void:
 	)
 
 
-# =============================================================================
-#  OBJECT MANIPULATION – Pick-up / Drop
-# =============================================================================
 func try_pickup_object() -> void:
 	var space_state := get_world_2d().direct_space_state
 	var ray_origin  : Vector2
@@ -360,13 +290,11 @@ func try_pickup_object() -> void:
 	var ray_len     : float
 
 	if is_gun_equipped:
-		# Gun mode: aim toward mouse from barrel, long range
 		ray_origin = _get_barrel_position()
 		ray_len    = PORTAL_RAY_LEN
 		var mouse_pos : Vector2 = get_global_mouse_position()
 		ray_dir = (mouse_pos - ray_origin).normalized()
 	else:
-		# Bare hands: short range in the player's facing direction
 		ray_origin = global_position
 		ray_len    = HOLD_DISTANCE * 2.0
 		var facing := -1.0 if sprite.flip_h else 1.0
@@ -385,7 +313,6 @@ func try_pickup_object() -> void:
 
 	var hit_collider = result["collider"]
 
-	# --- Cross-portal pickup (gun only) ---
 	if is_gun_equipped and hit_collider is Portal:
 		var portal_hit : Portal = hit_collider as Portal
 		if portal_hit.linked_portal and is_instance_valid(portal_hit.linked_portal):
@@ -394,7 +321,6 @@ func try_pickup_object() -> void:
 			_try_pickup_through_portal(portal_hit.linked_portal, remaining)
 		return
 
-	# --- Standard Grabbable pickup ---
 	if hit_collider is RigidBody2D and hit_collider.is_in_group("Grabbable"):
 		_grab_object(hit_collider)
 
@@ -417,7 +343,6 @@ func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
 
 	var hit = result["collider"]
 	if hit is RigidBody2D and hit.is_in_group("Grabbable"):
-		# Teleport the object through the portal before grabbing
 		hit.global_position = global_position
 		_grab_object(hit)
 
@@ -432,13 +357,7 @@ func _grab_object(obj: RigidBody2D) -> void:
 func drop_held_object() -> void:
 	if held_object and is_instance_valid(held_object):
 		if held_object.has_method("drop"):
-			# When gun is equipped, throw in the aim direction
-			if is_gun_equipped and gun_arm:
-				var aim_dir : Vector2 = Vector2.RIGHT.rotated(gun_arm.rotation)
-				var throw_speed := 500.0
-				held_object.drop(aim_dir * throw_speed)
-			else:
-				held_object.drop()
+			held_object.drop()
 	held_object       = null
 	is_holding_object = false
 
@@ -462,9 +381,6 @@ func _update_held_object_position() -> void:
 		held_object.update_hold_position(target_pos)
 
 
-# =============================================================================
-#  GRAVITY FLIP
-# =============================================================================
 func toggle_gravity() -> void:
 	is_upside_down = !is_upside_down
 	flip_timer     = FLIP_COOLDOWN
@@ -479,9 +395,6 @@ func toggle_gravity() -> void:
 		camera.rotation_degrees = 0.0
 
 
-# =============================================================================
-#  DASH
-# =============================================================================
 func _start_dash() -> void:
 	is_dashing  = true
 	dash_timer  = DASH_DURATION
@@ -489,9 +402,6 @@ func _start_dash() -> void:
 	velocity    = Vector2(dash_dir * DASH_SPEED, 0.0)
 
 
-# =============================================================================
-#  DEATH & RESPAWN
-# =============================================================================
 func handle_hazard_death(hazard_position: Vector2, wipe_all_lives: bool = false) -> void:
 	if hazard_death_timer > 0:
 		return
@@ -537,11 +447,7 @@ func _find_safe_respawn(hazard_pos: Vector2, pref_dir: float) -> Vector2:
 	)
 
 
-# =============================================================================
-#  HELPERS – internal
-# =============================================================================
 
-## Returns the world-space position of the gun barrel, or player center.
 func _get_barrel_position() -> Vector2:
 	if gun_arm:
 		if gun_arm.has_node("BarrelPoint"):
@@ -556,10 +462,8 @@ func _update_crosshair() -> void:
 
 
 func _find_crosshair() -> Node2D:
-	# Try direct child first
 	if has_node("Crosshair"):
 		return get_node("Crosshair") as Node2D
-	# Walk up to find a CanvasLayer2 sibling
 	var parent := get_parent()
 	if parent:
 		for child in parent.get_children():
