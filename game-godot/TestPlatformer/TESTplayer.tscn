@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_kblk6"]
 [ext_resource type="Texture2D" uid="uid://cdmxi14gccr10" path="res://assets/PORTAL-REVOLVER.png" id="4_ws8do"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="5_sponf"]
-[ext_resource type="Texture2D" uid="uid://c53sll11jd1vm" path="res://assets/Sprite VFX pack/Part 16/All_Fire_Bullet_Pixel_16x16_05.png" id="5_ws8e0"]
+[ext_resource type="Script" uid="uid://ugt3geeum54c" path="res://TestPlatformer/PortalLaser.gd" id="5_vlttd"]
 [ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/Player/crosshair.gd" id="6_aky0y"]
+[ext_resource type="Texture2D" uid="uid://c7ovj3gkdvrby" path="res://assets/assetpack_p1/Bonus (player ship)/shooting laser-sheet.png" id="6_lkbc8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vra0"]
 size = Vector2(116.316696, 42.243263)
@@ -252,9 +253,9 @@ animations = [{
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_db3p6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ws8e0"]
-atlas = ExtResource("5_ws8e0")
-region = Rect2(351.85764, 260.32413, 32.431335, 8.351654)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlttd"]
+atlas = ExtResource("6_lkbc8")
+region = Rect2(0, 0, 203.00002, 92)
 
 [node name="Player" type="Node2D" unique_id=1150284336]
 position = Vector2(629, 357)
@@ -295,21 +296,21 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("4_ws8do")
 
 [node name="BarrelPoint" type="Marker2D" parent="CharacterBody2D/GunArm" unique_id=703927548]
-position = Vector2(16.519787, -1.7005665)
+position = Vector2(20.406796, -1.7005665)
 scale = Vector2(1.3134022, 1.3134022)
 
-[node name="MuzzleFlash" type="CPUParticles2D" parent="CharacterBody2D/GunArm" unique_id=462121184]
-position = Vector2(16.519789, -1.7005668)
-scale = Vector2(1.3134022, 1.3134022)
-emitting = false
-amount = 1
-texture = SubResource("AtlasTexture_ws8e0")
-lifetime = 0.1
-one_shot = true
-spread = 20.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 80.0
-initial_velocity_max = 150.0
+[node name="PortalLaser" type="Node2D" parent="CharacterBody2D/GunArm/BarrelPoint" unique_id=15528781]
+script = ExtResource("5_vlttd")
+
+[node name="LaserRay" type="RayCast2D" parent="CharacterBody2D/GunArm/BarrelPoint/PortalLaser" unique_id=1481325084]
+target_position = Vector2(2000, 0)
+
+[node name="LaserBeam" type="Line2D" parent="CharacterBody2D/GunArm/BarrelPoint/PortalLaser" unique_id=1895239229]
+points = PackedVector2Array(0, 0, 2000, 0)
+width = 75.0
+texture = SubResource("AtlasTexture_vlttd")
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=859954459]
 layer = 10

@@ -1,23 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://i7inxvy3m2eb"]
 
-[ext_resource type="Script" path="res://TestPlatformer/GrabbableCube.gd" id="1_cube"]
+[ext_resource type="Script" uid="uid://dq0d2xr6l8ply" path="res://TestPlatformer/GrabbableCube.gd" id="1_cube"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cube"]
 size = Vector2(24, 24)
 
-[node name="GrabbableCube" type="RigidBody2D" groups=["Grabbable"]]
+[node name="GrabbableCube" type="RigidBody2D" unique_id=153491751 groups=["Grabbable"]]
 collision_layer = 2
 collision_mask = 3
 mass = 8.0
 gravity_scale = 2.5
+lock_rotation = true
 linear_damp = 6.0
 angular_damp = 20.0
-lock_rotation = true
 script = ExtResource("1_cube")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=677990511]
 shape = SubResource("RectangleShape2D_cube")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2065004353]
 modulate = Color(0.8, 0.6, 0.2, 1)
 scale = Vector2(1.5, 1.5)

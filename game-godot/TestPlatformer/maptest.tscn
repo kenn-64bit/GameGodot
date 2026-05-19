@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bn6157je4bf4w" path="res://assets/Science_Laser_Tilemaps/Traps/laser_turret.png" id="10_48kkp"]
 [ext_resource type="Texture2D" uid="uid://b4ohw601dyk1c" path="res://assets/Science_Laser_Tilemaps/Traps/saw_activate.png" id="11_vtkws"]
 [ext_resource type="PackedScene" uid="uid://cu0jo1chlr0ul" path="res://TestPlatformer/TESTplayer.tscn" id="11_xl764"]
-[ext_resource type="PackedScene" path="res://TestPlatformer/GrabbableCube.tscn" id="12_xl764"]
+[ext_resource type="PackedScene" uid="uid://i7inxvy3m2eb" path="res://TestPlatformer/GrabbableCube.tscn" id="12_xl764"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rjj6"]
 texture = ExtResource("8_ou53f")

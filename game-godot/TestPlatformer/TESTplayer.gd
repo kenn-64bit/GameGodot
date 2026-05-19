@@ -43,6 +43,8 @@ var   hazard_death_timer           := 0.0
 @onready var gun_arm   : Node2D = $GunArm if has_node("GunArm") else null
 @onready var _muzzle_flash : CPUParticles2D = \
 	$GunArm/MuzzleFlash if has_node("GunArm/MuzzleFlash") else null
+@onready var _portal_laser : Node2D = \
+	$GunArm/BarrelPoint/PortalLaser if has_node("GunArm/BarrelPoint/PortalLaser") else null
 
 var _crosshair : Node2D = null
 
@@ -57,6 +59,10 @@ var portal_b          : Node2D = null
 
 var held_object       : RigidBody2D = null
 var is_holding_object := false
+
+var _portal_shoot_cooldown : float = 0.0
+const PORTAL_SHOOT_COOLDOWN : float = 0.40
+const PORTAL_PLACE_DELAY    : float = 0.15
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -87,15 +93,17 @@ func _input(event: InputEvent) -> void:
 		else:
 			try_pickup_object()
 
-	if is_gun_equipped and not is_holding_object:
+	if is_gun_equipped and not is_holding_object and _portal_shoot_cooldown <= 0.0:
 		if event.is_action_pressed("shoot_portal_a"):
 			shoot_portal(true)
 		if event.is_action_pressed("shoot_portal_b"):
 			shoot_portal(false)
 
 func _physics_process(delta: float) -> void:
-	if flip_timer         > 0: flip_timer         -= delta
-	if hazard_death_timer > 0: hazard_death_timer -= delta
+	if flip_timer                > 0: flip_timer                -= delta
+	if hazard_death_timer        > 0: hazard_death_timer        -= delta
+	if _portal_shoot_cooldown    > 0: _portal_shoot_cooldown    -= delta
+
 	if dash_cooldown_timer > 0: dash_cooldown_timer -= delta
 
 	_update_crosshair()
@@ -211,14 +219,22 @@ func shoot_portal(is_portal_a: bool) -> void:
 	if result.is_empty():
 		return
 
-	if _muzzle_flash and is_instance_valid(_muzzle_flash):
-		_muzzle_flash.restart()
-
 	var hit_pos      : Vector2 = result["position"]
 	var hit_normal   : Vector2 = result["normal"]
 	var hit_collider           = result["collider"]
 
-	if hit_collider.is_in_group("NoPortal"):
+	if _muzzle_flash and is_instance_valid(_muzzle_flash):
+		_muzzle_flash.restart()
+	if _portal_laser and is_instance_valid(_portal_laser):
+		_portal_laser.fire(hit_pos)
+
+	_portal_shoot_cooldown = PORTAL_SHOOT_COOLDOWN
+	await get_tree().create_timer(PORTAL_PLACE_DELAY).timeout
+
+	if not is_instance_valid(self):
+		return
+
+	if hit_collider.is_in_group("NoPortal") or hit_collider is RigidBody2D or hit_collider.is_in_group("Grabbable"):
 		_spawn_fizzle(hit_pos)
 		return
 
