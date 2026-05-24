@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmsiuiy5m1l3m"]
 
-[ext_resource type="Texture2D" uid="uid://dtj8l884x4i3q" path="res://assets/Foozle_2DT0001_Science_Fiction_Labs_Tileset/Barrier_Control_Panel/barrier_deactivate.png" id="1_hm32e"]
-[ext_resource type="Texture2D" uid="uid://0r6fuinyfeta" path="res://assets/Foozle_2DT0001_Science_Fiction_Labs_Tileset/Barrier_Control_Panel/barrier_idle.png" id="2_dvoie"]
+[ext_resource type="Texture2D" uid="uid://dtj8l884x4i3q" path="res://assets/Science_Laser_Tilemaps/Barrier_Control_Panel/barrier_deactivate.png" id="1_hm32e"]
+[ext_resource type="Texture2D" uid="uid://0r6fuinyfeta" path="res://assets/Science_Laser_Tilemaps/Barrier_Control_Panel/barrier_idle.png" id="2_dvoie"]
 [ext_resource type="Script" uid="uid://ewal2gh05m53" path="res://Main/Obstacles/Puzzles/laser_door.gd" id="3_barrier"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ceo2"]
@@ -255,49 +255,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvoie"]
-size = Vector2(31.085714, 14.060604)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_solid"]
-size = Vector2(31.085714, 9.21212)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(28, 60)
 
 [node name="LaserDoor" type="Node2D" unique_id=1678094904]
-position = Vector2(-19, -32)
+position = Vector2(-16, -32)
 script = ExtResource("3_barrier")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=881785851]
-position = Vector2(19, -34)
-scale = Vector2(2.1875, 2.0625)
+position = Vector2(16, 32)
 sprite_frames = SubResource("SpriteFrames_ef8vp")
-animation = &"deactivate"
+animation = &"idle"
 
-[node name="SolidBody" type="StaticBody2D" parent="." unique_id=385365170]
-position = Vector2(19, -85.500015)
-scale = Vector2(2.1875, 2.0625)
-
-[node name="CollisionShape1" type="CollisionShape2D" parent="SolidBody" unique_id=166502302]
-shape = SubResource("RectangleShape2D_dvoie")
-
-[node name="CollisionShape2" type="CollisionShape2D" parent="SolidBody" unique_id=1834384319]
-position = Vector2(-9.536743e-07, 52.848495)
-shape = SubResource("RectangleShape2D_solid")
-
-[node name="Laser_Hitbox" type="StaticBody2D" parent="." unique_id=255670526]
-position = Vector2(19, -34)
-scale = Vector2(2.1875, 2.0625)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser_Hitbox" unique_id=438666886]
-position = Vector2(0, 2.90909)
-scale = Vector2(0.6383399, 2.8280292)
-shape = SubResource("RectangleShape2D_dvoie")
-
-[node name="KillZone" type="Area2D" parent="." unique_id=1066729812]
-position = Vector2(19, -34)
-scale = Vector2(3.0816627, 2.0625)
+[node name="Hitbox" type="Area2D" parent="." unique_id=1066729812]
 collision_layer = 0
-monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=1984148724]
-position = Vector2(0, 2.90909)
-scale = Vector2(0.6383399, 2.8280292)
-shape = SubResource("RectangleShape2D_dvoie")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1984148724]
+position = Vector2(16, 32)
+shape = SubResource("RectangleShape2D_hitbox")

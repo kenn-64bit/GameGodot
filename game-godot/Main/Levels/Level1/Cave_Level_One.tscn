@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6nucwtfe1njv" path="res://assets/Rocky World Tileset/01. Rocky Level/background1.png" id="1_vcq4b"]
 [ext_resource type="Texture2D" uid="uid://ckhfsyckrweog" path="res://assets/Rocky World Tileset/01. Rocky Level/background3.png" id="2_fja6w"]
 [ext_resource type="Texture2D" uid="uid://c3domfdglnr6y" path="res://assets/Rocky World Tileset/01. Rocky Level/main_lev_build.png" id="3_x28hv"]
-[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/MAINplayer.tscn" id="4_fja6w"]
+[ext_resource type="PackedScene" uid="uid://cgvy71emoqe3e" path="res://Main/Player/mainplayer.tscn" id="4_fja6w"]
 [ext_resource type="Texture2D" uid="uid://cf8ujdpqaevtg" path="res://assets/Abyss_Tilemaps/Ground_tiles/Cave_tileset.png" id="4_y8csx"]
 [ext_resource type="Texture2D" uid="uid://4gd1st8o0hxd" path="res://assets/cave tileset pack/PNG files/CaveG.png" id="5_g1amr"]
 [ext_resource type="Script" uid="uid://cikdn8qqevpnv" path="res://Main/Levels/Level1/static_body_2d.gd" id="5_pmidv"]
@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://csr6th0y3ockf" path="res://assets/Doors/Door 1/27.png" id="31_jqp6d"]
 [ext_resource type="Script" uid="uid://b1kujr1jevjp8" path="res://Main/Levels/Level1/area_2d.gd" id="33_y8csx"]
 [ext_resource type="Texture2D" uid="uid://barxofu0se8s8" path="res://assets/Iron TileMap/Assets_area_1/Background/subway_BG.png" id="36_0ylfd"]
+[ext_resource type="Script" uid="uid://bpu00lectrl01" path="res://Main/Obstacles/Puzzles/puzzle_controller.gd" id="37_puzzle"]
+[ext_resource type="TileSet" uid="uid://cc4pe1w2ic3gp" path="res://Main/Obstacles/Puzzles/puzzle_tileset.tres" id="38_pztile"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_x28hv")
@@ -5125,10 +5127,6 @@ position = Vector2(2333, -998.00006)
 scale = Vector2(3.3345585, 3.334559)
 texture = ExtResource("36_0ylfd")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1962526930]
-z_index = 2
-scale = Vector2(4, 4)
-
 [node name="Rocks" type="TileMapLayer" parent="." unique_id=1604131455]
 z_index = 2
 y_sort_enabled = true
@@ -5180,7 +5178,40 @@ shape = SubResource("RectangleShape2D_rjv46")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("4_fja6w")]
 z_index = 1
-position = Vector2(1772, -767)
+position = Vector2(145, 65)
+
+[node name="Puzzle1" type="Node2D" parent="." unique_id=2141732768]
+position = Vector2(640, 320)
+scale = Vector2(4, 4)
+
+[node name="PuzzleController" type="Node" parent="Puzzle1" unique_id=383949789]
+script = ExtResource("37_puzzle")
+auto_place_demo_tiles = true
+
+[node name="Door" type="TileMapLayer" parent="Puzzle1" unique_id=2044317257]
+tile_map_data = PackedByteArray("AAAKAP//AAAAAAAAAAA=")
+tile_set = ExtResource("38_pztile")
+
+[node name="Controller" type="TileMapLayer" parent="Puzzle1" unique_id=2131234356]
+tile_map_data = PackedByteArray("AAALAAIAAAAAAAAAAQA=")
+tile_set = ExtResource("38_pztile")
+
+[node name="Puzzle2" type="Node2D" parent="." unique_id=2141732769]
+position = Vector2(1280, 320)
+scale = Vector2(4, 4)
+
+[node name="PuzzleController" type="Node" parent="Puzzle2" unique_id=1076161129]
+script = ExtResource("37_puzzle")
+auto_place_demo_tiles = true
+demo_panel_cells = Array[Vector2i]([Vector2i(5, 0), Vector2i(9, 0), Vector2i(13, 0)])
+
+[node name="Door" type="TileMapLayer" parent="Puzzle2" unique_id=353893547]
+tile_map_data = PackedByteArray("AAARAPv/AAAAAAAAAAA=")
+tile_set = ExtResource("38_pztile")
+
+[node name="Controller" type="TileMapLayer" parent="Puzzle2" unique_id=230797998]
+tile_map_data = PackedByteArray("AAATAP7/AAAAAAAAAQARAP7/AAAAAAAAAQA=")
+tile_set = ExtResource("38_pztile")
 
 [connection signal="body_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_exited"]
