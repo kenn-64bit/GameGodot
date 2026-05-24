@@ -2,11 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://cmsiuiy5m1l3m" path="res://Main/Obstacles/Puzzles/laser_door.tscn" id="1_door"]
 [ext_resource type="PackedScene" uid="uid://b4a0mxbpptsah" path="res://Main/Obstacles/Puzzles/puzzle_control_panel.tscn" id="2_panel"]
+[ext_resource type="PackedScene" uid="uid://b8y3f02grgnur" path="res://Main/Obstacles/Puzzles/vlaser_door.tscn" id="3_xc1w6"]
+[ext_resource type="PackedScene" uid="uid://bvgcmll5rmttv" path="res://Main/Obstacles/Puzzles/vpuzzle_control_panel.tscn" id="4_km5os"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_puzzle"]
 resource_name = "puzzle_pieces"
 scenes/0/scene = ExtResource("1_door")
 scenes/1/scene = ExtResource("2_panel")
+scenes/2/scene = ExtResource("3_xc1w6")
+scenes/3/scene = ExtResource("4_km5os")
 
 [resource]
 tile_size = Vector2i(32, 32)
