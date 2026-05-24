@@ -3,18 +3,15 @@ class_name LaserDoor
 
 signal door_opened
 
-@export var blocking_collision_layer: int = 1
-@export var kill_drains_all_lives: bool = true
-
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var _solid: StaticBody2D = $Laser_Hitbox
-@onready var _kill_zone: Area2D = $KillZone
+@onready var _hitbox: Area2D = $Hitbox
 
 var _opened: bool = false
 
 
 func _ready() -> void:
-	_kill_zone.body_entered.connect(_on_kill_zone_body_entered)
+	add_to_group(&"puzzle_door")
+	_hitbox.body_entered.connect(_on_hitbox_body_entered)
 	if not _opened:
 		_apply_closed_state()
 
@@ -33,24 +30,19 @@ func set_open(value: bool) -> void:
 
 func _apply_closed_state() -> void:
 	_sprite.play(&"idle")
-	_solid.collision_layer = blocking_collision_layer
-	_kill_zone.monitoring = true
+	_hitbox.monitoring = true
 
 
 func _open_async() -> void:
-	_kill_zone.monitoring = false
+	_hitbox.monitoring = false
 	_sprite.play(&"deactivate")
 	await _sprite.animation_finished
-	_solid.set_deferred("collision_layer", 0)
 	door_opened.emit()
 
 
-func _on_kill_zone_body_entered(body: Node2D) -> void:
+func _on_hitbox_body_entered(body: Node2D) -> void:
 	if _opened:
 		return
 	if not body.has_method(&"handle_hazard_death"):
 		return
-	if kill_drains_all_lives:
-		body.callv(&"handle_hazard_death", [global_position, true])
-	else:
-		body.callv(&"handle_hazard_death", [global_position])
+	body.callv(&"handle_hazard_death", [global_position])
