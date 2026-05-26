@@ -5156,23 +5156,23 @@ tile_map_data = PackedByteArray("AAAaAAsAAAAlABAAAAAbAAsAAAAmABAAAAAcAAsAAAAnABA
 tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=622883106]
+[node name="Exit" type="StaticBody2D" parent="." unique_id=622883106]
 z_index = -1
 collision_mask = 3
 script = ExtResource("5_pmidv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D" unique_id=1210500437]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Exit" unique_id=1210500437]
 z_index = 1
 position = Vector2(1737, -783)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_oy40n")
 animation = &"open"
 
-[node name="Area2D" type="Area2D" parent="StaticBody2D" unique_id=682209821]
+[node name="Area2D" type="Area2D" parent="Exit" unique_id=682209821]
 position = Vector2(-25, -2.999939)
 script = ExtResource("33_y8csx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D" unique_id=673835753]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit/Area2D" unique_id=673835753]
 position = Vector2(1763, -778)
 shape = SubResource("RectangleShape2D_rjv46")
 
@@ -5213,5 +5213,5 @@ tile_set = ExtResource("38_pztile")
 tile_map_data = PackedByteArray("AAAUAP3/AAAAAAAAAwANAP3/AAAAAAAAAwA=")
 tile_set = ExtResource("38_pztile")
 
-[connection signal="body_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_exited"]
