@@ -44,17 +44,20 @@ var lives: int = 3
 var _spawn_global: Vector2 = Vector2.ZERO
 
 # Trap Death Components
-@export var hazard_respawn_distance := 220.0
-@export var hazard_respawn_height := 96.0
 @export var hazard_death_cooldown := 0.5
-@export var hazard_respawn_scan_step := 48.0
-@export var hazard_respawn_scan_tries := 8
+@export var path_history_max_points := 128
+@export var path_sample_min_distance := 100.0
+@export var path_respawn_lookback_points := 32
+@export var path_respawn_min_distance_from_hazard := 100.0
 var hazard_death_timer := 0.0
+var _path_history: Array[Vector2] = []
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	lives = starting_lives
 	_spawn_global = global_position
+	_path_history.clear()
+	_path_history.append(_spawn_global)
 
 func _input(event):
 	if event.is_action_pressed("ui_fullscreen") or (event is InputEventKey and event.keycode == KEY_F and event.pressed):
@@ -100,6 +103,7 @@ func _physics_process(delta: float) -> void:
 		if dash_timer <= 0:
 			is_dashing = false
 		move_and_slide()
+		_record_path_position()
 		update_animations(0)
 		return
 
@@ -152,6 +156,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 	
 	move_and_slide()
+	_record_path_position()
 	update_animations(direction)
 	handle_camera_bob(delta)
 
@@ -233,44 +238,86 @@ func handle_hazard_death(hazard_position: Vector2, wipe_all_lives: bool = false)
 		return
 
 	hazard_death_timer = hazard_death_cooldown
-	if wipe_all_lives:
-		lives = 0
-		global_position = _spawn_global
-		velocity = Vector2.ZERO
-		is_dashing = false
-		all_lives_lost.emit()
-		return
-
-	var preferred_direction: float = signf(global_position.x - hazard_position.x)
-	if preferred_direction == 0.0:
-		preferred_direction = -1.0
-
-	var respawn_position := _find_safe_respawn_position(hazard_position, preferred_direction)
-	global_position = respawn_position
 	velocity = Vector2.ZERO
 	is_dashing = false
 
-func _find_safe_respawn_position(hazard_position: Vector2, preferred_direction: float) -> Vector2:
-	var directions: Array[float] = [preferred_direction, -preferred_direction]
+	if wipe_all_lives:
+		lives = 0
+		_respawn_at_level_start()
+		return
+
+	lives -= 1
+	if lives <= 0:
+		_respawn_at_level_start()
+		lives = 3
+		return
+
+	var respawn_position := _find_path_respawn_position(hazard_position)
+	global_position = respawn_position
+	_trim_path_history_after_respawn(respawn_position)
+
+
+func _respawn_at_level_start() -> void:
+	global_position = _spawn_global
+	_path_history.clear()
+	_path_history.append(_spawn_global)
+	all_lives_lost.emit()
+
+
+func _record_path_position() -> void:
+	if _path_history.is_empty():
+		_path_history.append(global_position)
+		return
+	if global_position.distance_to(_path_history[-1]) < path_sample_min_distance:
+		return
+	_path_history.append(global_position)
+	while _path_history.size() > path_history_max_points:
+		_path_history.pop_front()
+
+
+func _find_path_respawn_position(hazard_position: Vector2) -> Vector2:
+	if _path_history.size() < 2:
+		return _spawn_global
+
+	var lookback_start := maxi(0, _path_history.size() - path_respawn_lookback_points)
+	var approach_side := signf(_path_history[lookback_start].x - hazard_position.x)
+	if approach_side == 0.0:
+		approach_side = signf(global_position.x - hazard_position.x)
+	if approach_side == 0.0:
+		approach_side = -1.0
+
+	for i in range(_path_history.size() - 2, -1, -1):
+		var candidate: Vector2 = _path_history[i]
+		if candidate.distance_to(hazard_position) < path_respawn_min_distance_from_hazard:
+			continue
+		if signf(candidate.x - hazard_position.x) != approach_side:
+			continue
+		if _is_point_inside_solid(candidate):
+			continue
+		return candidate
+
+	for i in range(_path_history.size() - 1, -1, -1):
+		var candidate: Vector2 = _path_history[i]
+		if not _is_point_inside_solid(candidate):
+			return candidate
+
+	return _spawn_global
+
+
+func _is_point_inside_solid(point: Vector2) -> bool:
 	var space_state := get_world_2d().direct_space_state
 	var query := PhysicsPointQueryParameters2D.new()
+	query.position = point
 	query.collide_with_areas = false
 	query.collide_with_bodies = true
+	return not space_state.intersect_point(query, 1).is_empty()
 
-	for direction in directions:
-		for step in range(hazard_respawn_scan_tries):
-			var distance := hazard_respawn_distance + (float(step) * hazard_respawn_scan_step)
-			var candidate := Vector2(
-				hazard_position.x + (direction * distance),
-				hazard_position.y - hazard_respawn_height
-			)
-			query.position = candidate
-			var result := space_state.intersect_point(query, 1)
-			if result.is_empty():
-				return candidate
 
-	# Fallback if both sides are occupied.
-	return Vector2(
-		hazard_position.x + (preferred_direction * hazard_respawn_distance),
-		hazard_position.y - hazard_respawn_height
-	)
+func _trim_path_history_after_respawn(respawn_position: Vector2) -> void:
+	var cut_index := 0
+	for i in range(_path_history.size()):
+		if _path_history[i].distance_to(respawn_position) <= path_sample_min_distance:
+			cut_index = i
+			break
+	_path_history = _path_history.slice(cut_index)
+	_path_history.append(respawn_position)

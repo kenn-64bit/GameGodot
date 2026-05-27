@@ -8,8 +8,6 @@
 script = ExtResource("1_o6k72")
 
 [node name="LaserDoor" parent="." unique_id=2111531784 instance=ExtResource("2_pgofc")]
-position = Vector2(-7.999999, -43.999996)
-scale = Vector2(1.9438033, 2.912464)
 
 [node name="Panel" parent="." unique_id=1468031091 instance=ExtResource("3_dkv34")]
-position = Vector2(234, 335)
+position = Vector2(128, 0)

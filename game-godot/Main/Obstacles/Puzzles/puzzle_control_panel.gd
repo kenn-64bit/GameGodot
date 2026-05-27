@@ -10,6 +10,7 @@ var _done: bool = false
 
 
 func _ready() -> void:
+	add_to_group(&"puzzle_panel")
 	_touch.body_entered.connect(_on_body_entered)
 	_sprite.play(&"idle")
 
