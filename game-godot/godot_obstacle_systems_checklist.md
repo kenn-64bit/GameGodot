@@ -131,5 +131,4 @@ Spikes are static or timed objects that trigger a death state instantly upon pla
 * **Safe Collision Practices:** Never use standard static bodies for spikes. Always use Area2D. Static bodies will stop the player's momentum, whereas Area2D allows the death animation/momentum to carry through naturally.
 * **Polish Features:** Visual telegraphing for timed spikes (e.g., small dust clouds or a mechanical clicking visual 0.5 seconds before they thrust upward). Add a subtle red glint animation to static spikes to draw the player's eye.
 
-all implementations must be inside, sorted inside one folder and must be located inside "Main" folder.
-
+all implementations must be inside sorted inside one folder and must be located inside main.

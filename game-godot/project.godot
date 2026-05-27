@@ -79,6 +79,15 @@ shoot_portal_b={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="World"
+2d_physics/layer_3="Interactables"
+2d_physics/layer_4="Triggers"
+2d_physics/layer_5="Hazards"
+2d_physics/layer_6="Obstacles"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

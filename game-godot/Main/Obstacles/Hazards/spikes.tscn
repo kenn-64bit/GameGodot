@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://spikes_hazard_01"]
+
+[ext_resource type="Script" path="res://Main/Obstacles/Hazards/spikes.gd" id="1_spikes01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes01"]
+size = Vector2(28, 12)
+
+[node name="Spikes" type="Area2D"]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_spikes01")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_spikes01")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = false

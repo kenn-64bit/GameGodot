@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://sliding_door_01"]
+
+[ext_resource type="Script" path="res://Main/Obstacles/Doors/sliding_door.gd" id="1_door01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door01"]
+size = Vector2(16, 64)
+
+[node name="Door" type="AnimatableBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_door01")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_door01")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
