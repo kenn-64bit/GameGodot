@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b4a0mxbpptsah"]
 
-[ext_resource type="Texture2D" uid="uid://bbdhtrsycmvab" path="res://assets/Science_Laser_Tilemaps/Barrier_Control_Panel/control_panel_deactivate.png" id="1_idha1"]
-[ext_resource type="Texture2D" uid="uid://7xgsw20vtfo1" path="res://assets/Science_Laser_Tilemaps/Barrier_Control_Panel/control_panel_idle.png" id="2_po1f0"]
+[ext_resource type="Texture2D" uid="uid://bbdhtrsycmvab" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Barrier_Control_Panel/control_panel_deactivate.png" id="1_idha1"]
+[ext_resource type="Texture2D" uid="uid://7xgsw20vtfo1" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Barrier_Control_Panel/control_panel_idle.png" id="2_po1f0"]
 [ext_resource type="Script" uid="uid://b7egiyaw4lyom" path="res://Main/Obstacles/Puzzles/puzzle_control_panel.gd" id="3_ppanel"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t210a"]
