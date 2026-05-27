@@ -267,6 +267,7 @@ collision_layer = 3
 script = ExtResource("1_jhfwh")
 
 [node name="BackgroundLite" type="Sprite2D" parent="CharacterBody2D" unique_id=888395200]
+visible = false
 z_index = 4096
 material = SubResource("CanvasItemMaterial_db3p6")
 position = Vector2(4.1299744, -4.615822)
