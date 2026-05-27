@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bnqxb4xjm1vju"]
 
-[ext_resource type="Script" uid="uid://dq0d2xr6l8ply" path="res://TestPlatformer/GrabbableCube.gd" id="1_u1fci"]
+[ext_resource type="Script" uid="uid://dgkrginplmtu" path="res://Main/MainPlayer-Updated/GrabbableCube.gd" id="1_u1fci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cube"]
 size = Vector2(24, 24)

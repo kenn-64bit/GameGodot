@@ -1,5 +1,5 @@
 extends RigidBody2D
-class_name GrabbableCube
+
 
 var is_held   : bool   = false
 var holder    : Node2D = null

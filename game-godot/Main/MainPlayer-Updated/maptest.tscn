@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="8_nu6h4"]
 [ext_resource type="Texture2D" uid="uid://bn6157je4bf4w" path="res://assets/Science_Laser_Tilemaps/Traps/laser_turret.png" id="9_7sxk1"]
 [ext_resource type="Texture2D" uid="uid://b4ohw601dyk1c" path="res://assets/Science_Laser_Tilemaps/Traps/saw_activate.png" id="10_63my8"]
-[ext_resource type="PackedScene" uid="uid://cu0jo1chlr0ul" path="res://TestPlatformer/TESTplayer.tscn" id="11_k6nrp"]
-[ext_resource type="PackedScene" uid="uid://i7inxvy3m2eb" path="res://TestPlatformer/GrabbableCube.tscn" id="12_2wq5f"]
+[ext_resource type="PackedScene" uid="uid://dapahcqg7f2m4" path="res://Main/MainPlayer-Updated/TESTplayer.tscn" id="11_k6nrp"]
+[ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="12_2wq5f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rjj6"]
 texture = ExtResource("2_uso8p")

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="4_kblk6"]
 [ext_resource type="Texture2D" uid="uid://cdmxi14gccr10" path="res://assets/PORTAL-REVOLVER.png" id="4_ws8do"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="5_sponf"]
-[ext_resource type="Script" uid="uid://ugt3geeum54c" path="res://TestPlatformer/PortalLaser.gd" id="5_vlttd"]
+[ext_resource type="Script" uid="uid://cqjfbmjjgf8fg" path="res://Main/MainPlayer-Updated/Portal.gd" id="5_vlttd"]
 [ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/Player/crosshair.gd" id="6_aky0y"]
 [ext_resource type="Texture2D" uid="uid://c7ovj3gkdvrby" path="res://assets/assetpack_p1/Bonus (player ship)/shooting laser-sheet.png" id="6_lkbc8"]
 

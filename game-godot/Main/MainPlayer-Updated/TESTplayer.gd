@@ -48,7 +48,7 @@ var   hazard_death_timer           := 0.0
 
 var _crosshair : Node2D = null
 
-const PORTAL_SCENE    = preload("res://TestPlatformer/Portal.tscn")
+const PORTAL_SCENE    = preload("res://Main/MainPlayer-Updated/Portal.tscn")
 const PORTAL_RAY_LEN  := 2000.0
 const HOLD_DISTANCE   :=   80.0
 const MIN_PORTAL_DIST :=  50.0
