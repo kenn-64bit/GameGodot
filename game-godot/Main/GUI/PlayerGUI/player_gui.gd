@@ -1,26 +1,41 @@
 extends Control
 
-# Fix: Line 4 from your screenshot
-@export var player: CharacterBody2D 
+@export var player: CharacterBody2D
 
 @export var bob_amount : float = 2.0
-@export var bob_speed : float = 12.0
+@export var bob_speed  : float = 12.0
 
-var default_y : float
-var vertical_offset : float = 0.0
+## Heart textures — assign both in the Inspector.
+@export var texture_full : Texture2D
+@export var texture_grey : Texture2D
 
-func _ready():
-	# Store the starting Y position
+@onready var hearts : Array[TextureRect] = [
+	$HBoxContainer/Heart1,
+	$HBoxContainer/Heart2,
+	$HBoxContainer/Heart3,
+]
+
+var default_y      : float
+var vertical_offset: float = 0.0
+
+func _ready() -> void:
 	default_y = position.y
 
-func _process(delta):
-	# The 'if player' check ensures the game doesn't crash if 
-	# you forgot to drag the player into the Inspector slot.
+func _process(delta: float) -> void:
+	# HUD bob while the player is moving.
 	if player and player.velocity.length() > 0:
 		vertical_offset += delta * bob_speed
-		var bob = sin(vertical_offset) * bob_amount
+		var bob := sin(vertical_offset) * bob_amount
 		position.y = default_y + bob
 	else:
-		# Return to original position when standing still
 		position.y = lerp(position.y, default_y, 10 * delta)
 		vertical_offset = 0
+
+## Called by the player whenever lives change.
+## current_lives = number of hearts still full (0–3).
+func update_hearts(current_lives: int) -> void:
+	for i in hearts.size():
+		if i < current_lives:
+			hearts[i].texture = texture_full
+		else:
+			hearts[i].texture = texture_grey

@@ -260,11 +260,12 @@ region = Rect2(0, 0, 203.00002, 92)
 [node name="Player" type="Node2D" unique_id=1150284336]
 position = Vector2(629, 357)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604 groups=["player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1977163604 groups=["player"] node_paths=PackedStringArray("gui")]
 position = Vector2(-49, -22.999985)
 scale = Vector2(4.1162753, 4.1162753)
 collision_layer = 3
 script = ExtResource("1_jhfwh")
+gui = NodePath("../CanvasLayer/PlayerGui")
 
 [node name="BackgroundLite" type="Sprite2D" parent="CharacterBody2D" unique_id=888395200]
 visible = false

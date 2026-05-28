@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://bbr6rrttv1qr8" path="res://assets/Lunar Lander Upload/Moon Tiles/TileSheet-v1.png" id="33_guq48"]
 [ext_resource type="Texture2D" uid="uid://tacl75wcq7la" path="res://assets/Abyss_Tilemaps/Ground_tiles/Alien_environment_tileset.png" id="34_g180g"]
 [ext_resource type="PackedScene" uid="uid://dapahcqg7f2m4" path="res://Main/MainPlayer-Updated/TESTplayer.tscn" id="35_sa2q8"]
+[ext_resource type="PackedScene" uid="uid://m0w3ygqw7uq6" path="res://Main/Obstacles/Hazards/spikes.tscn" id="37_mvm6u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnfp4"]
 texture = ExtResource("1_tdotq")
@@ -5092,3 +5093,6 @@ tile_set = SubResource("TileSet_f8gmr")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("35_sa2q8")]
 position = Vector2(136, 247)
+
+[node name="Spikes" parent="." unique_id=885352882 instance=ExtResource("37_mvm6u")]
+position = Vector2(414, 280)

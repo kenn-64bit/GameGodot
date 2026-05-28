@@ -30,6 +30,9 @@ var   _bob_time := 0.0
 signal all_lives_lost
 @export var starting_lives         : int   = 3
 var   lives                        : int   = 3
+
+## Drag the PlayerGui node here in the Inspector to wire up the heart HUD.
+@export var gui                    : Control
 var   _spawn_global                : Vector2 = Vector2.ZERO
 @export var hazard_respawn_distance  := 220.0
 @export var hazard_respawn_height    :=  96.0
@@ -69,11 +72,29 @@ func _ready() -> void:
 	lives = starting_lives
 	_spawn_global = global_position
 	add_to_group("player")
+	_sync_gui()  # Initialise hearts display on load.
 
 	if gun_arm:
 		gun_arm.visible = false
 
+	# If the Inspector export didn't resolve, find the GUI at runtime.
+	if not gui:
+		gui = _find_gui()
+
 	_crosshair = _find_crosshair()
+
+
+## Walks the scene to find the PlayerGui Control node.
+## Mirrors the _find_crosshair() pattern already in this script.
+func _find_gui() -> Control:
+	var parent := get_parent()
+	if parent:
+		for child in parent.get_children():
+			if child is CanvasLayer:
+				var pg := child.get_node_or_null("PlayerGui")
+				if pg is Control:
+					return pg as Control
+	return null
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_fullscreen") or \
@@ -416,6 +437,42 @@ func _start_dash() -> void:
 	dash_timer  = DASH_DURATION
 	var dash_dir := -1.0 if sprite.flip_h else 1.0
 	velocity    = Vector2(dash_dir * DASH_SPEED, 0.0)
+
+
+## Reduce lives by 1, update the HUD, then either respawn near the hazard
+## (lives remaining) or trigger a full game-over via die().
+func take_damage(hazard_position: Vector2 = Vector2.ZERO) -> void:
+	if hazard_death_timer > 0:
+		return
+	hazard_death_timer = hazard_death_cooldown
+	lives = max(lives - 1, 0)
+	_sync_gui()
+	if lives <= 0:
+		die()
+		return
+	# Respawn near the hazard, away from the spike that hit us.
+	var preferred_dir := signf(global_position.x - hazard_position.x)
+	if preferred_dir == 0.0:
+		preferred_dir = -1.0
+	global_position = _find_safe_respawn(hazard_position, preferred_dir)
+	velocity   = Vector2.ZERO
+	is_dashing = false
+
+
+## Called when all lives are gone. Resets to spawn point and emits all_lives_lost.
+func die() -> void:
+	lives           = 0
+	_sync_gui()
+	global_position = _spawn_global
+	velocity        = Vector2.ZERO
+	is_dashing      = false
+	all_lives_lost.emit()
+
+
+## Safe wrapper — calls gui.update_hearts() if the GUI node is available.
+func _sync_gui() -> void:
+	if gui and is_instance_valid(gui) and gui.has_method("update_hearts"):
+		gui.update_hearts(lives)
 
 
 func handle_hazard_death(hazard_position: Vector2, wipe_all_lives: bool = false) -> void:

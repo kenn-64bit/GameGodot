@@ -1,21 +1,24 @@
-[gd_scene format=3 uid="uid://spikes_hazard_01"]
+[gd_scene format=3 uid="uid://m0w3ygqw7uq6"]
 
-[ext_resource type="Script" path="res://Main/Obstacles/Hazards/spikes.gd" id="1_spikes01"]
+[ext_resource type="Script" uid="uid://bwdr7ibeqgbpt" path="res://Main/Obstacles/Hazards/spikes.gd" id="1_spikes01"]
+[ext_resource type="Texture2D" uid="uid://b3n5kedm5qo6s" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_spikes_activate/tile009.png" id="2_7o4l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes01"]
 size = Vector2(28, 12)
 
-[node name="Spikes" type="Area2D"]
+[node name="Spikes" type="Area2D" unique_id=885352882]
 collision_layer = 16
-collision_mask = 1
 script = ExtResource("1_spikes01")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1186856969]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89662441]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_spikes01")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=793810645]
 wait_time = 2.0
-autostart = false
+
+[node name="Tile009" type="Sprite2D" parent="." unique_id=1351339853]
+position = Vector2(0, -2)
+texture = ExtResource("2_7o4l6")

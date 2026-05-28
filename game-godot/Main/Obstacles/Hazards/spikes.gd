@@ -20,15 +20,15 @@ func _on_body_entered(body: Node2D) -> void:
 	if not is_lethal:
 		return
 
-	# Only kill the player group.
+	# Only damage the player group.
 	if not body.is_in_group("player"):
 		return
 
-	if body.has_method("die"):
-		body.die()
+	if body.has_method("take_damage"):
+		body.take_damage(global_position)
 	else:
-		# Fallback: reload the scene.
-		body.get_tree().reload_current_scene()
+		# Body in "player" group but missing take_damage — log and skip.
+		push_warning("Spikes: body '%s' has no take_damage() method." % body.name)
 
 
 # --- Timed spike toggling ---
