@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7ovj3gkdvrby" path="res://assets/assetpack_p1/Bonus (player ship)/shooting laser-sheet.png" id="6_ahb2j"]
 [ext_resource type="PackedScene" uid="uid://d4dpadesun04" path="res://Main/GUI/PlayerGUI/PlayerGUI.tscn" id="7_rical"]
 [ext_resource type="Texture2D" uid="uid://btb2p4y3vcnyg" path="res://assets/Cursor-PNG/Basic/Default/target_a.png" id="8_eodrk"]
-[ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/Player/crosshair.gd" id="9_2ms8f"]
+[ext_resource type="Script" uid="uid://cek4ed2bhxvto" path="res://Main/MainPlayer-Updated/crosshair.gd" id="9_2ms8f"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_db3p6"]
 

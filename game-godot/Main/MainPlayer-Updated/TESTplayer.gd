@@ -19,7 +19,7 @@ const FLIP_COOLDOWN  := 1.0
 var   flip_timer     := 0.0
 var   is_upside_down := false
 
-const GHOST_SCENE  = preload("res://Main/Player/ghost.tscn")
+const GHOST_SCENE  = preload("res://Main/MainPlayer-Updated/ghost.tscn")
 const GHOST_DELAY  := 0.02
 var   ghost_timer  := 0.0
 
