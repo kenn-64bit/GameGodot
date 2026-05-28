@@ -209,4 +209,3 @@ func _start_invulnerability(duration: float = 0.5) -> void:
 	_invulnerable = true
 	await get_tree().create_timer(duration).timeout
 	_invulnerable = false
-
