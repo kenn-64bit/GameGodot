@@ -1,80 +1,74 @@
-[gd_scene format=3 uid="uid://btimed1laser01"]
+[gd_scene format=3 uid="uid://ddy0fhsub01wh"]
 
 [ext_resource type="Script" uid="uid://dih2ocxv5b3yn" path="res://Main/Obstacles/Lasers/timed_laser.gd" id="1_timed"]
-[ext_resource type="Texture2D" uid="uid://b0pfmwgfujtwf" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_activate.png" id="2_act"]
-[ext_resource type="Texture2D" uid="uid://di7unjmruak1m" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_deactivate.png" id="3_deact"]
-[ext_resource type="Texture2D" uid="uid://biaiqmhfoj442" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_idle.png" id="4_idle"]
-
-[sub_resource type="AtlasTexture" id="act_f00"] atlas = ExtResource("2_act") region = Rect2(0, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f01"] atlas = ExtResource("2_act") region = Rect2(16, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f02"] atlas = ExtResource("2_act") region = Rect2(32, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f03"] atlas = ExtResource("2_act") region = Rect2(48, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f04"] atlas = ExtResource("2_act") region = Rect2(64, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f05"] atlas = ExtResource("2_act") region = Rect2(80, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f06"] atlas = ExtResource("2_act") region = Rect2(96, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f07"] atlas = ExtResource("2_act") region = Rect2(112, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f08"] atlas = ExtResource("2_act") region = Rect2(128, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f09"] atlas = ExtResource("2_act") region = Rect2(144, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f10"] atlas = ExtResource("2_act") region = Rect2(160, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="act_f11"] atlas = ExtResource("2_act") region = Rect2(176, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="dea_f00"] atlas = ExtResource("3_deact") region = Rect2(0, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f01"] atlas = ExtResource("3_deact") region = Rect2(16, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f02"] atlas = ExtResource("3_deact") region = Rect2(32, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f03"] atlas = ExtResource("3_deact") region = Rect2(48, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f04"] atlas = ExtResource("3_deact") region = Rect2(64, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f05"] atlas = ExtResource("3_deact") region = Rect2(80, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f06"] atlas = ExtResource("3_deact") region = Rect2(96, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f07"] atlas = ExtResource("3_deact") region = Rect2(112, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="dea_f08"] atlas = ExtResource("3_deact") region = Rect2(128, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="idl_f00"] atlas = ExtResource("4_idle") region = Rect2(0, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f01"] atlas = ExtResource("4_idle") region = Rect2(16, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f02"] atlas = ExtResource("4_idle") region = Rect2(32, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f03"] atlas = ExtResource("4_idle") region = Rect2(48, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f04"] atlas = ExtResource("4_idle") region = Rect2(64, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f05"] atlas = ExtResource("4_idle") region = Rect2(80, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f06"] atlas = ExtResource("4_idle") region = Rect2(96, 0, 16, 16)
-[sub_resource type="AtlasTexture" id="idl_f07"] atlas = ExtResource("4_idle") region = Rect2(112, 0, 16, 16)
+[ext_resource type="Texture2D" uid="uid://bjanlucj2gxpc" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile000.png" id="2_7esvt"]
+[ext_resource type="Texture2D" uid="uid://dae4r5xr11uyw" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile001.png" id="3_nird2"]
+[ext_resource type="Texture2D" uid="uid://c2obr4wwc6a3y" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile000.png" id="3_nkx47"]
+[ext_resource type="Texture2D" uid="uid://dda5678q54vh0" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile000.png" id="4_7q3n1"]
+[ext_resource type="Texture2D" uid="uid://cjsfg1rtvh5ow" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile002.png" id="4_ss3du"]
+[ext_resource type="Texture2D" uid="uid://x6q7qyr45wq8" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile001.png" id="4_td4vn"]
+[ext_resource type="Texture2D" uid="uid://d05712xxgrkyh" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile003.png" id="5_oa7fr"]
+[ext_resource type="Texture2D" uid="uid://dcrlgrxhgtyem" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile002.png" id="5_qf0ky"]
+[ext_resource type="Texture2D" uid="uid://bg7udrwyd3mky" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile001.png" id="5_ve4dy"]
+[ext_resource type="Texture2D" uid="uid://cp77ysfdqiiyp" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile002.png" id="6_6cqtd"]
+[ext_resource type="Texture2D" uid="uid://bqqgai1inb47u" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile004.png" id="6_qgknf"]
+[ext_resource type="Texture2D" uid="uid://cpu5cgx1f0wd7" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile003.png" id="6_ypyxl"]
+[ext_resource type="Texture2D" uid="uid://ccjvem5f4pvan" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile003.png" id="7_72u1q"]
+[ext_resource type="Texture2D" uid="uid://15g18qqbi0d8" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile004.png" id="7_l1lhe"]
+[ext_resource type="Texture2D" uid="uid://bgn2itkvj4b1b" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile005.png" id="7_ycj3n"]
+[ext_resource type="Texture2D" uid="uid://dn6jxcpy026go" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile004.png" id="8_242wp"]
+[ext_resource type="Texture2D" uid="uid://dagnve0ld5yix" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile005.png" id="8_tr5r6"]
+[ext_resource type="Texture2D" uid="uid://bvksmganmryos" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile006.png" id="8_x7ygv"]
+[ext_resource type="Texture2D" uid="uid://cvyl2h75cswsd" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile006.png" id="9_63iab"]
+[ext_resource type="Texture2D" uid="uid://b2xgv3ana2w1t" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile007.png" id="9_ec2ii"]
+[ext_resource type="Texture2D" uid="uid://dd0j2v2x7a7qi" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile005.png" id="9_mt2lr"]
+[ext_resource type="Texture2D" uid="uid://dmtyaqpttco54" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile008.png" id="10_oj6oy"]
+[ext_resource type="Texture2D" uid="uid://bu3edypqfb2g0" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile006.png" id="10_plsoy"]
+[ext_resource type="Texture2D" uid="uid://c0yumlooh8yll" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile007.png" id="10_txtd0"]
+[ext_resource type="Texture2D" uid="uid://8vkctv8x8lek" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_idle/tile007.png" id="11_cvyuw"]
+[ext_resource type="Texture2D" uid="uid://cw1i3n53g7x8s" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile008.png" id="11_if1kq"]
+[ext_resource type="Texture2D" uid="uid://b6vwuase50noa" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile009.png" id="11_pc27y"]
+[ext_resource type="Texture2D" uid="uid://b7mb2n2wq7w4r" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile010.png" id="12_gb5cv"]
+[ext_resource type="Texture2D" uid="uid://j10tkhj8pb57" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_activate/tile011.png" id="13_3s1rd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_laser01"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("act_f00")
+"texture": ExtResource("2_7esvt")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f01")
+"texture": ExtResource("3_nird2")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f02")
+"texture": ExtResource("4_ss3du")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f03")
+"texture": ExtResource("5_oa7fr")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f04")
+"texture": ExtResource("6_qgknf")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f05")
+"texture": ExtResource("7_ycj3n")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f06")
+"texture": ExtResource("8_x7ygv")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f07")
+"texture": ExtResource("9_ec2ii")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f08")
+"texture": ExtResource("10_oj6oy")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f09")
+"texture": ExtResource("11_pc27y")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f10")
+"texture": ExtResource("12_gb5cv")
 }, {
 "duration": 1.0,
-"texture": SubResource("act_f11")
+"texture": ExtResource("13_3s1rd")
 }],
 "loop": false,
 "name": &"activate",
@@ -82,31 +76,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("dea_f00")
+"texture": ExtResource("3_nkx47")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f01")
+"texture": ExtResource("4_td4vn")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f02")
+"texture": ExtResource("5_qf0ky")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f03")
+"texture": ExtResource("6_ypyxl")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f04")
+"texture": ExtResource("7_l1lhe")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f05")
+"texture": ExtResource("8_tr5r6")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f06")
+"texture": ExtResource("9_63iab")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f07")
+"texture": ExtResource("10_txtd0")
 }, {
 "duration": 1.0,
-"texture": SubResource("dea_f08")
+"texture": ExtResource("11_if1kq")
 }],
 "loop": false,
 "name": &"deactivate",
@@ -114,54 +108,49 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("idl_f00")
+"texture": ExtResource("4_7q3n1")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f01")
+"texture": ExtResource("5_ve4dy")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f02")
+"texture": ExtResource("6_6cqtd")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f03")
+"texture": ExtResource("7_72u1q")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f04")
+"texture": ExtResource("8_242wp")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f05")
+"texture": ExtResource("9_mt2lr")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f06")
+"texture": ExtResource("10_plsoy")
 }, {
 "duration": 1.0,
-"texture": SubResource("idl_f07")
+"texture": ExtResource("11_cvyuw")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lblock"]
-size = Vector2(4, 64)
+size = Vector2(47, 88)
 
-[node name="TimedLaser" type="StaticBody2D"]
+[node name="TimedLaser" type="StaticBody2D" unique_id=623635020]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_timed")
-on_duration = 2.0
-off_duration = 1.5
-start_active = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=958489122]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_laser01")
-animation = &"idle"
-autoplay = "idle"
+animation = &"deactivate"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=569716606]
+position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_lblock")
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = false
+[node name="Timer" type="Timer" parent="." unique_id=565266559]

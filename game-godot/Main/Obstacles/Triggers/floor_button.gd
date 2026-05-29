@@ -11,7 +11,8 @@ signal deactivated
 
 # --- State ---
 var is_pressed: bool = false
-var _body_count: int = 0
+## Tracks which bodies are currently pressing the button.
+var _pressing_bodies: Array[Node] = []
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _collision: CollisionShape2D = $CollisionShape2D
@@ -23,18 +24,36 @@ func _ready() -> void:
 	_update_visuals()
 
 
-func _on_body_entered(_body: Node2D) -> void:
-	_body_count += 1
+func _on_body_entered(body: Node2D) -> void:
+	# Only count physics bodies that are on the ground (not a held cube floating in air).
+	if _is_valid_presser(body):
+		if not _pressing_bodies.has(body):
+			_pressing_bodies.append(body)
+		_evaluate_state()
+
+
+func _on_body_exited(body: Node2D) -> void:
+	_pressing_bodies.erase(body)
 	_evaluate_state()
 
 
-func _on_body_exited(_body: Node2D) -> void:
-	_body_count = max(0, _body_count - 1)
-	_evaluate_state()
+## Returns true if this body should count as pressing the button.
+func _is_valid_presser(body: Node2D) -> bool:
+	# Player always counts.
+	if body.is_in_group("player"):
+		return true
+	# GrabbableCube counts ONLY when not held (dropped/resting on button).
+	if body is GrabbableCube:
+		return not body.is_held
+	# Any other physics body on the correct layers counts.
+	return body is CharacterBody2D or body is RigidBody2D
 
 
 func _evaluate_state() -> void:
-	var should_be_pressed := _body_count > 0
+	# Clean up any bodies that are now held (picked back up mid-press).
+	_pressing_bodies = _pressing_bodies.filter(func(b): return is_instance_valid(b) and _is_valid_presser(b))
+
+	var should_be_pressed := _pressing_bodies.size() > 0
 
 	if should_be_pressed == is_pressed:
 		return  # No change.

@@ -2,10 +2,11 @@ class_name TimedLaser
 extends LaserBarrier
 
 ## Time in seconds the laser stays ON.
-@export var on_duration: float = 2.0
+## Set to 0 to disable self-cycling (floor-button-only mode).
+@export var on_duration: float = 0.0
 ## Time in seconds the laser stays OFF.
-@export var off_duration: float = 1.5
-## If true, laser starts in the ON state and cycles from there.
+@export var off_duration: float = 0.0
+## If true, laser starts in the ON state.
 @export var start_active: bool = true
 
 @onready var _timer: Timer = $Timer
@@ -13,8 +14,10 @@ extends LaserBarrier
 
 func _ready() -> void:
 	super._ready()  # Snap initial state first.
-	_timer.timeout.connect(_on_timer_timeout)
-	_begin_cycle()
+	# Only self-cycle if on_duration is set. Zero = floor-button-only.
+	if on_duration > 0.0:
+		_timer.timeout.connect(_on_timer_timeout)
+		_begin_cycle()
 
 
 func _begin_cycle() -> void:

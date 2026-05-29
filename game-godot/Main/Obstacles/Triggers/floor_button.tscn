@@ -1,18 +1,23 @@
-[gd_scene format=3 uid="uid://floor_button_01"]
+[gd_scene format=3 uid="uid://cgfh0i6fcp6f5"]
 
-[ext_resource type="Script" path="res://Main/Obstacles/Triggers/floor_button.gd" id="1_btn01"]
+[ext_resource type="Script" uid="uid://c5q63ng6vi6kw" path="res://Main/Obstacles/Triggers/floor_button.gd" id="1_btn01"]
+[ext_resource type="Texture2D" uid="uid://cw1i3n53g7x8s" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_deactivate/tile008.png" id="2_jiely"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btn01"]
-size = Vector2(32, 8)
+size = Vector2(50, 16)
 
-[node name="FloorButton" type="Area2D"]
+[node name="FloorButton" type="Area2D" unique_id=1090625400 groups=["floor_button"]]
 collision_layer = 8
-collision_mask = 5
+collision_mask = 7
 script = ExtResource("1_btn01")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2031802087]
+position = Vector2(0, -1)
+scale = Vector2(4, 2.976)
+texture = ExtResource("2_jiely")
+region_enabled = true
+region_rect = Rect2(8.861752, 26.930275, 12.350706, 5.069725)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803871786]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_btn01")

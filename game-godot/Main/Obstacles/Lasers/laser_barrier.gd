@@ -16,13 +16,39 @@ var current_activations: int = 0
 @onready var _collision : CollisionShape2D = $CollisionShape2D
 ## ColorRect beam — legacy fallback when no AnimatedSprite2D child is present.
 @onready var _beam      : ColorRect        = $Beam if has_node("Beam") else null
-## AnimatedSprite2D — preferred visual using the tilemap spritesheets.
+## AnimatedSprite2D — the obstacle's visual, always visible, never hidden.
 @onready var _sprite    : AnimatedSprite2D = $AnimatedSprite2D if has_node("AnimatedSprite2D") else null
+
+## Tracks which state the laser is settling into so the finished signal knows what to do next.
+var _pending_state: StringName = &""
 
 
 func _ready() -> void:
-	# Snap collision state to the exported flag — prevents editor/runtime desyncs.
-	_apply_state(is_active)
+	_collision.set_deferred("disabled", !is_active)
+
+	if _sprite and _sprite.sprite_frames:
+		_sprite.visible = true
+		_sprite.animation_finished.connect(_on_sprite_anim_finished)
+
+		if is_active:
+			# Jump directly to the last frame of idle — no animation plays on startup.
+			# Activation animation only plays when triggered at runtime.
+			var anim := &"idle"
+			if _sprite.sprite_frames.has_animation(anim):
+				_sprite.animation = anim
+				_sprite.frame = _sprite.sprite_frames.get_frame_count(anim) - 1
+				_sprite.stop()
+		else:
+			# Jump to the last frame of deactivate — laser starts off, no animation.
+			var anim := &"deactivate"
+			if _sprite.sprite_frames.has_animation(anim):
+				_sprite.animation = anim
+				_sprite.frame = _sprite.sprite_frames.get_frame_count(anim) - 1
+				_sprite.stop()
+
+	if _beam:
+		_beam.visible = is_active
+		_beam.modulate = Color(0.2, 0.9, 1.0, 0.85) if is_active else Color(1, 1, 1, 0)
 
 
 ## Called by FloorButton (or any external trigger) to activate/deactivate the laser.
@@ -48,37 +74,42 @@ func toggle_state() -> void:
 
 
 func _apply_state(active: bool) -> void:
-	# Defer collision changes so they happen safely outside the physics step.
 	_collision.set_deferred("disabled", !active)
 
 	if active:
 		laser_enabled.emit()
-		_play_anim(&"activate")
+		# Turning ON: play activate once → then play idle once → freeze.
+		_pending_state = &"activate_to_idle"
+		_safe_play(&"activate")
+		_set_beam_visible(true)
 	else:
 		laser_disabled.emit()
-		_play_anim(&"deactivate")
+		# Turning OFF: play deactivate once → freeze on last frame.
+		_pending_state = &"off_done"
+		_safe_play(&"deactivate")
+		_set_beam_visible(false)
 
 
-## Plays a named animation on the AnimatedSprite2D if it exists and has the animation.
-## Falls back to showing/hiding the legacy ColorRect beam.
-func _play_anim(anim_name: StringName) -> void:
-	if _sprite and _sprite.sprite_frames:
-		if _sprite.sprite_frames.has_animation(anim_name):
-			_sprite.play(anim_name)
-			# After the one-shot transition, settle into the looping idle.
-			if not _sprite.animation_finished.is_connected(_on_sprite_anim_finished):
-				_sprite.animation_finished.connect(_on_sprite_anim_finished)
-			return
-	# Legacy ColorRect fallback.
-	_set_beam_visible(anim_name == &"activate")
+## Plays an animation only if the SpriteFrames resource has it.
+func _safe_play(anim_name: StringName) -> void:
+	if _sprite and _sprite.sprite_frames and _sprite.sprite_frames.has_animation(anim_name):
+		_sprite.play(anim_name)
 
 
 func _on_sprite_anim_finished() -> void:
-	var current := _sprite.animation
-	if current == &"activate" and _sprite.sprite_frames.has_animation(&"idle"):
-		_sprite.play(&"idle")
-	elif current == &"deactivate" and _sprite.sprite_frames.has_animation(&"idle_off"):
-		_sprite.play(&"idle_off")
+	match _pending_state:
+		&"activate_to_idle":
+			# activate finished → play idle once → freeze.
+			_pending_state = &"idle_done"
+			_safe_play(&"idle")
+
+		&"idle_done":
+			# idle finished → freeze on last frame (laser stays ON, no more playing).
+			_sprite.stop()
+
+		&"off_done":
+			# deactivate finished → freeze on last frame (laser stays OFF).
+			_sprite.stop()
 
 
 func _set_beam_visible(visible_state: bool) -> void:

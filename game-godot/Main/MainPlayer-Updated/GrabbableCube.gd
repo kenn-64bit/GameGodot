@@ -25,6 +25,8 @@ func grab(by: Node2D) -> void:
 	freeze        = false
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 	set_collision_mask_value(1, false)
+	# If resting on a floor button, notify it we've been picked up.
+	_notify_buttons_recheck()
 
 func drop(throw_vel: Vector2 = Vector2.ZERO) -> void:
 	is_held       = false
@@ -37,6 +39,17 @@ func drop(throw_vel: Vector2 = Vector2.ZERO) -> void:
 		linear_velocity = throw_vel
 	else:
 		linear_velocity = Vector2.ZERO
+
+## Tells any overlapping FloorButtons to re-evaluate (e.g. cube was picked up while on button).
+func _notify_buttons_recheck() -> void:
+	# Use a short deferred call so Area2D overlaps are still valid.
+	call_deferred("_do_button_recheck")
+
+func _do_button_recheck() -> void:
+	var buttons := get_tree().get_nodes_in_group("floor_button")
+	for btn in buttons:
+		if btn.has_method("_evaluate_state"):
+			btn._evaluate_state()
 
 func update_hold_position(target_pos: Vector2) -> void:
 	_hold_target = target_pos

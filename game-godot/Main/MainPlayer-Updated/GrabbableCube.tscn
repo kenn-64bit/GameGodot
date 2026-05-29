@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bnqxb4xjm1vju"]
 
 [ext_resource type="Script" uid="uid://dgkrginplmtu" path="res://Main/MainPlayer-Updated/GrabbableCube.gd" id="1_u1fci"]
+[ext_resource type="Texture2D" uid="uid://b5x3w4fhnu6lu" path="res://assets/block_love.png" id="2_ew818"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cube"]
 size = Vector2(24, 24)
@@ -16,8 +17,9 @@ angular_damp = 20.0
 script = ExtResource("1_u1fci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=677990511]
+scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_cube")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2065004353]
-modulate = Color(0.8, 0.6, 0.2, 1)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.031666517, 0.031666517)
+texture = ExtResource("2_ew818")
