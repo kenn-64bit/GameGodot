@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://btimed1laser01"]
+
+[ext_resource type="Script" uid="uid://dih2ocxv5b3yn" path="res://Main/Obstacles/Lasers/timed_laser.gd" id="1_timed"]
+[ext_resource type="Texture2D" uid="uid://b0pfmwgfujtwf" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_activate.png" id="2_act"]
+[ext_resource type="Texture2D" uid="uid://di7unjmruak1m" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_deactivate.png" id="3_deact"]
+[ext_resource type="Texture2D" uid="uid://biaiqmhfoj442" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/laser_idle.png" id="4_idle"]
+
+[sub_resource type="AtlasTexture" id="act_f00"] atlas = ExtResource("2_act") region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f01"] atlas = ExtResource("2_act") region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f02"] atlas = ExtResource("2_act") region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f03"] atlas = ExtResource("2_act") region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f04"] atlas = ExtResource("2_act") region = Rect2(64, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f05"] atlas = ExtResource("2_act") region = Rect2(80, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f06"] atlas = ExtResource("2_act") region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f07"] atlas = ExtResource("2_act") region = Rect2(112, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f08"] atlas = ExtResource("2_act") region = Rect2(128, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f09"] atlas = ExtResource("2_act") region = Rect2(144, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f10"] atlas = ExtResource("2_act") region = Rect2(160, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="act_f11"] atlas = ExtResource("2_act") region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="dea_f00"] atlas = ExtResource("3_deact") region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f01"] atlas = ExtResource("3_deact") region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f02"] atlas = ExtResource("3_deact") region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f03"] atlas = ExtResource("3_deact") region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f04"] atlas = ExtResource("3_deact") region = Rect2(64, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f05"] atlas = ExtResource("3_deact") region = Rect2(80, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f06"] atlas = ExtResource("3_deact") region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f07"] atlas = ExtResource("3_deact") region = Rect2(112, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="dea_f08"] atlas = ExtResource("3_deact") region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="idl_f00"] atlas = ExtResource("4_idle") region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f01"] atlas = ExtResource("4_idle") region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f02"] atlas = ExtResource("4_idle") region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f03"] atlas = ExtResource("4_idle") region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f04"] atlas = ExtResource("4_idle") region = Rect2(64, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f05"] atlas = ExtResource("4_idle") region = Rect2(80, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f06"] atlas = ExtResource("4_idle") region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="idl_f07"] atlas = ExtResource("4_idle") region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_laser01"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("act_f00")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f01")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f02")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f03")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f04")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f05")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f06")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f07")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f08")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f09")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f10")
+}, {
+"duration": 1.0,
+"texture": SubResource("act_f11")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("dea_f00")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f01")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f02")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f03")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f04")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f05")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f06")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f07")
+}, {
+"duration": 1.0,
+"texture": SubResource("dea_f08")
+}],
+"loop": false,
+"name": &"deactivate",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("idl_f00")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f01")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f02")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f03")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f04")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f05")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f06")
+}, {
+"duration": 1.0,
+"texture": SubResource("idl_f07")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lblock"]
+size = Vector2(4, 64)
+
+[node name="TimedLaser" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_timed")
+on_duration = 2.0
+off_duration = 1.5
+start_active = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_laser01")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_lblock")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = false

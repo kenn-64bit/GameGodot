@@ -33,7 +33,9 @@
 [ext_resource type="Texture2D" uid="uid://dlxt53arcmvfx" path="res://assets/Doors/Door 1/25.png" id="29_0y3kw"]
 [ext_resource type="Texture2D" uid="uid://b4w5aiy8r5c4t" path="res://assets/Doors/Door 1/26.png" id="30_bogk8"]
 [ext_resource type="Texture2D" uid="uid://csr6th0y3ockf" path="res://assets/Doors/Door 1/27.png" id="31_jqp6d"]
+[ext_resource type="PackedScene" uid="uid://dapahcqg7f2m4" path="res://Main/MainPlayer-Updated/TESTplayer.tscn" id="35_5ppg0"]
 [ext_resource type="Texture2D" uid="uid://barxofu0se8s8" path="res://assets/Iron TileMap/Assets_area_1/Background/subway_BG.png" id="36_0ylfd"]
+[ext_resource type="PackedScene" uid="uid://cvsvtyel0pb3g" path="res://Main/Obstacles/Lasers/laser_barrier.tscn" id="36_fvcr5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_x28hv")
@@ -5203,6 +5205,14 @@ script = SubResource("GDScript_vhq6d")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit/Area2D" unique_id=673835753]
 position = Vector2(1763, -778)
 shape = SubResource("RectangleShape2D_rjv46")
+
+[node name="Player" parent="." unique_id=1150284336 instance=ExtResource("35_5ppg0")]
+position = Vector2(726, 167)
+
+[node name="LaserBarrier" parent="." unique_id=1034328750 instance=ExtResource("36_fvcr5")]
+position = Vector2(3392.0002, -65.99999)
+rotation = -1.5707964
+scale = Vector2(1.836522, 4.5000434)
 
 [connection signal="body_entered" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_exited"]

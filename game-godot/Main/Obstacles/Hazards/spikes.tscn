@@ -4,21 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://b3n5kedm5qo6s" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Traps/Individual_PNGs/laser_spikes_activate/tile009.png" id="2_7o4l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes01"]
-size = Vector2(28, 12)
+size = Vector2(126, 55)
 
 [node name="Spikes" type="Area2D" unique_id=885352882]
 collision_layer = 16
 script = ExtResource("1_spikes01")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1186856969]
+scale = Vector2(4, 4)
+texture = ExtResource("2_7o4l6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89662441]
-position = Vector2(0, 2)
+position = Vector2(-1, 21.5)
 shape = SubResource("RectangleShape2D_spikes01")
-
-[node name="Timer" type="Timer" parent="." unique_id=793810645]
-wait_time = 2.0
-
-[node name="Tile009" type="Sprite2D" parent="." unique_id=1351339853]
-position = Vector2(0, -2)
-texture = ExtResource("2_7o4l6")

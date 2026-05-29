@@ -459,6 +459,24 @@ func take_damage(hazard_position: Vector2 = Vector2.ZERO) -> void:
 	is_dashing = false
 
 
+## Called by Spike hazards — subtracts 1 life and always teleports the player
+## back to the level start (_spawn_global) rather than near the hazard.
+func take_spike_damage() -> void:
+	if hazard_death_timer > 0:
+		return
+	hazard_death_timer = hazard_death_cooldown
+	lives = max(lives - 1, 0)
+	_sync_gui()
+	if lives <= 0:
+		die()
+		return
+	# Always return to the level start on a spike hit.
+	global_position = _spawn_global
+	velocity        = Vector2.ZERO
+	is_dashing      = false
+
+
+
 ## Called when all lives are gone. Resets to spawn point and emits all_lives_lost.
 func die() -> void:
 	lives           = 0
