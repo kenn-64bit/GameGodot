@@ -26,6 +26,8 @@ func _process(delta: float) -> void:
 	for body in finished:
 		_cooldowns.erase(body)
 
+	# _pending_held is no longer used for held cubes (they teleport immediately),
+	# but keep the drain loop so any stale entries from old saves don't accumulate.
 	var still_pending : Array = []
 	for body in _pending_held:
 		if not is_instance_valid(body):
@@ -47,8 +49,8 @@ func _on_body_entered(body: Node2D) -> void:
 	_try_teleport_body(body)
 
 func _on_body_exited(body: Node2D) -> void:
-	if not body.get("is_held"):
-		_pending_held.erase(body)
+	# Held cubes are no longer queued in _pending_held, so this is just cleanup.
+	_pending_held.erase(body)
 
 func _try_teleport_body(body: Node2D) -> void:
 	if _cooldowns.has(body):
@@ -60,8 +62,9 @@ func _try_teleport_body(body: Node2D) -> void:
 
 	if body is RigidBody2D:
 		if body.get("is_held"):
-			if not _pending_held.has(body):
-				_pending_held.append(body)
+			# Fix #1: teleport held cubes immediately instead of deferring forever.
+			# The player's _update_held_object_position() re-anchors on the next frame.
+			_teleport_held_rigidbody(body as RigidBody2D)
 			return
 		_teleport_rigidbody(body as RigidBody2D)
 	elif body is CharacterBody2D and body.is_in_group("player"):
@@ -78,14 +81,40 @@ func _teleport_rigidbody(body: RigidBody2D) -> void:
 	if exit_vel.length() < 20.0:
 		exit_vel = linked_portal.surface_normal * 60.0
 
+	# Freeze the body for one physics frame so the engine places it cleanly
+	# at exit_pos before velocity is applied, preventing geometry clip-through.
+	body.freeze          = true
 	body.global_position = exit_pos
-	body.linear_velocity = exit_vel
+	body.linear_velocity = Vector2.ZERO
 
 	_set_cooldown(body)
 	linked_portal._set_cooldown(body)
 
 	_pending_held.erase(body)
 	linked_portal._pending_held.erase(body)
+
+	# Unfreeze and apply exit velocity on the next frame.
+	var captured_vel := exit_vel
+	call_deferred("_apply_teleport_velocity", body, captured_vel)
+
+## Teleports a cube through the portal while it is still held by the player.
+## The cube is snapped to the exit position; the player's hold-update loop
+## immediately re-anchors it to the correct hand position on the next frame.
+func _teleport_held_rigidbody(body: RigidBody2D) -> void:
+	var exit_pos : Vector2 = linked_portal.global_position \
+							  + linked_portal.surface_normal * 60.0
+	body.freeze          = true
+	body.global_position = exit_pos
+	body.linear_velocity = Vector2.ZERO
+	_set_cooldown(body)
+	linked_portal._set_cooldown(body)
+	_pending_held.erase(body)
+	linked_portal._pending_held.erase(body)
+	call_deferred("_unfreeze_body", body)
+
+func _unfreeze_body(body: RigidBody2D) -> void:
+	if is_instance_valid(body):
+		body.freeze = false
 
 func _teleport_player(player: CharacterBody2D) -> void:
 	var exit_pos   : Vector2 = linked_portal.global_position \
@@ -100,7 +129,8 @@ func _teleport_player(player: CharacterBody2D) -> void:
 	if player.get("is_holding_object") and player.get("held_object"):
 		var held = player.held_object
 		if held and is_instance_valid(held):
-			held.global_position = exit_pos + linked_portal.surface_normal * 30.0
+			# Use 60 px clearance so the cube exits well clear of the portal mouth.
+			held.global_position = exit_pos + linked_portal.surface_normal * 60.0
 			if held is RigidBody2D:
 				held.linear_velocity = exit_vel
 			_set_cooldown(held)
@@ -108,6 +138,13 @@ func _teleport_player(player: CharacterBody2D) -> void:
 
 	_set_cooldown(player)
 	linked_portal._set_cooldown(player)
+
+
+## Applied one frame after _teleport_rigidbody to prevent position-snap clip-through.
+func _apply_teleport_velocity(body: RigidBody2D, vel: Vector2) -> void:
+	if is_instance_valid(body):
+		body.freeze          = false
+		body.linear_velocity = vel
 
 func _set_cooldown(body: Node2D) -> void:
 	_cooldowns[body] = TELEPORT_COOLDOWN
@@ -127,10 +164,12 @@ func _poll_grabbable_overlap() -> void:
 			continue
 		if _cooldowns.has(body) or linked_portal._cooldowns.has(body):
 			continue
-		if body.get("is_held"):
-			continue
 		var to_body : Vector2 = (body as Node2D).global_position - global_position
 		var along   : float   = abs(to_body.dot(right_axis))
 		var depth   : float   = abs(to_body.dot(up_axis))
 		if along <= half_along and depth <= half_depth:
-			_teleport_rigidbody(body as RigidBody2D)
+			# Fix #1: held cubes are now teleported immediately, not deferred.
+			if body.get("is_held"):
+				_teleport_held_rigidbody(body as RigidBody2D)
+			else:
+				_teleport_rigidbody(body as RigidBody2D)

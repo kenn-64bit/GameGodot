@@ -6,6 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cube"]
 size = Vector2(24, 24)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grab"]
+size = Vector2(40, 40)
+
 [node name="GrabbableCube" type="RigidBody2D" unique_id=153491751 groups=["Grabbable"]]
 collision_layer = 2
 collision_mask = 3
@@ -23,3 +26,13 @@ shape = SubResource("RectangleShape2D_cube")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2065004353]
 scale = Vector2(0.031666517, 0.031666517)
 texture = ExtResource("2_ew818")
+
+[node name="GrabArea" type="Area2D" parent="." unique_id=100000001 groups=["GrabZone"]]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="GrabAreaShape" type="CollisionShape2D" parent="GrabArea" unique_id=100000002]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_grab")

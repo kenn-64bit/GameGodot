@@ -25,7 +25,6 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# Only count physics bodies that are on the ground (not a held cube floating in air).
 	if _is_valid_presser(body):
 		if not _pressing_bodies.has(body):
 			_pressing_bodies.append(body)
@@ -42,15 +41,17 @@ func _is_valid_presser(body: Node2D) -> bool:
 	# Player always counts.
 	if body.is_in_group("player"):
 		return true
-	# GrabbableCube counts ONLY when not held (dropped/resting on button).
+	# Fix #4/#5: GrabbableCube counts whether held or not.
+	# A held cube carried at waist-height over the button presses it;
+	# de-press happens via body_exited when the cube physically leaves the area.
 	if body is GrabbableCube:
-		return not body.is_held
+		return true
 	# Any other physics body on the correct layers counts.
 	return body is CharacterBody2D or body is RigidBody2D
 
 
 func _evaluate_state() -> void:
-	# Clean up any bodies that are now held (picked back up mid-press).
+	# Remove only freed/invalid bodies; physical exit (body_exited) handles the rest.
 	_pressing_bodies = _pressing_bodies.filter(func(b): return is_instance_valid(b) and _is_valid_presser(b))
 
 	var should_be_pressed := _pressing_bodies.size() > 0

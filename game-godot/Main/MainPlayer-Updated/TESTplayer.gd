@@ -157,7 +157,7 @@ func _physics_process(delta: float) -> void:
 		_update_animations(0.0)
 		return
 
-	if is_on_floor():
+	if _is_grounded():
 		coyote_timer = COYOTE_TIME
 	else:
 		coyote_timer -= delta
@@ -221,8 +221,15 @@ func _aim_gun_at_mouse() -> void:
 
 
 func shoot_portal(is_portal_a: bool) -> void:
-	var space_state := get_world_2d().direct_space_state
 	var ray_origin  := _get_barrel_position()
+
+	# ── Barrel-clip guard: don't fire if gun barrel is embedded in geometry ───
+	if _is_barrel_clipping():
+		_spawn_fizzle(ray_origin)
+		_portal_shoot_cooldown = PORTAL_SHOOT_COOLDOWN
+		return
+
+	var space_state := get_world_2d().direct_space_state
 	var mouse_pos   : Vector2 = get_global_mouse_position()
 	var ray_dir     : Vector2 = (mouse_pos - ray_origin).normalized()
 	var ray_end     : Vector2 = ray_origin + ray_dir * PORTAL_RAY_LEN
@@ -243,6 +250,13 @@ func shoot_portal(is_portal_a: bool) -> void:
 	var hit_pos      : Vector2 = result["position"]
 	var hit_normal   : Vector2 = result["normal"]
 	var hit_collider           = result["collider"]
+
+	# ── Pre-fire surface checks (fizzle before laser so feedback is instant) ──
+	if not _is_portal_surface_valid(hit_normal) or \
+	   not _is_portal_surface_large_enough(space_state, hit_pos, hit_normal):
+		_spawn_fizzle(hit_pos)
+		_portal_shoot_cooldown = PORTAL_SHOOT_COOLDOWN
+		return
 
 	if _muzzle_flash and is_instance_valid(_muzzle_flash):
 		_muzzle_flash.restart()
@@ -320,6 +334,73 @@ func _spawn_fizzle(pos: Vector2) -> void:
 	)
 
 
+## ── Portal-gun validation helpers ───────────────────────────────────────────
+
+## Returns true if a short ray from the player body to the barrel hits geometry,
+## meaning the gun model is clipping into a wall and a portal should not fire.
+func _is_barrel_clipping() -> bool:
+	if not gun_arm:
+		return false
+	var space_state := get_world_2d().direct_space_state
+	var body_pos    : Vector2 = global_position
+	var barrel_pos  : Vector2 = _get_barrel_position()
+	var exclusions  : Array[RID] = [get_rid()]
+	if held_object and is_instance_valid(held_object):
+		exclusions.append(held_object.get_rid())
+	var q := PhysicsRayQueryParameters2D.create(body_pos, barrel_pos)
+	q.collide_with_areas  = false
+	q.collide_with_bodies = true
+	q.exclude             = exclusions
+	return not space_state.intersect_ray(q).is_empty()
+
+
+## Returns true if the surface normal is close enough to a cardinal axis (~20° tolerance).
+## Rejects slanted faces where a portal would be skewed and visually wrong.
+func _is_portal_surface_valid(hit_normal: Vector2) -> bool:
+	return absf(hit_normal.x) > 0.94 or absf(hit_normal.y) > 0.94
+
+
+## Shoots two short rays along the wall surface to check that there is enough
+## unobstructed space on both sides to fit the portal's width (~58 px each side).
+func _is_portal_surface_large_enough(space_state: PhysicsDirectSpaceState2D,
+		hit_pos: Vector2, hit_normal: Vector2) -> bool:
+	const HALF_PORTAL_W : float = 58.0
+	var along          : Vector2 = Vector2(-hit_normal.y, hit_normal.x)
+	var surface_offset : Vector2 = hit_normal * 2.0  # step slightly off the surface
+	var exclusions     : Array[RID] = [get_rid()]
+	if held_object and is_instance_valid(held_object):
+		exclusions.append(held_object.get_rid())
+	for side in [along, -along]:
+		var ray_start : Vector2 = hit_pos + surface_offset
+		var ray_end   : Vector2 = ray_start + side * HALF_PORTAL_W
+		var q := PhysicsRayQueryParameters2D.create(ray_start, ray_end)
+		q.collide_with_areas  = false
+		q.collide_with_bodies = true
+		q.exclude             = exclusions
+		if not space_state.intersect_ray(q).is_empty():
+			return false  # obstruction within half-width → gap too small
+	return true
+
+
+## ── Coyote-time helper ───────────────────────────────────────────────────────
+
+## Extended floor check: uses is_on_floor() first, then falls back to a short
+## downward ray to catch sharp-corner blocks where the engine misses the contact.
+func _is_grounded() -> bool:
+	if is_on_floor():
+		return true
+	var space_state := get_world_2d().direct_space_state
+	var down_dir    := -up_direction  # points toward the floor in both gravity modes
+	var q := PhysicsRayQueryParameters2D.create(
+		global_position,
+		global_position + down_dir * 8.0
+	)
+	q.exclude             = [get_rid()]
+	q.collide_with_bodies = true
+	q.collide_with_areas  = false
+	return not space_state.intersect_ray(q).is_empty()
+
+
 func try_pickup_object() -> void:
 	var space_state := get_world_2d().direct_space_state
 	var ray_origin  : Vector2
@@ -360,6 +441,11 @@ func try_pickup_object() -> void:
 
 	if hit_collider is RigidBody2D and hit_collider.is_in_group("Grabbable"):
 		_grab_object(hit_collider)
+	# Also handle the larger GrabZone Area2D that surrounds the cube.
+	elif hit_collider is Area2D and hit_collider.is_in_group("GrabZone"):
+		var parent : Node = hit_collider.get_parent()
+		if parent is RigidBody2D and parent.is_in_group("Grabbable"):
+			_grab_object(parent as RigidBody2D)
 
 
 func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
@@ -411,8 +497,11 @@ func _update_held_object_position() -> void:
 		var barrel  : Vector2 = _get_barrel_position()
 		target_pos = barrel + aim_dir * HOLD_DISTANCE
 	else:
-		var facing := -1.0 if sprite.flip_h else 1.0
-		target_pos = global_position + Vector2(facing * HOLD_DISTANCE, -10.0)
+		# Fix #5: hold the cube BELOW and slightly forward (waist/button-press height).
+		# "down" flips with gravity so the cube always hangs toward the floor.
+		var facing : float = -1.0 if sprite.flip_h else 1.0
+		var down   : float =  1.0 if not is_upside_down else -1.0
+		target_pos = global_position + Vector2(facing * 32.0, down * 56.0)
 
 	if held_object.has_method("update_hold_position"):
 		held_object.update_hold_position(target_pos)

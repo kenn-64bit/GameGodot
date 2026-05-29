@@ -18,29 +18,43 @@ func _physics_process(_delta: float) -> void:
 			raw_vel = raw_vel.normalized() * MAX_HOLD_SPEED
 		linear_velocity = raw_vel
 
+## Grabs the cube. All collision layers/masks stay active so the cube:
+##   • cannot clip through world geometry (mask 1 stays on → CCD blocks walls)
+##   • remains detectable by Area2D triggers like floor buttons (layer 2 stays on)
+##   • remains detectable by pickup raycasts immediately if dropped and re-grabbed
+## The holder is added as a collision exception instead so it isn't pushed around.
 func grab(by: Node2D) -> void:
-	is_held    = true
-	holder     = by
+	is_held       = true
+	holder        = by
 	gravity_scale = 0.0
 	freeze        = false
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
-	set_collision_mask_value(1, false)
+	# Exclude the holder (player) from collision so the cube doesn't push them.
+	if by is PhysicsBody2D:
+		add_collision_exception_with(by)
+	z_index = -1                          # render behind the player (player is at z_index 0)
 	# If resting on a floor button, notify it we've been picked up.
 	_notify_buttons_recheck()
 
 func drop(throw_vel: Vector2 = Vector2.ZERO) -> void:
 	is_held       = false
+	# Remove the player collision exception before clearing the holder reference.
+	if holder and is_instance_valid(holder) and holder is PhysicsBody2D:
+		remove_collision_exception_with(holder)
 	holder        = null
 	gravity_scale = 2.5
 	continuous_cd = RigidBody2D.CCD_MODE_DISABLED
-	_check_portal_overlap()
-	set_collision_mask_value(1, true)
+	z_index       = 0                    # restore normal render order
+	# Collision layers were never disabled, so the cube is immediately
+	# detectable by pickup raycasts on the very next frame.
 	if throw_vel != Vector2.ZERO:
 		linear_velocity = throw_vel
 	else:
 		linear_velocity = Vector2.ZERO
+	# Defer only the portal-overlap check so physics can settle first.
+	call_deferred("_check_portal_overlap")
 
-## Tells any overlapping FloorButtons to re-evaluate (e.g. cube was picked up while on button).
+## Tells any overlapping FloorButtons to re-evaluate (e.g. cube was picked up while on button).\
 func _notify_buttons_recheck() -> void:
 	# Use a short deferred call so Area2D overlaps are still valid.
 	call_deferred("_do_button_recheck")
