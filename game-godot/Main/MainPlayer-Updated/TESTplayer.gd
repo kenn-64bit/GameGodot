@@ -188,6 +188,7 @@ func _physics_process(delta: float) -> void:
 
 func toggle_gun_equip() -> void:
 	is_gun_equipped = !is_gun_equipped
+	_sync_gui()
 
 	if not gun_arm:
 		return
@@ -578,8 +579,11 @@ func die() -> void:
 
 ## Safe wrapper — calls gui.update_hearts() if the GUI node is available.
 func _sync_gui() -> void:
-	if gui and is_instance_valid(gui) and gui.has_method("update_hearts"):
-		gui.update_hearts(lives)
+	if gui and is_instance_valid(gui):
+		if gui.has_method("update_hearts"):
+			gui.update_hearts(lives)
+		if gui.has_method("set_gun_icon_visible"):
+			gui.set_gun_icon_visible(is_gun_equipped)
 
 
 func handle_hazard_death(hazard_position: Vector2, wipe_all_lives: bool = false) -> void:

@@ -20,3 +20,8 @@ func update_hearts(current_lives: int) -> void:
 			hearts[i].texture = texture_full
 		else:
 			hearts[i].texture = texture_grey
+
+## Shows or hides the gun icon in the bottom right corner.
+func set_gun_icon_visible(visible_state: bool) -> void:
+	if has_node("HBoxContainer2"):
+		$HBoxContainer2.visible = visible_state

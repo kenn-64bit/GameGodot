@@ -45,6 +45,7 @@ func _ready() -> void:
 				_sprite.animation = anim
 				_sprite.frame = _sprite.sprite_frames.get_frame_count(anim) - 1
 				_sprite.stop()
+				_sprite.visible = false
 
 	if _beam:
 		_beam.visible = is_active
@@ -77,6 +78,8 @@ func _apply_state(active: bool) -> void:
 	_collision.set_deferred("disabled", !active)
 
 	if active:
+		if _sprite:
+			_sprite.visible = true
 		laser_enabled.emit()
 		# Turning ON: play activate once → then play idle once → freeze.
 		_pending_state = &"activate_to_idle"
@@ -110,6 +113,7 @@ func _on_sprite_anim_finished() -> void:
 		&"off_done":
 			# deactivate finished → freeze on last frame (laser stays OFF).
 			_sprite.stop()
+			_sprite.visible = false
 
 
 func _set_beam_visible(visible_state: bool) -> void:
