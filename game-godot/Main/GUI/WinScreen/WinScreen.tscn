@@ -1,48 +1,60 @@
-[gd_scene format=3 uid="uid://win_screen_v1"]
+[gd_scene format=3 uid="uid://020b8n0iddkf"]
 
-[ext_resource type="Script" path="res://Main/GUI/WinScreen/win_screen.gd" id="1_win"]
+[ext_resource type="Script" uid="uid://bjcyu13r0bcdq" path="res://Main/GUI/WinScreen/win_screen.gd" id="1_win"]
+[ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="2_vmu83"]
+[ext_resource type="FontFile" uid="uid://del8ktkor8vp2" path="res://assets/font/Vaticanus/Web Open Font Format (.woff)/Vaticanus.woff" id="3_qgha2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
-bg_color = Color(0.04, 0.04, 0.08, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_qgha2"]
+font = ExtResource("2_vmu83")
+font_size = 130
+
+[sub_resource type="LabelSettings" id="LabelSettings_vmu83"]
+font = ExtResource("3_qgha2")
+font_size = 34
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
-bg_color = Color(0.18, 0.6, 1.0, 1)
+content_margin_left = 24.0
+content_margin_top = 10.0
+content_margin_right = 24.0
+content_margin_bottom = 10.0
+bg_color = Color(0.18, 0.6, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-content_margin_left = 24.0
-content_margin_right = 24.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(0.3, 0.75, 1.0, 1)
+content_margin_left = 24.0
+content_margin_top = 10.0
+content_margin_right = 24.0
+content_margin_bottom = 10.0
+bg_color = Color(0.3, 0.75, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-content_margin_left = 24.0
-content_margin_right = 24.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
 
-[node name="WinScreen" type="Control"]
+[node name="WinScreen" type="Control" unique_id=2110042445]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_win")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1254316230]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.04, 0.04, 0.08, 1)
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="." unique_id=504401249]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -54,23 +66,25 @@ offset_bottom = 120.0
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="WinLabel" type="Label" parent="VBox"]
+[node name="WinLabel" type="Label" parent="VBox" unique_id=78355812]
 layout_mode = 2
-text = "YOU WIN!"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.92, 0.22, 1)
 theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(1.0, 0.92, 0.22, 1)
-
-[node name="SubLabel" type="Label" parent="VBox"]
-layout_mode = 2
-text = "You've made it through all the doors."
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_qgha2")
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.8, 0.9, 1.0, 1)
 
-[node name="RestartButton" type="Button" parent="VBox"]
+[node name="SubLabel" type="Label" parent="VBox" unique_id=694458261]
 layout_mode = 2
-text = "Play Again"
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "You've escaped all the doors!"
+label_settings = SubResource("LabelSettings_vmu83")
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBox" unique_id=1060059027]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_font_sizes/font_size = 18
+text = "Play Again"

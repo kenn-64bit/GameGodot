@@ -20,12 +20,12 @@ config/icon="res://icon.svg"
 PauseMenu="*res://Main/GUI/PauseMenu/PauseMenu.tscn"
 CursorManager="*res://Main/GUI/cursor_manager.gd"
 SfxManager="*res://Main/sfx_manager.gd"
+CRTEffect="*res://Main/Effects/CRTEffect/CRTEffect.tscn"
 
 [display]
 
 window/size/mode=3
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [file_customization]
 

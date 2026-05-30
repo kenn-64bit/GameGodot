@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d1x6y31aq8w5p"]
+
+[ext_resource type="Shader" uid="uid://btbu3f1037cv2" path="res://Main/Effects/CRTEffect/crt_shader.gdshader" id="1_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("1_shader")
+shader_parameter/warp_amount = 1.0
+shader_parameter/scanline_opacity = 0.5
+shader_parameter/scanline_width = 0.25
+shader_parameter/vignette_intensity = 0.1
+shader_parameter/vignette_opacity = 0.1
+shader_parameter/blur_amount = 0.3
+
+[node name="CRTEffect" type="CanvasLayer" unique_id=1365215507]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1433229728]
+material = SubResource("ShaderMaterial_crt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
