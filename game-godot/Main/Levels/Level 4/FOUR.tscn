@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="10_xgw2j"]
 [ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="11_b5tb8"]
 [ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="12_vk5ni"]
+[ext_resource type="PackedScene" uid="uid://cx74dppevtevy" path="res://Main/Obstacles/Tech Hazards/TECHspikes.tscn" id="13_exvcc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnfp4"]
 texture = ExtResource("1_02fas")
@@ -633,3 +634,34 @@ position = Vector2(1431, 519)
 
 [node name="FloorButton4" parent="obstacles" unique_id=62117655 instance=ExtResource("12_vk5ni")]
 position = Vector2(380, 1908)
+
+[node name="Spikes" parent="." unique_id=885352882 instance=ExtResource("13_exvcc")]
+position = Vector2(1160, 2767)
+
+[node name="Spikes6" parent="." unique_id=2031101783 instance=ExtResource("13_exvcc")]
+position = Vector2(1678, -271)
+rotation = 1.5707964
+
+[node name="Spikes8" parent="." unique_id=2103711111 instance=ExtResource("13_exvcc")]
+position = Vector2(2037, -270)
+rotation = 4.712389
+
+[node name="Spikes7" parent="." unique_id=1422744566 instance=ExtResource("13_exvcc")]
+position = Vector2(1846, -520)
+rotation = 3.1415927
+
+[node name="Spikes2" parent="." unique_id=2105492470 instance=ExtResource("13_exvcc")]
+position = Vector2(898, 2625)
+rotation = 1.5707964
+
+[node name="Spikes4" parent="." unique_id=416867810 instance=ExtResource("13_exvcc")]
+position = Vector2(898, 2345)
+rotation = 1.5707964
+
+[node name="Spikes3" parent="." unique_id=2674147 instance=ExtResource("13_exvcc")]
+position = Vector2(1373, 2610)
+rotation = -1.5707964
+
+[node name="Spikes5" parent="." unique_id=1595363358 instance=ExtResource("13_exvcc")]
+position = Vector2(1373, 2610)
+rotation = -1.5707964

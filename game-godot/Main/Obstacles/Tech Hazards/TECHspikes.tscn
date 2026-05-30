@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cx74dppevtevy"]
+
+[ext_resource type="Script" uid="uid://iy7bxfvbunq7" path="res://Main/Obstacles/Tech Hazards/TECHspikes.gd" id="1_bmh66"]
+[ext_resource type="Texture2D" uid="uid://dgt0eh0yqpuan" path="res://assets/TechoRocks.png" id="2_gvfq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hul6"]
+atlas = ExtResource("2_gvfq6")
+region = Rect2(595.2052, 65.94876, 617.74365, 442.35904)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes01"]
+size = Vector2(393, 158)
+
+[node name="Spikes" type="Area2D" unique_id=885352882]
+collision_layer = 16
+script = ExtResource("1_bmh66")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1204569346]
+position = Vector2(-7, -56)
+rotation = -3.1415927
+scale = Vector2(0.6181885, 0.58305866)
+texture = SubResource("AtlasTexture_7hul6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89662441]
+position = Vector2(2.5, -16)
+shape = SubResource("RectangleShape2D_spikes01")
