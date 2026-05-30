@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="11_b5tb8"]
 [ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="12_vk5ni"]
 [ext_resource type="PackedScene" uid="uid://cx74dppevtevy" path="res://Main/Obstacles/Tech Hazards/TECHspikes.tscn" id="13_exvcc"]
+[ext_resource type="PackedScene" uid="uid://d0f0dx0loo3q5" path="res://Main/Obstacles/Doors/sliding_door.tscn" id="14_j26ha"]
+[ext_resource type="Texture2D" uid="uid://c10hlkkly06by" path="res://assets/Textures/BackgroundLite.png" id="15_q4qr0"]
+[ext_resource type="Texture2D" uid="uid://c5qh1q2wh3vc7" path="res://assets/Stalagmite BG parallax/grey_L4.png" id="16_mgkbs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnfp4"]
 texture = ExtResource("1_02fas")
@@ -578,6 +581,26 @@ sources/5 = SubResource("TileSetAtlasSource_cyait")
 sources/6 = SubResource("TileSetAtlasSource_bvw7u")
 sources/7 = SubResource("TileSetAtlasSource_oc63f")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmuth"]
+atlas = ExtResource("15_q4qr0")
+region = Rect2(1.0020905, -0.4797554, 254.99791, 256.47977)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjjky"]
+atlas = ExtResource("16_mgkbs")
+region = Rect2(299.83206, 184.27496, 254.07858, 45.60324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq1sn"]
+atlas = ExtResource("16_mgkbs")
+region = Rect2(0, 0, 168.7609, 84.38911)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dwkk"]
+atlas = ExtResource("16_mgkbs")
+region = Rect2(0, 0, 303.47147, 90.85959)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auh7a"]
+atlas = ExtResource("16_mgkbs")
+region = Rect2(0, 178.56783, 257, 71.432175)
+
 [node name="CaveLevelOne" type="Node2D" unique_id=1711430799]
 y_sort_enabled = true
 
@@ -587,7 +610,7 @@ tile_map_data = PackedByteArray("AAAAAAYAAwABAAAAAAAAAAcAAwADAAEAAAABAAYAAwACAAA
 tile_set = SubResource("TileSet_f8gmr")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("9_mgkbs")]
-position = Vector2(136, 247)
+position = Vector2(175, 265)
 
 [node name="obstacles" type="Node2D" parent="." unique_id=2063818486]
 
@@ -635,33 +658,112 @@ position = Vector2(1431, 519)
 [node name="FloorButton4" parent="obstacles" unique_id=62117655 instance=ExtResource("12_vk5ni")]
 position = Vector2(380, 1908)
 
-[node name="Spikes" parent="." unique_id=885352882 instance=ExtResource("13_exvcc")]
-position = Vector2(1160, 2767)
+[node name="Node2D" type="Node2D" parent="." unique_id=427547873]
+z_index = -4096
 
-[node name="Spikes6" parent="." unique_id=2031101783 instance=ExtResource("13_exvcc")]
+[node name="Spikes" parent="Node2D" unique_id=885352882 instance=ExtResource("13_exvcc")]
+position = Vector2(1020, 2761)
+
+[node name="Spikes9" parent="Node2D" unique_id=98597446 instance=ExtResource("13_exvcc")]
+position = Vector2(1339, 2766)
+
+[node name="Spikes6" parent="Node2D" unique_id=2031101783 instance=ExtResource("13_exvcc")]
 position = Vector2(1678, -271)
 rotation = 1.5707964
 
-[node name="Spikes8" parent="." unique_id=2103711111 instance=ExtResource("13_exvcc")]
-position = Vector2(2037, -270)
-rotation = 4.712389
+[node name="Spikes8" parent="Node2D" unique_id=2103711111 instance=ExtResource("13_exvcc")]
+position = Vector2(2008, -275)
+rotation = -1.5707964
 
-[node name="Spikes7" parent="." unique_id=1422744566 instance=ExtResource("13_exvcc")]
+[node name="Spikes7" parent="Node2D" unique_id=1422744566 instance=ExtResource("13_exvcc")]
 position = Vector2(1846, -520)
-rotation = 3.1415927
+rotation = -3.1415925
 
-[node name="Spikes2" parent="." unique_id=2105492470 instance=ExtResource("13_exvcc")]
+[node name="Spikes2" parent="Node2D" unique_id=2105492470 instance=ExtResource("13_exvcc")]
 position = Vector2(898, 2625)
 rotation = 1.5707964
 
-[node name="Spikes4" parent="." unique_id=416867810 instance=ExtResource("13_exvcc")]
+[node name="Spikes4" parent="Node2D" unique_id=416867810 instance=ExtResource("13_exvcc")]
 position = Vector2(898, 2345)
 rotation = 1.5707964
 
-[node name="Spikes3" parent="." unique_id=2674147 instance=ExtResource("13_exvcc")]
+[node name="Spikes3" parent="Node2D" unique_id=2674147 instance=ExtResource("13_exvcc")]
 position = Vector2(1373, 2610)
 rotation = -1.5707964
 
-[node name="Spikes5" parent="." unique_id=1595363358 instance=ExtResource("13_exvcc")]
+[node name="Spikes5" parent="Node2D" unique_id=1595363358 instance=ExtResource("13_exvcc")]
 position = Vector2(1373, 2610)
 rotation = -1.5707964
+
+[node name="SlidingDoor" parent="." unique_id=349159560 instance=ExtResource("14_j26ha")]
+position = Vector2(3952, 369)
+scale = Vector2(2.5, 2.5)
+door_id = 5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=171635384]
+layer = 10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1801545226]
+visible = false
+z_index = 99
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -153.0
+offset_right = 161.22217
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_tmuth")
+
+[node name="rockbottom" type="TextureRect" parent="CanvasLayer" unique_id=38421346]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -94.0
+offset_right = -6.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9999332, 3.0857334)
+texture = SubResource("AtlasTexture_hjjky")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer" unique_id=1508706213]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 642.0
+offset_right = 592.0
+offset_bottom = 642.0
+grow_vertical = 2
+rotation = -1.5707964
+scale = Vector2(1.0494992, 0.21793236)
+texture = SubResource("AtlasTexture_jq1sn")
+
+[node name="rocktop" type="TextureRect" parent="CanvasLayer" unique_id=962891189]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = -46.0
+offset_right = 5.0
+offset_bottom = 44.0
+grow_horizontal = 2
+scale = Vector2(0.9943374, 1.7205102)
+texture = SubResource("AtlasTexture_5dwkk")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer" unique_id=1113079941]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1073.0
+offset_top = 712.00006
+offset_right = 1073.0
+offset_bottom = 712.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+scale = Vector2(0.6828396, 0.19809742)
+texture = SubResource("AtlasTexture_auh7a")

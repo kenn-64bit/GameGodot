@@ -6,9 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cf8ujdpqaevtg" path="res://assets/Abyss_Tilemaps/Ground_tiles/Cave_tileset.png" id="4_y8csx"]
 [ext_resource type="Texture2D" uid="uid://4gd1st8o0hxd" path="res://assets/cave tileset pack/PNG files/CaveG.png" id="5_g1amr"]
 [ext_resource type="Texture2D" uid="uid://cied02nc7ws38" path="res://assets/Iron TileMap/Assets_area_1/Tileset/Subway_tiles.png" id="7_dkmlc"]
-[ext_resource type="PackedScene" uid="uid://d0f0dx0loo3q5" path="res://Main/Obstacles/Doors/sliding_door.tscn" id="13_n8q2p"]
-[ext_resource type="Texture2D" uid="uid://c10hlkkly06by" path="res://assets/Textures/BackgroundLite.png" id="14_eml2g"]
-[ext_resource type="Texture2D" uid="uid://c5qh1q2wh3vc7" path="res://assets/Stalagmite BG parallax/grey_L4.png" id="15_ehh3r"]
+[ext_resource type="PackedScene" path="res://Main/Obstacles/Doors/sliding_door.tscn" id="13_n8q2p"]
 [ext_resource type="PackedScene" uid="uid://dapahcqg7f2m4" path="res://Main/MainPlayer-Updated/TESTplayer.tscn" id="35_5ppg0"]
 [ext_resource type="Texture2D" uid="uid://barxofu0se8s8" path="res://assets/Iron TileMap/Assets_area_1/Background/subway_BG.png" id="36_0ylfd"]
 [ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="36_fvcr5"]
@@ -5148,26 +5146,6 @@ sources/2 = SubResource("TileSetAtlasSource_g1amr")
 sources/3 = SubResource("TileSetAtlasSource_0ylfd")
 sources/4 = SubResource("TileSetAtlasSource_6qny4")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5sa43"]
-atlas = ExtResource("14_eml2g")
-region = Rect2(1.0020905, -0.4797554, 254.99791, 256.47977)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g6028"]
-atlas = ExtResource("15_ehh3r")
-region = Rect2(299.83206, 184.27496, 254.07858, 45.60324)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xm7yi"]
-atlas = ExtResource("15_ehh3r")
-region = Rect2(0, 0, 168.7609, 84.38911)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oti5d"]
-atlas = ExtResource("15_ehh3r")
-region = Rect2(0, 0, 303.47147, 90.85959)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_abbrq"]
-atlas = ExtResource("15_ehh3r")
-region = Rect2(0, 178.56783, 257, 71.432175)
-
 [node name="CaveLevelOne" type="Node2D" unique_id=1711430799]
 y_sort_enabled = true
 
@@ -5210,7 +5188,7 @@ tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
 [node name="Beams" type="TileMapLayer" parent="." unique_id=711647250]
-z_index = -2
+z_index = -1
 y_sort_enabled = true
 scale = Vector2(4, 4)
 tile_map_data = PackedByteArray("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")
@@ -5247,75 +5225,5 @@ position = Vector2(2424, -520)
 position = Vector2(2881, -536)
 
 [node name="SlidingDoor" parent="." unique_id=1582138995 instance=ExtResource("13_n8q2p")]
-position = Vector2(1742, -773)
-scale = Vector2(2.5, 2.5)
+position = Vector2(1741, -786)
 next_scene_override = "uid://bs26oqphbls03"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1430729923]
-layer = 10
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1527766620]
-visible = false
-z_index = 99
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -157.0
-offset_top = -153.0
-offset_right = 161.22217
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_5sa43")
-
-[node name="rockbottom" type="TextureRect" parent="CanvasLayer" unique_id=32586554]
-modulate = Color(1, 0.40839687, 0.65615, 1)
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -94.0
-offset_right = -6.0
-offset_bottom = -49.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.9999332, 3.0857334)
-texture = SubResource("AtlasTexture_g6028")
-
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer" unique_id=1893406430]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = 642.0
-offset_right = 592.0
-offset_bottom = 642.0
-grow_vertical = 2
-rotation = -1.5707964
-scale = Vector2(1.0494992, 0.21793236)
-texture = SubResource("AtlasTexture_xm7yi")
-
-[node name="rocktop" type="TextureRect" parent="CanvasLayer" unique_id=189425510]
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 5.0
-offset_top = -46.0
-offset_right = 5.0
-offset_bottom = 44.0
-grow_horizontal = 2
-scale = Vector2(0.9943374, 1.7205102)
-texture = SubResource("AtlasTexture_oti5d")
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer" unique_id=2000890910]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1073.0
-offset_top = 712.00006
-offset_right = 1073.0
-offset_bottom = 712.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.5707964
-scale = Vector2(0.6828396, 0.19809742)
-texture = SubResource("AtlasTexture_abbrq")

@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="18_pk5c4"]
 [ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="19_l5a00"]
 [ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="20_6io73"]
+[ext_resource type="PackedScene" uid="uid://d0f0dx0loo3q5" path="res://Main/Obstacles/Doors/sliding_door.tscn" id="21_5nvvx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnfp4"]
 texture = ExtResource("1_46wg8")
@@ -5693,7 +5694,7 @@ tile_map_data = PackedByteArray("AAACAAAACgACAAAAAAADAAAADwAQAAkAAAAEAAAADwARAAk
 tile_set = SubResource("TileSet_f8gmr")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("16_tc4vm")]
-position = Vector2(136, 247)
+position = Vector2(3354, 433)
 
 [node name="Spikes" parent="." unique_id=885352882 instance=ExtResource("17_agxk4")]
 position = Vector2(1444, 2492)
@@ -5756,3 +5757,8 @@ position = Vector2(3517, 1667)
 [node name="TimedLaser4" parent="Obstacles" unique_id=370420368 instance=ExtResource("18_pk5c4")]
 position = Vector2(3102, 1053)
 scale = Vector2(1.6807982, 1.6807982)
+
+[node name="SlidingDoor" parent="Obstacles" unique_id=972180422 instance=ExtResource("21_5nvvx")]
+position = Vector2(3717, 305)
+scale = Vector2(2.5, 2.5)
+door_id = 3

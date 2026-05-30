@@ -1,4 +1,4 @@
-class_name Spikes
+class_name TECHSpikes
 extends Area2D
 
 ## Spikes are static hazards — always lethal on contact.

@@ -43,6 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="41_qlcxb"]
 [ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="42_43dhs"]
 [ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="43_43dhs"]
+[ext_resource type="PackedScene" uid="uid://d0f0dx0loo3q5" path="res://Main/Obstacles/Doors/sliding_door.tscn" id="44_5uhlx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ratv6"]
 texture = ExtResource("1_tdotq")
@@ -5166,7 +5167,7 @@ tile_map_data = PackedByteArray("AAANABEAIAAqABAAAAANABIAIAAqABEAAAAOABEAIAArABA
 tile_set = SubResource("TileSet_f8gmr")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("35_sa2q8")]
-position = Vector2(1300, 168)
+position = Vector2(2013, 310)
 
 [node name="Spikes" type="Node2D" parent="." unique_id=1489483315]
 
@@ -5190,7 +5191,6 @@ rotation = -6.2831855
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=348936499]
 layer = 10
-visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=97114667]
 visible = false
@@ -5281,3 +5281,8 @@ target_obstacles = [NodePath("../Puzzle2Laser")]
 [node name="Puzzle2Laser" parent="Obstacles" unique_id=2125760792 instance=ExtResource("42_43dhs")]
 position = Vector2(590, 1025)
 scale = Vector2(1.3127676, 2.3520303)
+
+[node name="SlidingDoor" parent="." unique_id=845886008 instance=ExtResource("44_5uhlx")]
+position = Vector2(2450, 387.00003)
+scale = Vector2(2.5, 2.5)
+next_scene_override = "uid://dvjo3q0eiwlyk"

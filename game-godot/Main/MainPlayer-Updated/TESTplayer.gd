@@ -108,6 +108,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("equip_toggle"):
 		toggle_gun_equip()
 
+## Cube pick-up / drop runs on _unhandled_input so doors (which call
+## set_input_as_handled in their own _unhandled_input) take priority over grab.
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if is_holding_object:
 			drop_held_object()
