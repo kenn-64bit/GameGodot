@@ -27,6 +27,13 @@ func _ready() -> void:
 	resume_btn.pressed.connect(_on_resume)
 	restart_btn.pressed.connect(_on_restart)
 	exit_btn.pressed.connect(_on_exit)
+	
+	resume_btn.mouse_entered.connect(_on_button_hover)
+	resume_btn.mouse_exited.connect(_on_button_unhover)
+	restart_btn.mouse_entered.connect(_on_button_hover)
+	restart_btn.mouse_exited.connect(_on_button_unhover)
+	exit_btn.mouse_entered.connect(_on_button_hover)
+	exit_btn.mouse_exited.connect(_on_button_unhover)
 
 # Use _input (not _unhandled_input) so the player script can't eat the event first.
 func _input(event: InputEvent) -> void:
@@ -69,9 +76,11 @@ func _do_resume() -> void:
 # ── button handlers ───────────────────────────────────────────────────────────
 
 func _on_resume() -> void:
+	SfxManager.play_sfx("ui_click")
 	_do_resume()
 
 func _on_restart() -> void:
+	SfxManager.play_sfx("ui_click")
 	_is_paused        = false
 	backdrop.visible  = false
 	panel.visible     = false
@@ -79,5 +88,15 @@ func _on_restart() -> void:
 	get_tree().reload_current_scene()
 
 func _on_exit() -> void:
+	SfxManager.play_sfx("ui_click")
+	_is_paused        = false
+	backdrop.visible  = false
+	panel.visible     = false
 	get_tree().paused = false
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://Main/GUI/Main Menu GUI/Main Menu.tscn")
+
+func _on_button_hover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.GUI)
+
+func _on_button_unhover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.DEFAULT)

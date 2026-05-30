@@ -81,12 +81,14 @@ func _apply_state(active: bool) -> void:
 		if _sprite:
 			_sprite.visible = true
 		laser_enabled.emit()
+		SfxManager.play_sfx("laser_on")
 		# Turning ON: play activate once → then play idle once → freeze.
 		_pending_state = &"activate_to_idle"
 		_safe_play(&"activate")
 		_set_beam_visible(true)
 	else:
 		laser_disabled.emit()
+		SfxManager.play_sfx("laser_off")
 		# Turning OFF: play deactivate once → freeze on last frame.
 		_pending_state = &"off_done"
 		_safe_play(&"deactivate")

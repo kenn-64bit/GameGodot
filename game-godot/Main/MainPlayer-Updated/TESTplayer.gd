@@ -73,6 +73,7 @@ func _ready() -> void:
 	_spawn_global = global_position
 	add_to_group("player")
 	_sync_gui()  # Initialise hearts display on load.
+	CursorManager.set_context(CursorManager.Ctx.DEFAULT)
 
 	if gun_arm:
 		gun_arm.visible = false
@@ -135,6 +136,14 @@ func _physics_process(delta: float) -> void:
 	if dash_cooldown_timer > 0: dash_cooldown_timer -= delta
 
 	_update_crosshair()
+	
+	if not is_gun_equipped and not is_holding_object:
+		if _is_hovering_grabbable():
+			CursorManager.set_context(CursorManager.Ctx.CUBE)
+		elif CursorManager.current_ctx == CursorManager.Ctx.CUBE:
+			CursorManager.set_context(CursorManager.Ctx.DEFAULT)
+	elif CursorManager.current_ctx == CursorManager.Ctx.CUBE:
+		CursorManager.set_context(CursorManager.Ctx.DEFAULT)
 
 	if is_gun_equipped and gun_arm:
 		_aim_gun_at_mouse()
@@ -191,6 +200,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_update_animations(direction)
 	_handle_camera_bob(delta)
+	
+	if is_on_floor() and abs(velocity.x) > 0.1 and not is_dashing:
+		SfxManager.play_sfx("walk")
+	else:
+		SfxManager.stop_sfx("walk")
 
 
 func toggle_gun_equip() -> void:
@@ -270,6 +284,8 @@ func shoot_portal(is_portal_a: bool) -> void:
 		_muzzle_flash.restart()
 	if _portal_laser and is_instance_valid(_portal_laser):
 		_portal_laser.fire(hit_pos)
+		
+	SfxManager.play_sfx("portal_fire")
 
 	_portal_shoot_cooldown = PORTAL_SHOOT_COOLDOWN
 	await get_tree().create_timer(PORTAL_PLACE_DELAY).timeout
@@ -303,6 +319,7 @@ func _place_portal_a(pos: Vector2, normal: Vector2) -> void:
 	portal_a.portal_color = Color(0.2, 0.6, 1.0, 0.9)
 	get_tree().current_scene.add_child(portal_a)
 	portal_a.place_at(pos, normal)
+	SfxManager.play_sfx("portal_spawn")
 	_link_portals()
 
 
@@ -313,6 +330,7 @@ func _place_portal_b(pos: Vector2, normal: Vector2) -> void:
 	portal_b.portal_color = Color(1.0, 0.5, 0.1, 0.9)
 	get_tree().current_scene.add_child(portal_b)
 	portal_b.place_at(pos, normal)
+	SfxManager.play_sfx("portal_spawn")
 	_link_portals()
 
 
@@ -524,6 +542,24 @@ func try_pickup_object() -> void:
 	if best_body:
 		_grab_object(best_body)
 
+func _is_hovering_grabbable() -> bool:
+	var space_state := get_world_2d().direct_space_state
+	var mouse_pos := get_global_mouse_position()
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = mouse_pos
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	var results := space_state.intersect_point(query)
+	for res in results:
+		var col = res["collider"]
+		if col is RigidBody2D and col.is_in_group("Grabbable"):
+			return true
+		if col is Area2D and col.is_in_group("GrabZone"):
+			var p = col.get_parent()
+			if p is RigidBody2D and p.is_in_group("Grabbable"):
+				return true
+	return false
+
 
 func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
 	var space_state  := get_world_2d().direct_space_state
@@ -611,8 +647,11 @@ func take_damage(hazard_position: Vector2 = Vector2.ZERO) -> void:
 	if hazard_death_timer > 0:
 		return
 	hazard_death_timer = hazard_death_cooldown
+	SfxManager.play_sfx("player_hurt")
 	lives = max(lives - 1, 0)
 	_sync_gui()
+	if gui and gui.has_method("flash_damage"):
+		gui.flash_damage()
 	if lives <= 0:
 		die()
 		return
@@ -631,8 +670,11 @@ func take_spike_damage() -> void:
 	if hazard_death_timer > 0:
 		return
 	hazard_death_timer = hazard_death_cooldown
+	SfxManager.play_sfx("player_hurt")
 	lives = max(lives - 1, 0)
 	_sync_gui()
+	if gui and gui.has_method("flash_damage"):
+		gui.flash_damage()
 	if lives <= 0:
 		die()
 		return

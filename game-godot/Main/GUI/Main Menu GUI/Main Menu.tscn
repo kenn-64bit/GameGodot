@@ -1,53 +1,13 @@
 [gd_scene format=3 uid="uid://btrcowmo6jpjn"]
 
 [ext_resource type="Script" uid="uid://bkyq37obut20e" path="res://Main/GUI/Main Menu GUI/main_menu.gd" id="1_xco1r"]
-[ext_resource type="Texture2D" uid="uid://bbve2v2l0emn5" path="res://assets/Forest Parallax/4 Forest parallax vertical skybox fulll.png" id="2_i1cy2"]
-[ext_resource type="Texture2D" uid="uid://cp10wnurybri" path="res://assets/Planet-Sprite.png" id="3_x0pcm"]
-[ext_resource type="Texture2D" uid="uid://b5rjumf7axun7" path="res://assets/Forest Parallax/6 Forest parallax vertical cloud 3.png" id="4_jiknh"]
-[ext_resource type="Texture2D" uid="uid://cft4i76j47abc" path="res://assets/Forest Parallax/3 Forest parallax vertical mountain back.png" id="5_8hvf8"]
-[ext_resource type="Texture2D" uid="uid://tu1m7w8nkgq6" path="res://assets/Forest Parallax/1 Forest parallax vertical forest low.png" id="6_5l2ag"]
+[ext_resource type="Texture2D" uid="uid://bloxurhirm7y3" path="res://assets/Iron TileMap/Assets_area_2/backgrounds/nuvens_3.png" id="2_0neal"]
+[ext_resource type="Texture2D" uid="uid://dtyk3tdbdq5ib" path="res://assets/assetpack_p1/parallax/skies/sky_front_mountain.png" id="3_24641"]
+[ext_resource type="Texture2D" uid="uid://b4y38hsonsfy5" path="res://assets/Iron TileMap/Assets_area_2/backgrounds/nuvens_2.png" id="3_j6ivq"]
+[ext_resource type="Texture2D" uid="uid://ca4ev7po68oxj" path="res://assets/Iron TileMap/Assets_area_2/backgrounds/nuvens_1.png" id="5_0neal"]
 [ext_resource type="Texture2D" uid="uid://bo6ruq5ysqvr" path="res://assets/Forest Parallax/0 Forest parallax vertical forest tree front.png" id="7_rkoym"]
 [ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="9_2y5ka"]
 [ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="10_4uydg"]
-
-[sub_resource type="Animation" id="Animation_nv6jv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_yqoom"]
-resource_name = "spin"
-length = 33.333344
-loop_mode = 1
-step = 0.06666667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 33.266666),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [49, 0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nv6jv"]
-_data = {
-&"RESET": SubResource("Animation_nv6jv"),
-&"spin": SubResource("Animation_yqoom")
-}
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("10_4uydg")
@@ -69,50 +29,24 @@ script = ExtResource("1_xco1r")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=623916306]
 
-[node name="SKY" type="Parallax2D" parent="Node2D" unique_id=1139360297]
-scroll_scale = Vector2(0.01, 0.01)
-scroll_offset = Vector2(10, 0)
-repeat_size = Vector2(1900, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 2
+[node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D" unique_id=1887571035]
+z_index = -4096
+position = Vector2(572, 325)
+scale = Vector2(2.3544676, 2.6767206)
+texture = ExtResource("2_0neal")
 
-[node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D/SKY" unique_id=1887571035]
-position = Vector2(2700, -610)
-texture = ExtResource("2_i1cy2")
+[node name="Parallax2D5" type="Parallax2D" parent="Node2D" unique_id=1682249004]
+scroll_scale = Vector2(0.04, 0.04)
+scroll_offset = Vector2(-151, -39)
+repeat_size = Vector2(1000, 0)
+autoscroll = Vector2(10, 0)
+repeat_times = 3
 
-[node name="SKY3" type="Parallax2D" parent="Node2D" unique_id=40759874]
-scroll_scale = Vector2(0.01, 0.01)
-scroll_offset = Vector2(10, 0)
-repeat_size = Vector2(1900, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/SKY3" unique_id=2129058229]
-physics_interpolation_mode = 1
-modulate = Color(0.5963672, 0.59636724, 0.59636724, 0.7411765)
-texture_filter = 1
-texture_repeat = 2
-position = Vector2(2785.0002, 392)
-rotation = 0.23444694
-scale = Vector2(3.3598597, 3.3598597)
-texture = ExtResource("3_x0pcm")
-hframes = 50
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/SKY3/Sprite2D" unique_id=231306584]
-libraries/ = SubResource("AnimationLibrary_nv6jv")
-autoplay = &"spin"
-speed_scale = 0.593
-
-[node name="SKY2" type="Parallax2D" parent="Node2D" unique_id=186403945]
-scroll_scale = Vector2(0.01, 0.01)
-scroll_offset = Vector2(10, 0)
-repeat_size = Vector2(1900, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 2
-
-[node name="4ForestParallaxVerticalSkyboxFulll" type="Sprite2D" parent="Node2D/SKY2" unique_id=1096326963]
-position = Vector2(2617, 438)
-texture = ExtResource("4_jiknh")
+[node name="3ForestParallaxVerticalMountainBack" type="Sprite2D" parent="Node2D/Parallax2D5" unique_id=2050647038]
+modulate = Color(0.53727096, 0.24051934, 2.8878452e-07, 1)
+position = Vector2(696, 304)
+scale = Vector2(0.62674844, 0.62674844)
+texture = ExtResource("3_24641")
 
 [node name="Parallax2D3" type="Parallax2D" parent="Node2D" unique_id=1468315446]
 scroll_scale = Vector2(0.04, 0.04)
@@ -120,27 +54,22 @@ repeat_size = Vector2(1800, 0)
 autoscroll = Vector2(10, 0)
 
 [node name="3ForestParallaxVerticalMountainBack" type="Sprite2D" parent="Node2D/Parallax2D3" unique_id=1280186661]
-position = Vector2(781, -563)
-texture = ExtResource("5_8hvf8")
+modulate = Color(0.827451, 0.3529412, 0.07058824, 1)
+position = Vector2(368.00003, 812)
+scale = Vector2(3.6541977, 3.6541977)
+texture = ExtResource("3_j6ivq")
 
 [node name="Parallax2D4" type="Parallax2D" parent="Node2D" unique_id=1188872979]
 scroll_scale = Vector2(0.05, 0.05)
-repeat_size = Vector2(1800, 0)
+repeat_size = Vector2(1920, 0)
 autoscroll = Vector2(30, 0)
+repeat_times = 2
 
 [node name="1ForestParallaxVerticalForestLow" type="Sprite2D" parent="Node2D/Parallax2D4" unique_id=2134619661]
-position = Vector2(854, -793)
-texture = ExtResource("6_5l2ag")
-
-[node name="Parallax2D2" type="Parallax2D" parent="Node2D" unique_id=210722643]
-scroll_scale = Vector2(0.07, 0.07)
-scroll_offset = Vector2(-1657, 234)
-repeat_size = Vector2(1800, 0)
-autoscroll = Vector2(60, 0)
-
-[node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Node2D/Parallax2D2" unique_id=187713719]
-position = Vector2(953, -1107)
-texture = ExtResource("7_rkoym")
+modulate = Color(0.61979944, 0.24452445, 1.347661e-06, 1)
+position = Vector2(729.00006, 785)
+scale = Vector2(3.8818548, 3.8818548)
+texture = ExtResource("5_0neal")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1111]
 layout_mode = 1
@@ -201,7 +130,8 @@ repeat_size = Vector2(1800, 0)
 autoscroll = Vector2(90, 0)
 
 [node name="0ForestParallaxVerticalForestTreeFront" type="Sprite2D" parent="Parallax2D5" unique_id=1695799551]
-position = Vector2(892, -845)
+modulate = Color(0.94619185, 0.2801095, 3.85046e-07, 1)
+position = Vector2(872, -981)
 texture = ExtResource("7_rkoym")
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

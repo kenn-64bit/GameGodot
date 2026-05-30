@@ -15,6 +15,12 @@ run/main_scene="uid://dmnw3m3anhy5l"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PauseMenu="*res://Main/GUI/PauseMenu/PauseMenu.tscn"
+CursorManager="*res://Main/GUI/cursor_manager.gd"
+SfxManager="*res://Main/sfx_manager.gd"
+
 [display]
 
 window/size/mode=3
@@ -87,10 +93,6 @@ shoot_portal_b={
 2d_physics/layer_4="Triggers"
 2d_physics/layer_5="Hazards"
 2d_physics/layer_6="Obstacles"
-
-[autoload]
-
-PauseMenu="*res://Main/GUI/PauseMenu/PauseMenu.tscn"
 
 [physics]
 

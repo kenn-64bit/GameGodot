@@ -104,6 +104,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		_player_nearby = true
 		_show_label(true)
+		CursorManager.set_context(CursorManager.Ctx.DOOR)
 
 
 func _on_body_exited(body: Node2D) -> void:
@@ -111,6 +112,7 @@ func _on_body_exited(body: Node2D) -> void:
 		_player_nearby = false
 		if not _is_open:
 			_show_label(false)
+		CursorManager.set_context(CursorManager.Ctx.DEFAULT)
 
 
 func _show_label(show: bool) -> void:
@@ -125,6 +127,7 @@ func _show_label(show: bool) -> void:
 func _open_and_transition() -> void:
 	_transitioning = true
 	_show_label(false)
+	SfxManager.play_sfx("door_open")
 
 	# Play the opening animation.
 	_sprite.play(&"open")

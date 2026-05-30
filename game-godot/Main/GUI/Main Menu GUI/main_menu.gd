@@ -12,26 +12,42 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	# Make sure the game is unpaused when returning to the main menu
 	get_tree().paused = false
+	
+	SfxManager.play_music_shuffle()
 
-	# Load and set the custom pink cursor for the menu
-	var cursor_img = preload("res://assets/Cursor-PNG/Basic/Default/cursor_menu.png")
-	Input.set_custom_mouse_cursor(cursor_img, Input.CURSOR_ARROW)
+	CursorManager.set_context(CursorManager.Ctx.GUI)
 
 	# Connect button signals
 	play_button.pressed.connect(_on_play_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
+	
+	play_button.mouse_entered.connect(_on_button_hover)
+	play_button.mouse_exited.connect(_on_button_unhover)
+	menu_button.mouse_entered.connect(_on_button_hover)
+	menu_button.mouse_exited.connect(_on_button_unhover)
+	exit_button.mouse_entered.connect(_on_button_hover)
+	exit_button.mouse_exited.connect(_on_button_unhover)
 
 
 ## ── Button handlers ───────────────────────────────────────────────────────────
 
 func _on_play_pressed() -> void:
+	SfxManager.play_sfx("ui_click")
 	get_tree().change_scene_to_file(LEVEL_1_PATH)
 
 func _on_menu_pressed() -> void:
+	SfxManager.play_sfx("ui_click")
 	# Instantiate the settings popup and add it on top of this scene
 	var popup : Control = SETTINGS_SCENE.instantiate()
 	add_child(popup)
 
 func _on_exit_pressed() -> void:
+	SfxManager.play_sfx("ui_click")
 	get_tree().quit()
+
+func _on_button_hover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.GUI)
+
+func _on_button_unhover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.DEFAULT)

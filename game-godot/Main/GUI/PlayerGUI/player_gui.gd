@@ -12,6 +12,8 @@ extends Control
 	$HBoxContainer/Heart3,
 ]
 
+@onready var _damage_flash : ColorRect = $DamageFlash
+
 ## Called by the player whenever lives change.
 ## current_lives = number of hearts still full (0–3).
 func update_hearts(current_lives: int) -> void:
@@ -25,3 +27,9 @@ func update_hearts(current_lives: int) -> void:
 func set_gun_icon_visible(visible_state: bool) -> void:
 	if has_node("HBoxContainer2"):
 		$HBoxContainer2.visible = visible_state
+
+func flash_damage() -> void:
+	if _damage_flash:
+		_damage_flash.modulate.a = 0.55
+		var tw = create_tween()
+		tw.tween_property(_damage_flash, "modulate:a", 0.0, 0.45).set_ease(Tween.EASE_OUT)
