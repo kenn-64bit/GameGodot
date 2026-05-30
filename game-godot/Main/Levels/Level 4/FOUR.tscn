@@ -1173,7 +1173,7 @@ tile_map_data = PackedByteArray("AAAXAB0ACAACAAQAAAAXAB4ACAACAAUAAAAYAB0ACAADAAQ
 tile_set = SubResource("TileSet_bajbb")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("9_mgkbs")]
-position = Vector2(175, 265)
+position = Vector2(3612, 1078)
 
 [node name="obstacles" type="Node2D" parent="." unique_id=2063818486]
 
@@ -1261,7 +1261,8 @@ rotation = -1.5707964
 [node name="SlidingDoor" parent="." unique_id=349159560 instance=ExtResource("14_j26ha")]
 position = Vector2(3952, 369)
 scale = Vector2(2.5, 2.5)
-door_id = 5
+door_id = 4
+next_scene_override = "res://Main/GUI/WinScreen/WinScreen.tscn"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=171635384]
 layer = 10

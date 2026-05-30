@@ -42,6 +42,8 @@
 [ext_resource type="Texture2D" uid="uid://b5jp61y8a5g84" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Barrier_Control_Panel/Individual_PNGs/control_panel_idle/tile017.png" id="39_01nt2"]
 [ext_resource type="Texture2D" uid="uid://cjs7523b0328m" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Barrier_Control_Panel/Individual_PNGs/control_panel_idle/tile018.png" id="40_8lpe2"]
 [ext_resource type="Texture2D" uid="uid://cm7c6v3crlk3l" path="res://assets/Obstacle-Sprites/Science_Laser_Tilemaps/Barrier_Control_Panel/Individual_PNGs/control_panel_idle/tile019.png" id="41_k82q2"]
+[ext_resource type="Texture2D" uid="uid://c10hlkkly06by" path="res://assets/Textures/BackgroundLite.png" id="43_4votp"]
+[ext_resource type="Texture2D" uid="uid://c5qh1q2wh3vc7" path="res://assets/Stalagmite BG parallax/grey_L4.png" id="44_wgwy8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnfp4"]
 texture = ExtResource("1_46wg8")
@@ -11331,6 +11333,26 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_438nt"]
+atlas = ExtResource("43_4votp")
+region = Rect2(1.0020905, -0.4797554, 254.99791, 256.47977)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k6bs"]
+atlas = ExtResource("44_wgwy8")
+region = Rect2(299.83206, 184.27496, 254.07858, 45.60324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chguh"]
+atlas = ExtResource("44_wgwy8")
+region = Rect2(0, 0, 168.7609, 84.38911)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhggl"]
+atlas = ExtResource("44_wgwy8")
+region = Rect2(0, 0, 303.47147, 90.85959)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7osbu"]
+atlas = ExtResource("44_wgwy8")
+region = Rect2(0, 178.56783, 257, 71.432175)
+
 [node name="CaveLevelOne" type="Node2D" unique_id=1711430799]
 y_sort_enabled = true
 
@@ -11465,3 +11487,72 @@ position = Vector2(765, 328)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_vsx8j")
 frame_progress = 0.8308322
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1143573602]
+layer = 10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1098344294]
+visible = false
+z_index = 99
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -153.0
+offset_right = 161.22217
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_438nt")
+
+[node name="rockbottom" type="TextureRect" parent="CanvasLayer" unique_id=1078529932]
+modulate = Color(1, 0.40839687, 0.65615, 1)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -94.0
+offset_right = -6.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9999332, 3.0857334)
+texture = SubResource("AtlasTexture_7k6bs")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer" unique_id=266415079]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 642.0
+offset_right = 592.0
+offset_bottom = 642.0
+grow_vertical = 2
+rotation = -1.5707964
+scale = Vector2(1.0494992, 0.21793236)
+texture = SubResource("AtlasTexture_chguh")
+
+[node name="rocktop" type="TextureRect" parent="CanvasLayer" unique_id=1968960943]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = -46.0
+offset_right = 5.0
+offset_bottom = 44.0
+grow_horizontal = 2
+scale = Vector2(0.9943374, 1.7205102)
+texture = SubResource("AtlasTexture_hhggl")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer" unique_id=687172429]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1073.0
+offset_top = 712.00006
+offset_right = 1073.0
+offset_bottom = 712.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+scale = Vector2(0.6828396, 0.19809742)
+texture = SubResource("AtlasTexture_7osbu")

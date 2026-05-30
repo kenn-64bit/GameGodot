@@ -5227,7 +5227,7 @@ tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("35_5ppg0")]
-position = Vector2(2092, -815)
+position = Vector2(294, -45)
 
 [node name="TimedLaser" parent="." unique_id=623635020 instance=ExtResource("36_fvcr5")]
 position = Vector2(3396, -52)
@@ -5235,7 +5235,7 @@ rotation = 1.5707964
 scale = Vector2(1.0684611, 2.2069836)
 
 [node name="FloorButton" parent="." unique_id=1090625400 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("37_0k68g")]
-position = Vector2(3366, 310)
+position = Vector2(3866, 315)
 target_obstacles = [NodePath("../TimedLaser")]
 
 [node name="GrabbableCube" parent="." unique_id=153491751 instance=ExtResource("38_e1nc6")]

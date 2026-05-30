@@ -23,6 +23,12 @@ func _ready() -> void:
 
 	$Panel/VBox/MusicRow.queue_free()
 	$Panel/VBox/SFXRow.queue_free()
+	
+	# Wait for the rows to be removed, then snap the panel size down to fit
+	await get_tree().process_frame
+	$Panel.custom_minimum_size.y = 220
+	$Panel.size.y = 220
+	$Panel.position.y += 80
 
 	# Initialise sliders from current bus volumes
 	master_slider.value = _bus_to_percent(MASTER_BUS)

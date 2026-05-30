@@ -609,6 +609,7 @@ func drop_held_object() -> void:
 			held_object.drop()
 	held_object       = null
 	is_holding_object = false
+	SfxManager.play_sfx("cube_drop")
 
 
 func _update_held_object_position() -> void:
@@ -706,6 +707,8 @@ func die() -> void:
 	all_lives_lost.emit()
 	
 	var go_scn = load("res://Main/GUI/WinScreen/WinScreen.tscn").instantiate()
+	if get_tree().current_scene:
+		go_scn.set_meta("original_scene", get_tree().current_scene.scene_file_path)
 	go_scn.get_node("VBox/WinLabel").text = "GAME OVER"
 	go_scn.get_node("VBox/SubLabel").text = "You ran out of lives."
 	

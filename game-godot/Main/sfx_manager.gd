@@ -27,6 +27,7 @@ func _ready() -> void:
 	_register_sfx("jump", "res://assets/sfx/jump_sfx.mp3", 5.0)
 	_register_sfx("ui_hover", "res://assets/sfx/button_click.mp3", -16.0, 1.2)
 	_register_sfx("cube_pickup", "res://assets/sfx/pickup_item_sfx.mp3", -5.0)
+	_register_sfx("cube_drop", "res://assets/sfx/pickup_item_sfx.mp3", -5.0, 0.7)
 	_register_sfx("dash", "res://assets/sfx/dash_sfx.mp3", -5.0)
 	_register_sfx("equip", "res://assets/sfx/equip_weapon.mp3", -5.0)
 	_register_sfx("unequip", "res://assets/sfx/equip_weapon.mp3", -5.0, 0.8)
@@ -52,7 +53,7 @@ func play_sfx(sfx_name: String) -> void:
 	var skip = 0.0
 	if sfx_name in ["player_hurt", "dash"]:
 		skip = 0.25
-	elif sfx_name in ["ui_hover", "ui_click", "floor_button", "equip", "unequip", "exit_portal"]:
+	elif sfx_name in ["ui_hover", "ui_click", "floor_button", "equip", "unequip", "exit_portal", "cube_drop"]:
 		skip = 0.04
 		
 	sfx_pool[sfx_name].play(skip)
