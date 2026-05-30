@@ -404,49 +404,118 @@ func _is_grounded() -> bool:
 
 func try_pickup_object() -> void:
 	var space_state := get_world_2d().direct_space_state
-	var ray_origin  : Vector2
-	var ray_dir     : Vector2
-	var ray_len     : float
 
 	if is_gun_equipped:
-		ray_origin = _get_barrel_position()
-		ray_len    = PORTAL_RAY_LEN
-		var mouse_pos : Vector2 = get_global_mouse_position()
-		ray_dir = (mouse_pos - ray_origin).normalized()
-	else:
-		ray_origin = global_position
-		ray_len    = HOLD_DISTANCE * 2.0
-		var facing := -1.0 if sprite.flip_h else 1.0
-		ray_dir = Vector2(facing, 0.0)
+		# ── Gun mode: long ray toward mouse cursor ──────────────────────────
+		var ray_origin : Vector2 = _get_barrel_position()
+		var mouse_pos  : Vector2 = get_global_mouse_position()
+		var ray_dir    : Vector2 = (mouse_pos - ray_origin).normalized()
+		var ray_end    : Vector2 = ray_origin + ray_dir * PORTAL_RAY_LEN
 
-	var ray_end : Vector2 = ray_origin + ray_dir * ray_len
+		var query := PhysicsRayQueryParameters2D.create(ray_origin, ray_end)
+		query.collide_with_areas  = true
+		query.collide_with_bodies = true
+		query.exclude             = [get_rid()]
 
-	var query := PhysicsRayQueryParameters2D.create(ray_origin, ray_end)
-	query.collide_with_areas  = true
-	query.collide_with_bodies = true
-	query.exclude             = [get_rid()]
+		var result := space_state.intersect_ray(query)
+		if result.is_empty():
+			return
 
-	var result := space_state.intersect_ray(query)
-	if result.is_empty():
+		var hit_collider = result["collider"]
+
+		if hit_collider is Portal:
+			var portal_hit : Portal = hit_collider as Portal
+			if portal_hit.linked_portal and is_instance_valid(portal_hit.linked_portal):
+				var dist_used := ray_origin.distance_to(result["position"])
+				var remaining := PORTAL_RAY_LEN - dist_used
+				_try_pickup_through_portal(portal_hit.linked_portal, remaining)
+			return
+
+		if hit_collider is RigidBody2D and hit_collider.is_in_group("Grabbable"):
+			_grab_object(hit_collider)
+		elif hit_collider is Area2D and hit_collider.is_in_group("GrabZone"):
+			var parent : Node = hit_collider.get_parent()
+			if parent is RigidBody2D and parent.is_in_group("Grabbable"):
+				_grab_object(parent as RigidBody2D)
 		return
 
-	var hit_collider = result["collider"]
+	# ── No-gun mode: multi-ray + proximity fallback ─────────────────────────
+	# Fix 4a: extended ray length (was HOLD_DISTANCE * 2 = 160 px).
+	# Fix 4b: also cast a diagonal ray toward the waist-height hold anchor so
+	#         a cube sitting at button height is reachable without crouching.
+	var facing  : float   = -1.0 if sprite.flip_h else 1.0
+	var down    : float   =  1.0 if not is_upside_down else -1.0
+	var ray_len : float   = HOLD_DISTANCE * 3.0   # 240 px
 
-	if is_gun_equipped and hit_collider is Portal:
-		var portal_hit : Portal = hit_collider as Portal
-		if portal_hit.linked_portal and is_instance_valid(portal_hit.linked_portal):
-			var dist_used  := ray_origin.distance_to(result["position"])
-			var remaining  := ray_len - dist_used
-			_try_pickup_through_portal(portal_hit.linked_portal, remaining)
-		return
+	# Hold anchor position (where the cube will be held — waist in front).
+	var hold_anchor : Vector2 = global_position + Vector2(facing * 32.0, down * 56.0)
 
-	if hit_collider is RigidBody2D and hit_collider.is_in_group("Grabbable"):
-		_grab_object(hit_collider)
-	# Also handle the larger GrabZone Area2D that surrounds the cube.
-	elif hit_collider is Area2D and hit_collider.is_in_group("GrabZone"):
-		var parent : Node = hit_collider.get_parent()
-		if parent is RigidBody2D and parent.is_in_group("Grabbable"):
-			_grab_object(parent as RigidBody2D)
+	var rays : Array = [
+		# Primary: horizontal ray forward
+		{ "origin": global_position,
+		  "dir":    Vector2(facing, 0.0) },
+		# Diagonal: from player centre toward the hold anchor
+		{ "origin": global_position,
+		  "dir":    (hold_anchor - global_position).normalized() },
+	]
+
+	var exclusions : Array[RID] = [get_rid()]
+
+	for ray_data in rays:
+		var ray_end : Vector2 = ray_data["origin"] + ray_data["dir"] * ray_len
+		var query := PhysicsRayQueryParameters2D.create(ray_data["origin"], ray_end)
+		query.collide_with_areas  = true
+		query.collide_with_bodies = true
+		query.exclude             = exclusions
+
+		var result := space_state.intersect_ray(query)
+		if result.is_empty():
+			continue
+
+		var hit_collider = result["collider"]
+
+		if hit_collider is RigidBody2D and hit_collider.is_in_group("Grabbable"):
+			_grab_object(hit_collider)
+			return
+		elif hit_collider is Area2D and hit_collider.is_in_group("GrabZone"):
+			var parent : Node = hit_collider.get_parent()
+			if parent is RigidBody2D and parent.is_in_group("Grabbable"):
+				_grab_object(parent as RigidBody2D)
+				return
+
+	# Fix 4c: proximity fallback — circle overlap at player centre (radius 72 px).
+	# Catches cubes that are adjacent but behind a thin wall edge from the ray's POV.
+	var shape_query := PhysicsShapeQueryParameters2D.new()
+	var circle      := CircleShape2D.new()
+	circle.radius    = 72.0
+	shape_query.shape      = circle
+	shape_query.transform  = Transform2D(0.0, global_position)
+	shape_query.collide_with_areas  = true
+	shape_query.collide_with_bodies = true
+	shape_query.exclude             = exclusions
+	shape_query.collision_mask      = 0xFFFFFFFF   # check all layers
+
+	var nearby := space_state.intersect_shape(shape_query, 8)
+	var best_dist : float = INF
+	var best_body : RigidBody2D = null
+
+	for hit in nearby:
+		var col : Object = hit["collider"]
+		var candidate : RigidBody2D = null
+		if col is RigidBody2D and (col as RigidBody2D).is_in_group("Grabbable"):
+			candidate = col as RigidBody2D
+		elif col is Area2D and (col as Area2D).is_in_group("GrabZone"):
+			var p : Node = (col as Area2D).get_parent()
+			if p is RigidBody2D and (p as RigidBody2D).is_in_group("Grabbable"):
+				candidate = p as RigidBody2D
+		if candidate:
+			var d : float = global_position.distance_to(candidate.global_position)
+			if d < best_dist:
+				best_dist = d
+				best_body = candidate
+
+	if best_body:
+		_grab_object(best_body)
 
 
 func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
