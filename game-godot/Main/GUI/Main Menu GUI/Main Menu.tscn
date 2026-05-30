@@ -56,19 +56,13 @@ font_color = Color(0.611765, 0.290196, 0.435294, 1)
 outline_size = 25
 outline_color = Color(0.121569, 0.054902, 0.164706, 1)
 
-[sub_resource type="Animation" id="Animation_ncqhs"]
-resource_name = "reveal"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxty8"]
-_data = {
-&"reveal": SubResource("Animation_ncqhs")
-}
-
 [node name="MainMenu" type="Control" unique_id=334297712]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xco1r")
@@ -210,5 +204,4 @@ autoscroll = Vector2(90, 0)
 position = Vector2(892, -845)
 texture = ExtResource("7_rkoym")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=252528517]
-libraries/ = SubResource("AnimationLibrary_gxty8")
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

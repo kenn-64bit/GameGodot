@@ -5226,7 +5226,7 @@ tile_set = SubResource("TileSet_x28hv")
 y_sort_origin = 16
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("35_5ppg0")]
-position = Vector2(2089, -842)
+position = Vector2(2745, 248)
 
 [node name="TimedLaser" parent="." unique_id=623635020 instance=ExtResource("36_fvcr5")]
 position = Vector2(3396, -52)

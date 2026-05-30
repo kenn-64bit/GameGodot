@@ -88,6 +88,10 @@ shoot_portal_b={
 2d_physics/layer_5="Hazards"
 2d_physics/layer_6="Obstacles"
 
+[autoload]
+
+PauseMenu="*res://Main/GUI/PauseMenu/PauseMenu.tscn"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

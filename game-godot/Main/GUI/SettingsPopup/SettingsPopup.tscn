@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://settings_popup_v1"]
+
+[ext_resource type="Script" path="res://Main/GUI/SettingsPopup/settings_popup.gd" id="1_sp"]
+[ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.04, 0.03, 0.10, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.20, 0.65, 0.85)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.60)
+shadow_size = 16
+content_margin_left = 32.0
+content_margin_right = 32.0
+content_margin_top = 28.0
+content_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close"]
+bg_color = Color(0.20, 0.08, 0.32, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.25, 0.75, 0.80)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close_hover"]
+bg_color = Color(0.55, 0.20, 0.78, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.55, 1.0, 1.0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_bg"]
+bg_color = Color(0.12, 0.06, 0.22, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.15, 0.55, 0.70)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_fill"]
+bg_color = Color(0.60, 0.25, 0.90, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("2_font")
+font_size = 46
+font_color = Color(0.90, 0.65, 1.0, 1)
+outline_size = 5
+outline_color = Color(0.10, 0.02, 0.20, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_row"]
+font = ExtResource("2_font")
+font_size = 22
+font_color = Color(0.78, 0.68, 0.95, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_val"]
+font = ExtResource("2_font")
+font_size = 20
+font_color = Color(0.60, 0.90, 1.0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_btn"]
+font = ExtResource("2_font")
+font_size = 22
+font_color = Color(0.88, 0.78, 1.0, 1)
+
+[node name="SettingsPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_sp")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0, 0.0, 0.0, 0.50)
+mouse_filter = 0
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -220.0
+offset_right = 240.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="MasterRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MasterLabel" type="Label" parent="Panel/VBox/MasterRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+text = "MASTER"
+label_settings = SubResource("LabelSettings_row")
+vertical_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Panel/VBox/MasterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(200, 0)
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+
+[node name="MasterValueLabel" type="Label" parent="Panel/VBox/MasterRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 0)
+text = "100%"
+label_settings = SubResource("LabelSettings_val")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicLabel" type="Label" parent="Panel/VBox/MusicRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+text = "MUSIC"
+label_settings = SubResource("LabelSettings_row")
+vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(200, 0)
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+
+[node name="MusicValueLabel" type="Label" parent="Panel/VBox/MusicRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 0)
+text = "100%"
+label_settings = SubResource("LabelSettings_val")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SFXRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SFXLabel" type="Label" parent="Panel/VBox/SFXRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+text = "SFX"
+label_settings = SubResource("LabelSettings_row")
+vertical_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Panel/VBox/SFXRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(200, 0)
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+
+[node name="SFXValueLabel" type="Label" parent="Panel/VBox/SFXRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 0)
+text = "100%"
+label_settings = SubResource("LabelSettings_val")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Divider2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "CLOSE"
+label_settings = SubResource("LabelSettings_btn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_close")
+theme_override_styles/hover = SubResource("StyleBoxFlat_close_hover")

@@ -108,6 +108,16 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("equip_toggle"):
 		toggle_gun_equip()
 
+	# Portal shooting lives here (not in _unhandled_input) so that GUI /
+	# Control nodes cannot consume the mouse-button events before we see them.
+	if is_gun_equipped and not is_holding_object and _portal_shoot_cooldown <= 0.0:
+		if event.is_action_pressed("shoot_portal_a"):
+			shoot_portal(true)
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("shoot_portal_b"):
+			shoot_portal(false)
+			get_viewport().set_input_as_handled()
+
 ## Cube pick-up / drop runs on _unhandled_input so doors (which call
 ## set_input_as_handled in their own _unhandled_input) take priority over grab.
 func _unhandled_input(event: InputEvent) -> void:
@@ -116,12 +126,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			drop_held_object()
 		else:
 			try_pickup_object()
-
-	if is_gun_equipped and not is_holding_object and _portal_shoot_cooldown <= 0.0:
-		if event.is_action_pressed("shoot_portal_a"):
-			shoot_portal(true)
-		if event.is_action_pressed("shoot_portal_b"):
-			shoot_portal(false)
 
 func _physics_process(delta: float) -> void:
 	if flip_timer                > 0: flip_timer                -= delta
