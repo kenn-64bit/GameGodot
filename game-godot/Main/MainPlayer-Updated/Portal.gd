@@ -90,6 +90,7 @@ func _ps_move(body: RigidBody2D, pos: Vector2, vel: Vector2) -> void:
 
 ## Free-cube teleport (player pushed it into the portal).
 func _teleport_rigidbody(body: RigidBody2D) -> void:
+	SfxManager.play_sfx("exit_portal")
 	# 90 px clearance: cube physics half-size ≈ 50 px (shape 24 × scale 4.16).
 	# Less than ~50 px embeds the cube in the exit wall → physics ejects it wildly.
 	var exit_pos     : Vector2 = linked_portal.global_position \
@@ -113,6 +114,7 @@ func _teleport_rigidbody(body: RigidBody2D) -> void:
 
 ## Held-cube teleport (cube was dragged directly into portal while held).
 func _teleport_held_rigidbody(body: RigidBody2D) -> void:
+	SfxManager.play_sfx("exit_portal")
 	var exit_pos : Vector2 = linked_portal.global_position \
 							  + linked_portal.surface_normal * 90.0
 
@@ -130,6 +132,7 @@ func _teleport_held_rigidbody(body: RigidBody2D) -> void:
 
 ## Player teleport — also moves the held cube atomically.
 func _teleport_player(player: CharacterBody2D) -> void:
+	SfxManager.play_sfx("exit_portal")
 	var exit_pos   : Vector2 = linked_portal.global_position \
 							   + linked_portal.surface_normal * 40.0
 	var angle_diff : float   = linked_portal.surface_normal.angle() \

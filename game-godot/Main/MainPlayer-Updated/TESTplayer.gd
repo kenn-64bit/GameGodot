@@ -68,7 +68,7 @@ const PORTAL_SHOOT_COOLDOWN : float = 0.40
 const PORTAL_PLACE_DELAY    : float = 0.15
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	lives = starting_lives
 	_spawn_global = global_position
 	add_to_group("player")
@@ -83,6 +83,8 @@ func _ready() -> void:
 		gui = _find_gui()
 
 	_crosshair = _find_crosshair()
+	if _crosshair:
+		_crosshair.visible = false
 
 
 ## Walks the scene to find the PlayerGui Control node.
@@ -136,13 +138,13 @@ func _physics_process(delta: float) -> void:
 	if dash_cooldown_timer > 0: dash_cooldown_timer -= delta
 
 	_update_crosshair()
-	
-	if not is_gun_equipped and not is_holding_object:
-		if _is_hovering_grabbable():
-			CursorManager.set_context(CursorManager.Ctx.CUBE)
-		elif CursorManager.current_ctx == CursorManager.Ctx.CUBE:
+	if not is_holding_object:
+		var hover_ctx = _get_hover_context()
+		if hover_ctx != CursorManager.Ctx.DEFAULT:
+			CursorManager.set_context(hover_ctx)
+		elif CursorManager.current_ctx == CursorManager.Ctx.CUBE or CursorManager.current_ctx == CursorManager.Ctx.DOOR:
 			CursorManager.set_context(CursorManager.Ctx.DEFAULT)
-	elif CursorManager.current_ctx == CursorManager.Ctx.CUBE:
+	elif CursorManager.current_ctx == CursorManager.Ctx.CUBE or CursorManager.current_ctx == CursorManager.Ctx.DOOR:
 		CursorManager.set_context(CursorManager.Ctx.DEFAULT)
 
 	if is_gun_equipped and gun_arm:
@@ -186,6 +188,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and coyote_timer > 0:
 		coyote_timer = 0.0
 		velocity.y   = -JUMP_VELOCITY if is_upside_down else JUMP_VELOCITY
+		SfxManager.play_sfx("jump")
 
 	var direction := 0.0
 	if Input.is_action_pressed("left"):  direction -= 1.0
@@ -201,7 +204,7 @@ func _physics_process(delta: float) -> void:
 	_update_animations(direction)
 	_handle_camera_bob(delta)
 	
-	if is_on_floor() and abs(velocity.x) > 0.1 and not is_dashing:
+	if direction != 0.0 and not is_dashing and _is_grounded():
 		SfxManager.play_sfx("walk")
 	else:
 		SfxManager.stop_sfx("walk")
@@ -215,12 +218,14 @@ func toggle_gun_equip() -> void:
 		return
 
 	if is_gun_equipped:
+		SfxManager.play_sfx("equip")
 		gun_arm.visible = true
 		gun_arm.scale   = Vector2(0.01, 0.01)
 		var tw := create_tween()
 		tw.tween_property(gun_arm, "scale", Vector2.ONE, 0.15) \
 		  .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	else:
+		SfxManager.play_sfx("unequip")
 		if is_holding_object:
 			drop_held_object()
 		var tw := create_tween()
@@ -542,7 +547,7 @@ func try_pickup_object() -> void:
 	if best_body:
 		_grab_object(best_body)
 
-func _is_hovering_grabbable() -> bool:
+func _get_hover_context() -> int:
 	var space_state := get_world_2d().direct_space_state
 	var mouse_pos := get_global_mouse_position()
 	var query := PhysicsPointQueryParameters2D.new()
@@ -553,12 +558,19 @@ func _is_hovering_grabbable() -> bool:
 	for res in results:
 		var col = res["collider"]
 		if col is RigidBody2D and col.is_in_group("Grabbable"):
-			return true
+			return CursorManager.Ctx.CUBE
 		if col is Area2D and col.is_in_group("GrabZone"):
 			var p = col.get_parent()
 			if p is RigidBody2D and p.is_in_group("Grabbable"):
-				return true
-	return false
+				return CursorManager.Ctx.CUBE
+		if col is AnimatableBody2D and col.get_parent() is SlidingDoor:
+			return CursorManager.Ctx.DOOR
+		if col is Area2D and col.get_parent() is SlidingDoor:
+			return CursorManager.Ctx.DOOR
+	return CursorManager.Ctx.DEFAULT
+
+func _is_hovering_grabbable() -> bool:
+	return _get_hover_context() == CursorManager.Ctx.CUBE
 
 
 func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
@@ -586,6 +598,7 @@ func _try_pickup_through_portal(exit_portal: Portal, remaining: float) -> void:
 func _grab_object(obj: RigidBody2D) -> void:
 	held_object       = obj
 	is_holding_object = true
+	SfxManager.play_sfx("cube_pickup")
 	if obj.has_method("grab"):
 		obj.grab(self)
 
@@ -639,6 +652,7 @@ func _start_dash() -> void:
 	dash_timer  = DASH_DURATION
 	var dash_dir := -1.0 if sprite.flip_h else 1.0
 	velocity    = Vector2(dash_dir * DASH_SPEED, 0.0)
+	SfxManager.play_sfx("dash")
 
 
 ## Reduce lives by 1, update the HUD, then either respawn near the hazard
@@ -687,12 +701,17 @@ func take_spike_damage() -> void:
 
 ## Called when all lives are gone. Resets to spawn point and emits all_lives_lost.
 func die() -> void:
-	lives           = 0
+	lives = 0
 	_sync_gui()
-	global_position = _spawn_global
-	velocity        = Vector2.ZERO
-	is_dashing      = false
 	all_lives_lost.emit()
+	
+	var go_scn = load("res://Main/GUI/WinScreen/WinScreen.tscn").instantiate()
+	go_scn.get_node("VBox/WinLabel").text = "GAME OVER"
+	go_scn.get_node("VBox/SubLabel").text = "You ran out of lives."
+	
+	get_tree().root.add_child(go_scn)
+	get_tree().current_scene.queue_free()
+	get_tree().current_scene = go_scn
 
 
 ## Safe wrapper — calls gui.update_hearts() if the GUI node is available.

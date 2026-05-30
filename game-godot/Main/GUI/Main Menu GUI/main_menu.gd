@@ -22,6 +22,10 @@ func _ready() -> void:
 	menu_button.pressed.connect(_on_menu_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
 	
+	play_button.button_down.connect(_on_button_down)
+	menu_button.button_down.connect(_on_button_down)
+	exit_button.button_down.connect(_on_button_down)
+	
 	play_button.mouse_entered.connect(_on_button_hover)
 	play_button.mouse_exited.connect(_on_button_unhover)
 	menu_button.mouse_entered.connect(_on_button_hover)
@@ -33,21 +37,24 @@ func _ready() -> void:
 ## ── Button handlers ───────────────────────────────────────────────────────────
 
 func _on_play_pressed() -> void:
-	SfxManager.play_sfx("ui_click")
+	await get_tree().create_timer(0.15).timeout
 	get_tree().change_scene_to_file(LEVEL_1_PATH)
 
 func _on_menu_pressed() -> void:
-	SfxManager.play_sfx("ui_click")
 	# Instantiate the settings popup and add it on top of this scene
 	var popup : Control = SETTINGS_SCENE.instantiate()
 	add_child(popup)
 
 func _on_exit_pressed() -> void:
-	SfxManager.play_sfx("ui_click")
+	await get_tree().create_timer(0.15).timeout
 	get_tree().quit()
+
+func _on_button_down() -> void:
+	SfxManager.play_sfx("ui_click")
 
 func _on_button_hover() -> void:
 	CursorManager.set_context(CursorManager.Ctx.GUI)
+	SfxManager.play_sfx("ui_hover")
 
 func _on_button_unhover() -> void:
 	CursorManager.set_context(CursorManager.Ctx.DEFAULT)

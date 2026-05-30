@@ -62,9 +62,11 @@ func _evaluate_state() -> void:
 	is_pressed = should_be_pressed
 
 	if is_pressed:
+		SfxManager.play_sfx("floor_button")
 		activated.emit()
 		_notify_obstacles(true)
 	else:
+		SfxManager.play_sfx("floor_button")
 		deactivated.emit()
 		_notify_obstacles(false)
 

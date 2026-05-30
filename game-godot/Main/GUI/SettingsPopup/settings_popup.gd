@@ -17,19 +17,17 @@ const SFX_BUS    := "SFX"
 
 func _ready() -> void:
 	close_btn.pressed.connect(_on_close)
+	close_btn.button_down.connect(_on_button_down)
+	close_btn.mouse_entered.connect(_on_button_hover)
+	close_btn.mouse_exited.connect(_on_button_unhover)
+
+	$Panel/VBox/MusicRow.queue_free()
+	$Panel/VBox/SFXRow.queue_free()
 
 	# Initialise sliders from current bus volumes
 	master_slider.value = _bus_to_percent(MASTER_BUS)
-	music_slider.value  = _bus_to_percent(MUSIC_BUS)
-	sfx_slider.value    = _bus_to_percent(SFX_BUS)
-
 	_update_label(master_label, master_slider.value)
-	_update_label(music_label,  music_slider.value)
-	_update_label(sfx_label,    sfx_slider.value)
-
 	master_slider.value_changed.connect(func(v): _on_slider_changed(MASTER_BUS, master_label, v))
-	music_slider.value_changed.connect(func(v):  _on_slider_changed(MUSIC_BUS,  music_label,  v))
-	sfx_slider.value_changed.connect(func(v):    _on_slider_changed(SFX_BUS,    sfx_label,    v))
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -50,3 +48,13 @@ func _update_label(lbl: Label, value: float) -> void:
 
 func _on_close() -> void:
 	queue_free()
+
+func _on_button_down() -> void:
+	SfxManager.play_sfx("ui_click")
+
+func _on_button_hover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.GUI)
+	SfxManager.play_sfx("ui_hover")
+
+func _on_button_unhover() -> void:
+	CursorManager.set_context(CursorManager.Ctx.DEFAULT)

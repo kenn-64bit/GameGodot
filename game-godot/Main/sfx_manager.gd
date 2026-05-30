@@ -11,6 +11,7 @@ var music_tracks = [
 var current_track_idx = -1
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
 	music_player.finished.connect(_on_music_finished)
@@ -23,12 +24,20 @@ func _ready() -> void:
 	_register_sfx("player_hurt", "res://assets/sfx/Player_damage.mp3", -2.0)
 	_register_sfx("door_open", "res://assets/sfx/door_opening_sfx.mp3", -5.0)
 	_register_sfx("ui_click", "res://assets/sfx/button_click.mp3", -8.0)
-
+	_register_sfx("jump", "res://assets/sfx/jump_sfx.mp3", 5.0)
+	_register_sfx("ui_hover", "res://assets/sfx/button_click.mp3", -16.0, 1.2)
+	_register_sfx("cube_pickup", "res://assets/sfx/pickup_item_sfx.mp3", -5.0)
+	_register_sfx("dash", "res://assets/sfx/dash_sfx.mp3", -5.0)
+	_register_sfx("equip", "res://assets/sfx/equip_weapon.mp3", -5.0)
+	_register_sfx("unequip", "res://assets/sfx/equip_weapon.mp3", -5.0, 0.8)
+	_register_sfx("floor_button", "res://assets/sfx/floor_button_sfx.mp3", -5.0)
+	_register_sfx("exit_portal", "res://assets/sfx/exit_portal_sfx.mp3", -5.0)
 func _register_sfx(sfx_name: String, path: String, vol_db: float, pitch: float = 1.0) -> void:
 	var player = AudioStreamPlayer.new()
 	player.stream = load(path)
 	player.volume_db = vol_db
 	player.pitch_scale = pitch
+	player.max_polyphony = 4
 	add_child(player)
 	sfx_pool[sfx_name] = player
 
@@ -40,8 +49,13 @@ func play_sfx(sfx_name: String) -> void:
 			sfx_pool[sfx_name].play()
 		return
 		
-	sfx_pool[sfx_name].stop()
-	sfx_pool[sfx_name].play()
+	var skip = 0.0
+	if sfx_name in ["player_hurt", "dash"]:
+		skip = 0.25
+	elif sfx_name in ["ui_hover", "ui_click", "floor_button", "equip", "unequip", "exit_portal"]:
+		skip = 0.04
+		
+	sfx_pool[sfx_name].play(skip)
 
 func stop_sfx(sfx_name: String) -> void:
 	if sfx_pool.has(sfx_name):
@@ -51,6 +65,10 @@ func play_music_shuffle() -> void:
 	if not music_player.playing:
 		music_tracks.shuffle()
 		_play_next_music()
+
+func next_track() -> void:
+	music_tracks.shuffle()
+	_play_next_music()
 
 func stop_music() -> void:
 	music_player.stop()

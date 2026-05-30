@@ -28,6 +28,10 @@ func _ready() -> void:
 	restart_btn.pressed.connect(_on_restart)
 	exit_btn.pressed.connect(_on_exit)
 	
+	resume_btn.button_down.connect(_on_button_down)
+	restart_btn.button_down.connect(_on_button_down)
+	exit_btn.button_down.connect(_on_button_down)
+	
 	resume_btn.mouse_entered.connect(_on_button_hover)
 	resume_btn.mouse_exited.connect(_on_button_unhover)
 	restart_btn.mouse_entered.connect(_on_button_hover)
@@ -76,27 +80,32 @@ func _do_resume() -> void:
 # ── button handlers ───────────────────────────────────────────────────────────
 
 func _on_resume() -> void:
-	SfxManager.play_sfx("ui_click")
 	_do_resume()
 
 func _on_restart() -> void:
-	SfxManager.play_sfx("ui_click")
+	SfxManager.next_track()
 	_is_paused        = false
 	backdrop.visible  = false
 	panel.visible     = false
 	get_tree().paused = false
+	await get_tree().create_timer(0.15).timeout
 	get_tree().reload_current_scene()
 
 func _on_exit() -> void:
-	SfxManager.play_sfx("ui_click")
+	SfxManager.next_track()
 	_is_paused        = false
 	backdrop.visible  = false
 	panel.visible     = false
 	get_tree().paused = false
+	await get_tree().create_timer(0.15).timeout
 	get_tree().change_scene_to_file("res://Main/GUI/Main Menu GUI/Main Menu.tscn")
+
+func _on_button_down() -> void:
+	SfxManager.play_sfx("ui_click")
 
 func _on_button_hover() -> void:
 	CursorManager.set_context(CursorManager.Ctx.GUI)
+	SfxManager.play_sfx("ui_hover")
 
 func _on_button_unhover() -> void:
 	CursorManager.set_context(CursorManager.Ctx.DEFAULT)

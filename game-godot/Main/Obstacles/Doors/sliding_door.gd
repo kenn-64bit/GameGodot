@@ -56,6 +56,11 @@ func _ready() -> void:
 	# Wire up proximity signals.
 	_zone.body_entered.connect(_on_body_entered)
 	_zone.body_exited.connect(_on_body_exited)
+	
+	# Make the door body clickable for cursor hover
+	_body.input_pickable = true
+	_body.mouse_entered.connect(_on_mouse_entered)
+	_body.mouse_exited.connect(_on_mouse_exited)
 
 	# Resize the proximity area to match the export radius.
 	var prox_shape := (_zone.get_node("CollisionShape2D") as CollisionShape2D)
@@ -104,7 +109,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		_player_nearby = true
 		_show_label(true)
-		CursorManager.set_context(CursorManager.Ctx.DOOR)
 
 
 func _on_body_exited(body: Node2D) -> void:
@@ -112,7 +116,14 @@ func _on_body_exited(body: Node2D) -> void:
 		_player_nearby = false
 		if not _is_open:
 			_show_label(false)
-		CursorManager.set_context(CursorManager.Ctx.DEFAULT)
+
+
+func _on_mouse_entered() -> void:
+	CursorManager.set_context(CursorManager.Ctx.DOOR)
+
+
+func _on_mouse_exited() -> void:
+	CursorManager.set_context(CursorManager.Ctx.DEFAULT)
 
 
 func _show_label(show: bool) -> void:
