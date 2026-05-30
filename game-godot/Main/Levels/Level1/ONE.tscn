@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="36_fvcr5"]
 [ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="37_0k68g"]
 [ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="38_e1nc6"]
+[ext_resource type="PackedScene" uid="uid://1sm8w5ofxfg6" path="res://Main/Obstacles/Stone Hazards/STONEspikes.tscn" id="39_662o4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7yvq"]
 texture = ExtResource("3_x28hv")
@@ -5385,6 +5386,12 @@ target_obstacles = [NodePath("../TimedLaser")]
 
 [node name="GrabbableCube" parent="." unique_id=153491751 instance=ExtResource("38_e1nc6")]
 position = Vector2(2127, 317)
+
+[node name="Spikes" parent="." unique_id=885352882 instance=ExtResource("39_662o4")]
+position = Vector2(2424, -520)
+
+[node name="Spikes2" parent="." unique_id=1273157796 instance=ExtResource("39_662o4")]
+position = Vector2(2881, -536)
 
 [connection signal="body_entered" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Exit/Area2D" to="Exit" method="_on_area_2d_body_exited"]

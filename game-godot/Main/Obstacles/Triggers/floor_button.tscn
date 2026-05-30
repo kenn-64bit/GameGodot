@@ -13,11 +13,12 @@ script = ExtResource("1_btn01")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2031802087]
 position = Vector2(0, -1)
-scale = Vector2(4, 2.976)
+scale = Vector2(8.014969, 4.6632404)
 texture = ExtResource("2_jiely")
 region_enabled = true
 region_rect = Rect2(8.861752, 26.930275, 12.350706, 5.069725)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803871786]
 position = Vector2(0, -1)
+scale = Vector2(2.0037425, 1.566949)
 shape = SubResource("RectangleShape2D_btn01")

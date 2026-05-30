@@ -5115,7 +5115,7 @@ sources/33 = SubResource("TileSetAtlasSource_quj3d")
 sources/34 = SubResource("TileSetAtlasSource_o1os1")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes01"]
-size = Vector2(393, 271)
+size = Vector2(393, 192)
 
 [node name="Spikes" type="Area2D" unique_id=885352882]
 collision_layer = 16
@@ -5127,5 +5127,5 @@ tile_map_data = PackedByteArray("AAACAP7/IQAHAAMAADACAP//IQAHAAIAADACAAAAIQAHAAE
 tile_set = SubResource("TileSet_7x5d6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89662441]
-position = Vector2(2.5, -72.5)
+position = Vector2(2.5, -33)
 shape = SubResource("RectangleShape2D_spikes01")

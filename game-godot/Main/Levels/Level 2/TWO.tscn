@@ -40,6 +40,9 @@
 [ext_resource type="PackedScene" uid="uid://1sm8w5ofxfg6" path="res://Main/Obstacles/Stone Hazards/STONEspikes.tscn" id="38_ratv6"]
 [ext_resource type="Texture2D" uid="uid://c10hlkkly06by" path="res://assets/Textures/BackgroundLite.png" id="39_ymb2u"]
 [ext_resource type="Texture2D" uid="uid://c5qh1q2wh3vc7" path="res://assets/Stalagmite BG parallax/grey_L4.png" id="40_ratv6"]
+[ext_resource type="PackedScene" uid="uid://bnqxb4xjm1vju" path="res://Main/MainPlayer-Updated/GrabbableCube.tscn" id="41_qlcxb"]
+[ext_resource type="PackedScene" uid="uid://ddy0fhsub01wh" path="res://Main/Obstacles/Lasers/timed_laser.tscn" id="42_43dhs"]
+[ext_resource type="PackedScene" uid="uid://cgfh0i6fcp6f5" path="res://Main/Obstacles/Triggers/floor_button.tscn" id="43_43dhs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ratv6"]
 texture = ExtResource("1_tdotq")
@@ -5171,10 +5174,23 @@ position = Vector2(1300, 168)
 position = Vector2(1154, -496)
 rotation = -3.1415927
 
+[node name="Spikes2" parent="Spikes" unique_id=1885397268 instance=ExtResource("38_ratv6")]
+position = Vector2(1210, 1496)
+rotation = -6.2831855
+
+[node name="Spikes3" parent="Spikes" unique_id=1282288320 instance=ExtResource("38_ratv6")]
+position = Vector2(1602, 1511)
+rotation = -6.2831855
+
+[node name="Spikes4" parent="Spikes" unique_id=1714225634 instance=ExtResource("38_ratv6")]
+position = Vector2(1986, 1498)
+rotation = -6.2831855
+
 [node name="Node2D" type="Node2D" parent="." unique_id=824524491]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=348936499]
 layer = 10
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=97114667]
 visible = false
@@ -5241,3 +5257,27 @@ grow_vertical = 2
 rotation = -1.5707964
 scale = Vector2(0.6828396, 0.19809742)
 texture = SubResource("AtlasTexture_43dhs")
+
+[node name="Obstacles" type="Node2D" parent="." unique_id=387039512]
+
+[node name="GrabbableCube" parent="Obstacles" unique_id=153491751 instance=ExtResource("41_qlcxb")]
+position = Vector2(495, 711)
+
+[node name="GrabbableCube2" parent="Obstacles" unique_id=951390380 instance=ExtResource("41_qlcxb")]
+position = Vector2(153, 1099)
+
+[node name="MainDoorLaser" parent="Obstacles" unique_id=623635020 instance=ExtResource("42_43dhs")]
+position = Vector2(2095.0002, 294)
+scale = Vector2(1.3383052, 1.863276)
+
+[node name="Maindoor" parent="Obstacles" unique_id=1090625400 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("43_43dhs")]
+position = Vector2(2524, 1019)
+target_obstacles = [NodePath("../MainDoorLaser")]
+
+[node name="Puzzle2Button" parent="Obstacles" unique_id=681229748 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("43_43dhs")]
+position = Vector2(1349, 763)
+target_obstacles = [NodePath("../Puzzle2Laser")]
+
+[node name="Puzzle2Laser" parent="Obstacles" unique_id=2125760792 instance=ExtResource("42_43dhs")]
+position = Vector2(590, 1025)
+scale = Vector2(1.3127676, 2.3520303)
