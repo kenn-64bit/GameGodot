@@ -19,7 +19,7 @@ func _ready() -> void:
 	# CanvasLayer must process even while the tree is paused so we can resume.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 20
-	exit_btn.text = "Main Menu"
+	exit_btn.text = "MAIN MENU"
 
 	# Hide everything on start — nothing visible until ESC is pressed.
 	backdrop.visible = false

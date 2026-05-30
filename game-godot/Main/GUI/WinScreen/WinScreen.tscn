@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bjcyu13r0bcdq" path="res://Main/GUI/WinScreen/win_screen.gd" id="1_win"]
 [ext_resource type="FontFile" uid="uid://c11pf28x8nerc" path="res://assets/font/Vyaz Pixel/TrueType (.ttf)/Vyaz Pixel.ttf" id="2_vmu83"]
 [ext_resource type="FontFile" uid="uid://del8ktkor8vp2" path="res://assets/font/Vaticanus/Web Open Font Format (.woff)/Vaticanus.woff" id="3_qgha2"]
+[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="4_7dg2m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qgha2"]
 font = ExtResource("2_vmu83")
@@ -17,7 +18,7 @@ content_margin_left = 24.0
 content_margin_top = 10.0
 content_margin_right = 24.0
 content_margin_bottom = 10.0
-bg_color = Color(0.18, 0.6, 1, 1)
+bg_color = Color(0.8495098, 0.46164596, 0.43658137, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -84,7 +85,8 @@ horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="VBox" unique_id=1060059027]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_fonts/font = ExtResource("4_7dg2m")
+theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "Play Again"

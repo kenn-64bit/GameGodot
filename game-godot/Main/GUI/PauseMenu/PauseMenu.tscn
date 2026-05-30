@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpk5dmf636op" path="res://Main/GUI/PauseMenu/pause_menu.gd" id="1_pm"]
 [ext_resource type="FontFile" uid="uid://dn4cim6bmmfj2" path="res://assets/font/Vaticanus/TrueType (.ttf)/Vaticanus.ttf" id="2_font"]
+[ext_resource type="FontFile" uid="uid://3urxpfotyn3v" path="res://assets/font/Vaticanus/OpenType (.otf)/Vaticanus.otf" id="3_x2o3t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 30.0
@@ -150,7 +151,6 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.5)
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1952093829]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -182,6 +182,8 @@ layout_mode = 2
 [node name="ResumeButton" type="Button" parent="Panel/VBox" unique_id=999547408]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x2o3t")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
@@ -190,6 +192,8 @@ text = "RESUME"
 [node name="RestartButton" type="Button" parent="Panel/VBox" unique_id=981440753]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x2o3t")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_restart")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_restart_hover")
@@ -198,6 +202,8 @@ text = "RESTART"
 [node name="ExitButton" type="Button" parent="Panel/VBox" unique_id=405211240]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x2o3t")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_exit")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_exit_hover")
