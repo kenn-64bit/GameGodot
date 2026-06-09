@@ -1173,53 +1173,57 @@ tile_map_data = PackedByteArray("AAAXAB0ACAACAAQAAAAXAB4ACAACAAUAAAAYAB0ACAADAAQ
 tile_set = SubResource("TileSet_bajbb")
 
 [node name="Player" parent="." unique_id=1150284336 instance=ExtResource("9_mgkbs")]
-position = Vector2(3612, 1078)
+position = Vector2(258, 260)
 
 [node name="obstacles" type="Node2D" parent="." unique_id=2063818486]
 
-[node name="TimedLaser" parent="obstacles" unique_id=623635020 instance=ExtResource("10_xgw2j")]
+[node name="laser1" parent="obstacles" unique_id=623635020 instance=ExtResource("10_xgw2j")]
 position = Vector2(397, 1077)
 rotation = -1.5707964
 scale = Vector2(1.04, 7.08)
 
-[node name="TimedLaser2" parent="obstacles" unique_id=619218878 instance=ExtResource("10_xgw2j")]
+[node name="laser2" parent="obstacles" unique_id=619218878 instance=ExtResource("10_xgw2j")]
 position = Vector2(962.99994, 1823)
 scale = Vector2(1.8034103, 1.8034103)
 
-[node name="TimedLaser3" parent="obstacles" unique_id=448821072 instance=ExtResource("10_xgw2j")]
+[node name="laser3" parent="obstacles" unique_id=448821072 instance=ExtResource("10_xgw2j")]
 position = Vector2(3209, 1568)
 scale = Vector2(1.6804904, 1.6804904)
 
-[node name="TimedLaser4" parent="obstacles" unique_id=814052351 instance=ExtResource("10_xgw2j")]
+[node name="laser4" parent="obstacles" unique_id=814052351 instance=ExtResource("10_xgw2j")]
 position = Vector2(3164.9998, 758)
 scale = Vector2(2.0826876, 2.6685393)
+
+[node name="button2" parent="obstacles" unique_id=1090625400 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("12_vk5ni")]
+position = Vector2(2079, 1396)
+target_obstacles = [NodePath("../laser2")]
+
+[node name="button1" parent="obstacles" unique_id=397063754 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("12_vk5ni")]
+position = Vector2(2073, 1012)
+target_obstacles = [NodePath("../laser1")]
+
+[node name="button4" parent="obstacles" unique_id=991216401 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("12_vk5ni")]
+position = Vector2(2916, 1784)
+target_obstacles = [NodePath("../laser4")]
+
+[node name="button3" parent="obstacles" unique_id=62117655 node_paths=PackedStringArray("target_obstacles") instance=ExtResource("12_vk5ni")]
+position = Vector2(380, 1908)
+target_obstacles = [NodePath("../laser3")]
 
 [node name="GrabbableCube" parent="obstacles" unique_id=153491751 instance=ExtResource("11_b5tb8")]
 position = Vector2(2671, 326)
 
-[node name="FloorButton" parent="obstacles" unique_id=1090625400 instance=ExtResource("12_vk5ni")]
-position = Vector2(2079, 1396)
-
 [node name="GrabbableCube2" parent="obstacles" unique_id=1143337294 instance=ExtResource("11_b5tb8")]
 position = Vector2(412, 1290)
 
-[node name="FloorButton2" parent="obstacles" unique_id=397063754 instance=ExtResource("12_vk5ni")]
-position = Vector2(2073, 1012)
-
 [node name="GrabbableCube3" parent="obstacles" unique_id=964555633 instance=ExtResource("11_b5tb8")]
 position = Vector2(2560, 1602)
-
-[node name="FloorButton3" parent="obstacles" unique_id=991216401 instance=ExtResource("12_vk5ni")]
-position = Vector2(2916, 1784)
 
 [node name="GrabbableCube4" parent="obstacles" unique_id=1687067869 instance=ExtResource("11_b5tb8")]
 position = Vector2(4013, 1475)
 
 [node name="GrabbableCube5" parent="obstacles" unique_id=1957759961 instance=ExtResource("11_b5tb8")]
 position = Vector2(1431, 519)
-
-[node name="FloorButton4" parent="obstacles" unique_id=62117655 instance=ExtResource("12_vk5ni")]
-position = Vector2(380, 1908)
 
 [node name="Node2D" type="Node2D" parent="." unique_id=427547873]
 z_index = -4096
